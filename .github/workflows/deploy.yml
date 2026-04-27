@@ -1,0 +1,30 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: premium56.web-hosting.com
+          username: drpaidtv
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd ~/repositories/lifecharge-site
+            git pull origin main
+            rsync -av --delete \
+              --exclude '.git/' \
+              --exclude '.github/' \
+              --exclude '.cpanel.yml' \
+              --exclude 'README.md' \
+              --exclude 'wordpress-theme/' \
+              --exclude 'blog/' \
+              ./ /home/drpaidtv/lifechargechiropractic.com/
