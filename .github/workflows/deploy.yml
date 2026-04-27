@@ -28,3 +28,5 @@ jobs:
               --exclude 'wordpress-theme/' \
               --exclude 'blog/' \
               ./ /home/drpaidtv/lifechargechiropractic.com/
+            find /home/drpaidtv/lifechargechiropractic.com -type d -exec chmod 755 {} \;
+            find /home/drpaidtv/lifechargechiropractic.com -type f -exec chmod 644 {} \;
