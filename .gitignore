@@ -1,0 +1,8 @@
+.DS_Store
+*.zip
+*.log
+*.sql
+*.env
+node_modules/
+.idea/
+.vscode/

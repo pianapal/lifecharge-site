@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://lifechargechiropractic.com/</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://lifechargechiropractic.com/assets/photos/dr-assessment.webp</image:loc>
+      <image:title>Dr. Palmer Piana — Chiropractic Exam, Gallatin TN</image:title>
+    </image:image>
+  </url>
+
+  <url><loc>https://lifechargechiropractic.com/about/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/contact-us/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/what-to-expect/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/our-philosophy/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/reviews/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Service / condition pages -->
+  <url><loc>https://lifechargechiropractic.com/chiropractic-adjustments/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/thermal-imaging/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/upper-cervical-chiropractic/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/corrective-exercises/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lifechargechiropractic.com/chiropractic-outcomes-results-gallatin/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://lifechargechiropractic.com/neck-pain/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/low-back-pain/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/sciatica/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/headaches-and-migraines/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/auto-accident/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lifechargechiropractic.com/sports-injury/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://lifechargechiropractic.com/family-chiropractor/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/prenatal/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/pediatric/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Local landing pages -->
+  <url><loc>https://lifechargechiropractic.com/chiropractor-gallatin-tn/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://lifechargechiropractic.com/chiropractor-near-hendersonville-tn/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+
+  <url><loc>https://lifechargechiropractic.com/payment-options/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lifechargechiropractic.com/patient-resources/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lifechargechiropractic.com/research/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://lifechargechiropractic.com/privacy-policy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

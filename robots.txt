@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/photos/raw/
+
+Sitemap: https://lifechargechiropractic.com/sitemap.xml

@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/drpaidtv/lifechargechiropractic.com/
+    - /bin/rsync -av --delete --exclude '.git/' --exclude '.cpanel.yml' --exclude 'README.md' --exclude 'wordpress-theme/' --exclude 'blog/' ./ $DEPLOYPATH
