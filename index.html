@@ -143,6 +143,13 @@
  html { scroll-behavior: smooth; }
  body { font-family: var(--font); color: var(--deep); background: var(--white); }
 
+ /* ─── OFFER RIBBON ─── */
+ .offer-ribbon { background: var(--grad); color: #fff; padding: 10px 24px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+ .offer-ribbon .ribbon-price { background: rgba(0,0,0,0.22); padding: 3px 10px; border-radius: 4px; font-weight: 900; letter-spacing: 0.05em; }
+ .offer-ribbon a { color: #fff; text-decoration: none; font-weight: 800; border-bottom: 2px solid rgba(255,255,255,0.55); padding-bottom: 1px; transition: border-color 0.15s; }
+ .offer-ribbon a:hover { border-bottom-color: #fff; }
+ @media (max-width: 600px) { .offer-ribbon { font-size: 12px; padding: 10px 14px; gap: 8px; flex-direction: column; text-align: center; line-height: 1.35; } .offer-ribbon span { display: block; } .offer-ribbon a { display: inline-block; background: rgba(0,0,0,0.22); padding: 6px 14px; border-radius: 4px; border-bottom: none; } }
+
  /* ─── NAV ─── */
  nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 68px; max-width: 1440px; margin: 0 auto; }
@@ -199,6 +206,25 @@
  .section-p-muted { color: rgba(255,255,255,0.55); }
 
  /* ─── REVIEWS ─── */
+ /* ─── PROCESS SECTION ─── */
+ .process-wrap { background: #FAF7F1; }
+ .process-intro { max-width: 620px; margin-bottom: 48px; }
+ .process-step { display: flex; gap: 56px; align-items: center; padding: 56px 0; border-bottom: 1px solid rgba(45,45,47,0.08); flex-wrap: wrap; }
+ .process-step:last-of-type { border-bottom: 0; }
+ .process-step > .process-step-img { flex: 1 1 360px; min-width: 280px; aspect-ratio: 4/3; overflow: hidden; border-radius: 12px; background: var(--sand); }
+ .process-step > .process-step-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+ .process-step > .process-step-text { flex: 1 1 360px; min-width: 280px; }
+ .process-step.reverse > .process-step-img { order: 2; }
+ .process-step-num { font-size: 11px; font-weight: 800; letter-spacing: 0.22em; color: var(--red); margin-bottom: 14px; text-transform: uppercase; }
+ .process-step-title { font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: var(--deep); line-height: 1.18; margin-bottom: 14px; letter-spacing: -0.02em; }
+ .process-step-body { font-size: 16px; color: var(--charcoal); line-height: 1.75; max-width: 480px; }
+ .process-outro { max-width: 620px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(45,45,47,0.08); font-size: 16px; color: var(--charcoal); line-height: 1.75; }
+ @media (max-width: 800px) {
+ .process-step { padding: 36px 0; gap: 24px; }
+ .process-step.reverse > .process-step-img { order: -1; }
+ .process-step > .process-step-img { order: -1; }
+ }
+
  .reviews-wrap { background: var(--white); }
  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
  .review-card { background: var(--cream); border-radius: 10px; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
@@ -494,6 +520,12 @@
 <!-- Skip-link for accessibility -->
 <a href="#main" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.cssText='position:fixed;left:8px;top:8px;width:auto;height:auto;padding:10px 16px;background:#ED3237;color:#fff;font-weight:700;border-radius:6px;z-index:9999;'" onblur="this.style.cssText='position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'">Skip to main content</a>
 
+<!-- OFFER RIBBON -->
+<div class="offer-ribbon">
+ <span><span class="ribbon-price">$49</span> New Patient Special: Full Exam, Digital X-Rays &amp; Thermal Scan</span>
+ <a href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener">Book Now →</a>
+</div>
+
 <!-- NAV -->
 <nav>
  <div class="nav-inner">
@@ -505,7 +537,7 @@
  <a href="blog/">Blog</a>
  <a href="about/">Dr. Palmer</a>
  <a href="contact-us/">Contact</a>
- <a href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener" class="nav-cta">Schedule First Visit</a>
+ <a href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener" class="nav-cta">$49 New Patient Special</a>
  </div>
  </div>
 </nav>
@@ -515,17 +547,16 @@
 <div class="hero">
  <div class="hero-left">
  <div class="hero-eyebrow">Gallatin &amp; Hendersonville, TN</div>
- <h1>Whole-System Chiropractic Care in Gallatin, TN</h1>
- <p class="hero-sub">Life Charge Chiropractic looks beyond symptoms to understand how your spine, nervous system, and full body are functioning together. Through a detailed chiropractic exam, digital X-rays when clinically appropriate, and thermal imaging when helpful, we create care that is specific, corrective, and focused on better function.</p>
+ <h1>Neck Pain, Back Pain, or Headaches? Start Here.</h1>
+ <p class="hero-sub">Serving Gallatin, Hendersonville, and surrounding areas with chiropractic care focused on finding and correcting the root cause.</p>
  <div class="hero-actions">
- <a href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener" class="btn-primary">Schedule First Visit</a>
+ <a href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener" class="btn-primary">Claim $49 New Patient Special</a>
  <a href="what-to-expect/" class="btn-ghost-light">See What to Expect</a>
- <a href="tel:+16152199912" class="btn-ghost-light">Call (615) 219-9912</a>
  </div>
  <div class="hero-badges">
  <div class="hero-badge"><div class="hero-badge-dot"></div>Digital X-rays when clinically appropriate</div>
- <div class="hero-badge"><div class="hero-badge-dot"></div>Advanced Thermal imaging</div>
- <div class="hero-badge"><div class="hero-badge-dot"></div>5.0 ★. Loved by local patients</div>
+ <div class="hero-badge"><div class="hero-badge-dot"></div>Advanced thermal imaging</div>
+ <div class="hero-badge"><div class="hero-badge-dot"></div>5.0 ★ from 94 local patients</div>
  </div>
  </div>
  <div class="hero-right">
@@ -545,6 +576,41 @@
  <div class="trust-item"><div class="trust-dot"></div>Digital X-Ray &amp; Thermal Imaging</div>
  <div class="trust-item"><div class="trust-dot"></div>Local · Family-Owned in Gallatin, TN</div>
  <div class="trust-item"><div class="trust-dot"></div>Same-Week New Patient Appointments</div>
+</div>
+
+<!-- OUR PROCESS -->
+<div class="process-wrap section-wrap">
+ <div class="inner">
+ <div class="eyebrow">How We Work</div>
+ <h2 class="section-h2">Whole-system care, step by step.</h2>
+ <p class="section-p process-intro">Better care starts with a clearer picture. On your first visit we work through three assessments, none of it generic, so the plan is built around what is actually happening in your body.</p>
+
+ <div class="process-step">
+ <div class="process-step-img"><img src="assets/photos/dr-assessment.webp" alt="Postural and spinal exam at Life Charge Chiropractic" loading="lazy" decoding="async"></div>
+ <div class="process-step-text">
+<h3 class="process-step-title">Postural &amp; spinal exam</h3>
+ <p class="process-step-body">A hands-on, palpatory exam to feel for joint restriction, tension patterns, and where the structure is compensating. Combined with a posture check that shows how everything is working together when you stand and move.</p>
+ </div>
+ </div>
+
+ <div class="process-step reverse">
+ <div class="process-step-img"><img src="assets/photos/horizontal-thermography.webp" alt="Whole-back thermal imaging scan at Life Charge Chiropractic" loading="lazy" decoding="async"></div>
+ <div class="process-step-text">
+<h3 class="process-step-title">Thermal imaging</h3>
+ <p class="process-step-body">A whole-back thermal scan shows where your spine is putting stress on the nervous system. It reveals what is actually driving the symptoms, not just where you feel them.</p>
+ </div>
+ </div>
+
+ <div class="process-step">
+ <div class="process-step-img"><img src="assets/photos/xray-office.webp" alt="Digital X-ray suite at Life Charge Chiropractic" loading="lazy" decoding="async"></div>
+ <div class="process-step-text">
+<h3 class="process-step-title">Digital X-rays</h3>
+ <p class="process-step-body">When the picture is incomplete, our digital X-ray system finds curves, degeneration, or disc-space issues you cannot see any other way. We only use X-rays when clinically appropriate, so the plan is built on what is actually there.</p>
+ </div>
+ </div>
+
+ <p class="process-outro">From there, you sit down with Dr. Palmer and walk through what we found, what it means, and what we recommend, before any care begins.</p>
+ </div>
 </div>
 
 <!-- REVIEWS -->
@@ -664,9 +730,12 @@
  <h2 class="section-h2 section-h2-white">How thermal scan patterns can change over time.</h2>
  <p class="section-p section-p-muted" style="max-width:540px; margin-bottom:0;">These scans show how surface temperature patterns may change over the course of care. Thermal imaging does not diagnose disease, but it can provide another objective way to observe patterns related to nervous system regulation and how the body is responding over time.</p>
  <div class="thermal-grid">
- <div class="therm-card"><img src="assets/photos/thermal-before-after.webp" alt="Before and after" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
- <div class="therm-card"><img src="assets/photos/thermal-12visits.webp" alt="Visit 0 to 12" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Visit 0 → Visit 12</div></div>
- <div class="therm-card"><img src="assets/photos/thermal-36visits.webp" alt="Visit 0 to 36" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Visit 0 → Visit 36</div></div>
+ <div class="therm-card"><img src="assets/photos/thermal-scan-1.webp" alt="Thermal scan before and after care" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
+ <div class="therm-card"><img src="assets/photos/thermal-scan-2.webp" alt="Thermal scan before and after care" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
+ <div class="therm-card"><img src="assets/photos/thermal-scan-3.webp" alt="Thermal scan before and after care" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
+ <div class="therm-card"><img src="assets/photos/thermal-scan-4.webp" alt="Thermal scan before and after care" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
+ <div class="therm-card"><img src="assets/photos/thermal-scan-5.webp" alt="Thermal scan before and after care" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
+ <div class="therm-card"><img src="assets/photos/thermal-scan-6.webp" alt="Thermal scan before and after care" loading="lazy" decoding="async"><div class="therm-label"><span>Example Thermal Scan Comparison</span>Before &amp; After Care</div></div>
  </div>
  <div class="therm-cta">
  <a href="thermal-imaging/" class="btn-primary" style="text-decoration:none;">Learn About Thermal Imaging</a>
