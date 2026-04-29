@@ -47,4 +47,23 @@
   <url><loc>https://lifechargechiropractic.com/research/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <url><loc>https://lifechargechiropractic.com/privacy-policy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+  <!-- Spanish pages -->
+  <url>
+    <loc>https://lifechargechiropractic.com/es/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="es-US" href="https://lifechargechiropractic.com/es/"/>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en-US" href="https://lifechargechiropractic.com/"/>
+  </url>
+  <url>
+    <loc>https://lifechargechiropractic.com/es/accidente-auto/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="es-US" href="https://lifechargechiropractic.com/es/accidente-auto/"/>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en-US" href="https://lifechargechiropractic.com/auto-accident/"/>
+  </url>
+
+  <!-- Auto accident free-consultation landing -->
+  <url><loc>https://lifechargechiropractic.com/auto-accident-consultation/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
 </urlset>
