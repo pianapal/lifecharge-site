@@ -411,3 +411,10 @@ footer { background: #111113; padding: 56px 48px 32px; }
 
 /* Make all images responsive by default (safety net) */
 img { max-width: 100%; height: auto; }
+
+/* Hide the top "$49 New Patient Special" offer ribbon on mobile.
+   The sticky bottom CTA already covers the same path, and the $49
+   special still lives inside the hamburger menu via .nav-cta. */
+@media (max-width: 1024px) {
+  .offer-ribbon { display: none !important; }
+}
