@@ -413,70 +413,93 @@ footer { background: #111113; padding: 56px 48px 32px; }
 /* Make all images responsive by default (safety net) */
 img { max-width: 100%; height: auto; }
 
-/* ─── Click-to-expand symptom cards (different look from FAQ) ─── */
-/* Override the default 3-col grid with denser auto-fit so cards
-   don't sit in oceans of empty space when collapsed. */
+/* ─── Click-to-expand symptom cards (premium card with side accent) ─── */
 .symptom-grid:has(details.symptom-card) {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
-  gap: 10px !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 12px !important;
 }
 .symptom-grid details.symptom-card {
-  background: var(--white);
+  background: linear-gradient(135deg, var(--white) 0%, #FFFBF2 100%);
   border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 18px;
+  border-radius: 14px;
+  padding: 16px 20px;
   cursor: pointer;
-  transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease;
   list-style: none;
 }
+.symptom-grid details.symptom-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--red);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .25s ease;
+}
+.symptom-grid details.symptom-card:hover::before,
+.symptom-grid details.symptom-card[open]::before {
+  transform: scaleY(1);
+}
 .symptom-grid details.symptom-card:hover {
-  box-shadow: 0 8px 22px rgba(0,0,0,0.07);
   border-color: var(--red);
-  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+  transform: translateY(-3px);
 }
 .symptom-grid details.symptom-card[open] {
   border-color: var(--red);
-  box-shadow: 0 8px 22px rgba(237,50,55,0.12);
+  box-shadow: 0 14px 32px rgba(237,50,55,0.14);
 }
 .symptom-grid details.symptom-card > summary.sym-title {
   list-style: none;
-  font-size: 14.5px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 800;
   color: var(--deep);
-  position: relative;
-  padding-right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   line-height: 1.3;
   cursor: pointer;
   margin: 0;
 }
 .symptom-grid details.symptom-card > summary.sym-title::-webkit-details-marker { display: none; }
-.symptom-grid details.symptom-card > summary.sym-title::after {
+.symptom-grid details.symptom-card > summary.sym-title::before {
   content: "+";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  background: var(--cream);
+  color: var(--red);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--red);
-  color: white;
-  border-radius: 50%;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1;
-  transition: background .2s ease;
+  transition: background .25s ease, color .25s ease, transform .3s ease;
 }
-.symptom-grid details.symptom-card[open] > summary.sym-title::after { content: "−"; }
+.symptom-grid details.symptom-card:hover > summary.sym-title::before {
+  background: var(--red);
+  color: white;
+  transform: rotate(90deg);
+}
+.symptom-grid details.symptom-card[open] > summary.sym-title::before {
+  content: "−";
+  background: var(--red);
+  color: white;
+  transform: none;
+}
 .symptom-grid details.symptom-card .sym-body {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
+  margin-top: 12px;
+  padding: 12px 0 0 40px;
+  border-top: 1px dashed rgba(0,0,0,0.10);
   font-size: 13.5px;
   color: #3a3a3c;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 /* ─── Accordion-style FAQ (matches the auto-accident page) ─── */
