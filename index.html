@@ -334,12 +334,15 @@
  .g-cap { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(45,45,47,0.72), transparent); padding: 28px 16px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.8); opacity: 0; transition: opacity 0.3s; }
  .g-cell:hover .g-cap { opacity: 1; }
 
- /* ─── FAQ ─── */
+ /* ─── FAQ (accordion style) ─── */
  .faq { background: var(--white); }
- .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
- .faq-item { background: var(--cream); border-radius: 10px; padding: 24px 28px; }
- .faq-q { font-size: 14px; font-weight: 700; color: var(--deep); margin-bottom: 10px; line-height: 1.35; }
- .faq-a { font-size: 13px; color: var(--charcoal); line-height: 1.7; }
+ .faq-grid { display: block; max-width: 820px; margin: 40px auto 0; }
+ details.faq-item { background: var(--white); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
+ details.faq-item > summary { font-weight: 700; font-size: 17px; color: var(--deep); cursor: pointer; list-style: none; position: relative; padding-right: 32px; }
+ details.faq-item > summary::-webkit-details-marker { display: none; }
+ details.faq-item > summary::after { content: "+"; position: absolute; right: 0; top: -2px; font-size: 24px; font-weight: 400; color: var(--red); transition: transform 0.2s ease; }
+ details.faq-item[open] > summary::after { content: "−"; }
+ details.faq-item .faq-a { margin-top: 12px; color: #3a3a3c; line-height: 1.65; font-size: 15px; }
 
  /* ─── BLOG ─── */
  .blog { background: var(--cream); }
@@ -892,12 +895,12 @@
  <div class="eyebrow">Common Questions</div>
  <h2 class="section-h2">Honest answers before you book.</h2>
  <div class="faq-grid">
- <div class="faq-item"><div class="faq-q">What happens on my first visit?</div><div class="faq-a">You get a real conversation about what you are dealing with, a focused chiropractic exam, and, when clinically appropriate, digital X-rays and thermal imaging. Then Dr. Palmer explains what he sees and what he recommends before any care begins.</div></div>
- <div class="faq-item"><div class="faq-q">Do I need a referral?</div><div class="faq-a">No. You can book directly with Life Charge Chiropractic. If you have insurance or are coming in after an accident, bring those details and the front desk will help.</div></div>
- <div class="faq-item"><div class="faq-q">Is chiropractic safe for kids and pregnancy?</div><div class="faq-a">Yes, when done thoughtfully. Dr. Palmer adjusts the technique to the patient, gentler approaches for children and modified positioning for pregnancy. You will always know what is being done and why.</div></div>
- <div class="faq-item"><div class="faq-q">How long is a typical appointment?</div><div class="faq-a">New patient visits run about 45–60 minutes so there is real time to listen, examine, and explain. Routine follow-ups are shorter and focused on the care plan.</div></div>
- <div class="faq-item"><div class="faq-q">Do you take insurance?</div><div class="faq-a">We offer transparent payment options and can help you understand what is covered. Costs and recommendations are explained before care begins so there are no surprises.</div></div>
- <div class="faq-item"><div class="faq-q">Where is the office?</div><div class="faq-a">Life Charge Chiropractic is at 1921 Nashville Pike, Suite 500, Gallatin, TN 37066, easy to reach from Gallatin, Hendersonville, and Sumner County.</div></div>
+ <details class="faq-item"><summary>What happens on my first visit?</summary><div class="faq-a">You get a real conversation about what you are dealing with, a focused chiropractic exam, and, when clinically appropriate, digital X-rays and thermal imaging. Then Dr. Palmer explains what he sees and what he recommends before any care begins.</div></details>
+ <details class="faq-item"><summary>Do I need a referral?</summary><div class="faq-a">No. You can book directly with Life Charge Chiropractic. If you have insurance or are coming in after an accident, bring those details and the front desk will help.</div></details>
+ <details class="faq-item"><summary>Is chiropractic safe for kids and pregnancy?</summary><div class="faq-a">Yes, when done thoughtfully. Dr. Palmer adjusts the technique to the patient, gentler approaches for children and modified positioning for pregnancy. You will always know what is being done and why.</div></details>
+ <details class="faq-item"><summary>How long is a typical appointment?</summary><div class="faq-a">New patient visits run about 45–60 minutes so there is real time to listen, examine, and explain. Routine follow-ups are shorter and focused on the care plan.</div></details>
+ <details class="faq-item"><summary>Do you take insurance?</summary><div class="faq-a">We offer transparent payment options and can help you understand what is covered. Costs and recommendations are explained before care begins so there are no surprises.</div></details>
+ <details class="faq-item"><summary>Where is the office?</summary><div class="faq-a">Life Charge Chiropractic is at 1921 Nashville Pike, Suite 500, Gallatin, TN 37066, easy to reach from Gallatin, Hendersonville, and Sumner County.</div></details>
  </div>
  </div>
 </div>

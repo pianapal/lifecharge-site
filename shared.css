@@ -413,6 +413,44 @@ footer { background: #111113; padding: 56px 48px 32px; }
 /* Make all images responsive by default (safety net) */
 img { max-width: 100%; height: auto; }
 
+/* ─── Accordion-style FAQ (matches the auto-accident page) ─── */
+.faq-grid {
+  display: block !important;
+  max-width: 820px;
+  margin: 40px auto 0 !important;
+}
+.faq-grid details.faq-item {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+}
+.faq-grid details.faq-item > summary {
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--deep);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 32px;
+}
+.faq-grid details.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-grid details.faq-item > summary::after {
+  content: "+";
+  position: absolute; right: 0; top: -2px;
+  font-size: 24px; font-weight: 400; color: var(--red);
+  transition: transform 0.2s ease;
+}
+.faq-grid details.faq-item[open] > summary::after { content: "−"; }
+.faq-grid details.faq-item .faq-a {
+  margin-top: 12px;
+  color: #3a3a3c;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
 /* Hide the top "$49 New Patient Special" offer ribbon on mobile.
    The sticky bottom CTA already covers the same path, and the $49
    special still lives inside the hamburger menu via .nav-cta. */
