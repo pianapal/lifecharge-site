@@ -260,14 +260,70 @@
  .aud-body { font-size: 13px; color: var(--charcoal); line-height: 1.65; margin-bottom: 14px; }
  .aud-link { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); text-decoration: none; }
 
- /* ─── CONDITIONS NUMBERED ─── */
+ /* ─── CONDITIONS (click-to-expand, matches UC symptoms style) ─── */
  .conditions { background: var(--white); }
- .conditions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
- .cond-card { display: block; text-decoration: none; color: inherit; padding: 32px 28px; background: white; transition: background 0.2s; cursor: pointer; }
- .cond-card:hover { background: var(--cream); }
- .cond-num { font-size: 11px; font-weight: 800; color: rgba(237,50,55,0.35); letter-spacing: 0.1em; margin-bottom: 8px; }
- .cond-title { font-size: 17px; font-weight: 700; color: var(--deep); margin-bottom: 8px; }
- .cond-body { font-size: 13px; color: var(--charcoal); line-height: 1.65; }
+ .conditions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-top: 40px; }
+ details.cond-card {
+  background: linear-gradient(135deg, var(--white) 0%, #FFFBF2 100%);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease;
+  list-style: none;
+ }
+ details.cond-card::before {
+  content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--red); transform: scaleY(0); transform-origin: top;
+  transition: transform .25s ease;
+ }
+ details.cond-card:hover::before, details.cond-card[open]::before { transform: scaleY(1); }
+ details.cond-card:hover { border-color: var(--red); box-shadow: 0 14px 32px rgba(0,0,0,0.10); transform: translateY(-3px); }
+ details.cond-card[open] { border-color: var(--red); box-shadow: 0 14px 32px rgba(237,50,55,0.14); }
+ details.cond-card > summary.cond-summary {
+  list-style: none;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; margin: 0;
+ }
+ details.cond-card > summary.cond-summary::-webkit-details-marker { display: none; }
+ .cond-num {
+  flex: 0 0 auto;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
+  color: var(--red); background: var(--cream);
+  padding: 6px 10px; border-radius: 6px;
+  min-width: 38px; text-align: center; margin: 0;
+ }
+ .cond-title {
+  flex: 1; font-size: 16px; font-weight: 800;
+  color: var(--deep); margin: 0; line-height: 1.3;
+ }
+ details.cond-card > summary.cond-summary::after {
+  content: "+"; flex: 0 0 auto;
+  width: 28px; height: 28px;
+  background: var(--cream); color: var(--red);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 400; line-height: 1;
+  transition: background .25s ease, color .25s ease, transform .3s ease;
+ }
+ details.cond-card:hover > summary.cond-summary::after { background: var(--red); color: white; transform: rotate(90deg); }
+ details.cond-card[open] > summary.cond-summary::after { content: "−"; background: var(--red); color: white; transform: none; }
+ .cond-body {
+  margin-top: 12px; padding: 12px 0 0 52px;
+  border-top: 1px dashed rgba(0,0,0,0.10);
+  font-size: 14px; color: var(--charcoal); line-height: 1.65;
+ }
+ .cond-body .cond-link {
+  display: inline-block; margin-top: 10px;
+  color: var(--red); font-weight: 800; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  text-decoration: none;
+  border-bottom: 2px solid currentColor; padding-bottom: 1px;
+  transition: color .15s;
+ }
+ .cond-body .cond-link:hover { color: var(--deep); }
 
  /* ─── THERMAL ─── */
  .thermal { background: #0A0A0C; }
@@ -720,15 +776,15 @@
  <div class="eyebrow">Care Library</div>
  <h2 class="section-h2">What brings you in?</h2>
  <div class="conditions-grid">
- <a href="neck-pain/" class="cond-card"><div class="cond-num">01</div><div class="cond-title">Neck Pain</div><div class="cond-body">Chiropractic care for neck pain, stiffness, tension, and posture-related discomfort in Gallatin and Hendersonville.</div></a>
- <a href="low-back-pain/" class="cond-card"><div class="cond-num">02</div><div class="cond-title">Low Back Pain</div><div class="cond-body">Specific evaluation for low back pain, stiffness, and recurring flare-ups, focused on what is actually driving the problem.</div></a>
- <a href="sciatica/" class="cond-card"><div class="cond-num">03</div><div class="cond-title">Sciatica</div><div class="cond-body">Chiropractic evaluation and care for sciatica symptoms, leg pain, and low back irritation near Gallatin and Hendersonville.</div></a>
- <a href="headaches-and-migraines/" class="cond-card"><div class="cond-num">04</div><div class="cond-title">Headaches &amp; Migraines</div><div class="cond-body">Careful evaluation for headache patterns that may be related to neck tension, posture, or spinal mechanics.</div></a>
- <a href="family-chiropractor/" class="cond-card"><div class="cond-num">05</div><div class="cond-title">Family Care</div><div class="cond-body">Family-focused chiropractic office in Gallatin serving parents, kids, professionals, and wellness-focused households.</div></a>
- <a href="auto-accident/" class="cond-card"><div class="cond-num">06</div><div class="cond-title">Auto Accident</div><div class="cond-body">Chiropractic care after car accidents for patients near Gallatin, Hendersonville, and Sumner County.</div></a>
- <a href="prenatal/" class="cond-card"><div class="cond-num">07</div><div class="cond-title">Prenatal</div><div class="cond-body">Prenatal chiropractic care for expecting moms in Gallatin and Hendersonville, TN.</div></a>
- <a href="pediatric/" class="cond-card"><div class="cond-num">08</div><div class="cond-title">Pediatric</div><div class="cond-body">Gentle, thoughtful chiropractic care for kids with a specific, corrective, and whole-system focused approach and calm office environment.</div></a>
- <a href="upper-cervical-chiropractic/" class="cond-card"><div class="cond-num">09</div><div class="cond-title">Upper Cervical</div><div class="cond-body">Upper cervical chiropractic care in Gallatin, TN with Dr. Palmer Piana at Life Charge Chiropractic.</div></a>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">01</span><span class="cond-title">Neck Pain</span></summary><div class="cond-body">Chiropractic care for neck pain, stiffness, tension, and posture-related discomfort in Gallatin and Hendersonville. <a href="neck-pain/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">02</span><span class="cond-title">Low Back Pain</span></summary><div class="cond-body">Specific evaluation for low back pain, stiffness, and recurring flare-ups, focused on what is actually driving the problem. <a href="low-back-pain/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">03</span><span class="cond-title">Sciatica</span></summary><div class="cond-body">Chiropractic evaluation and care for sciatica symptoms, leg pain, and low back irritation near Gallatin and Hendersonville. <a href="sciatica/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">04</span><span class="cond-title">Headaches &amp; Migraines</span></summary><div class="cond-body">Careful evaluation for headache patterns that may be related to neck tension, posture, or spinal mechanics. <a href="headaches-and-migraines/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">05</span><span class="cond-title">Family Care</span></summary><div class="cond-body">Family-focused chiropractic office in Gallatin serving parents, kids, professionals, and wellness-focused households. <a href="family-chiropractor/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">06</span><span class="cond-title">Auto Accident</span></summary><div class="cond-body">Chiropractic care after car accidents for patients near Gallatin, Hendersonville, and Sumner County. <a href="auto-accident/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">07</span><span class="cond-title">Prenatal</span></summary><div class="cond-body">Prenatal chiropractic care for expecting moms in Gallatin and Hendersonville, TN. <a href="prenatal/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">08</span><span class="cond-title">Pediatric</span></summary><div class="cond-body">Gentle, thoughtful chiropractic care for kids with a specific, corrective, and whole-system focused approach and calm office environment. <a href="pediatric/" class="cond-link">Learn more →</a></div></details>
+ <details class="cond-card"><summary class="cond-summary"><span class="cond-num">09</span><span class="cond-title">Upper Cervical</span></summary><div class="cond-body">Upper cervical chiropractic care in Gallatin, TN with Dr. Palmer Piana at Life Charge Chiropractic. <a href="upper-cervical-chiropractic/" class="cond-link">Learn more →</a></div></details>
  </div>
  </div>
 </div>
