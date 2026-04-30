@@ -11,13 +11,13 @@ ErrorDocument 404 /404.html
 RewriteEngine On
 RewriteBase /
 
-# ─── Force HTTPS (uncomment after AutoSSL is active) ───
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# ─── Force HTTPS ───
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# ─── Force non-www ───
-# RewriteCond %{HTTP_HOST} ^www\.lifechargechiropractic\.com$ [NC]
-# RewriteRule ^ https://lifechargechiropractic.com%{REQUEST_URI} [L,R=301]
+# ─── Force non-www (canonicalize domain for SEO) ───
+RewriteCond %{HTTP_HOST} ^www\.lifechargechiropractic\.com$ [NC]
+RewriteRule ^ https://lifechargechiropractic.com%{REQUEST_URI} [L,R=301]
 
 # ─────────────────────────────────────────────
 # STEP 1 — explicit 301 redirects from old WordPress URLs
