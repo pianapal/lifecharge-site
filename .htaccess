@@ -59,6 +59,9 @@ Redirect 301 /blog/2025/05/03/why-chiropractic-care-is-essential-after-a-car-acc
 Redirect 301 /blog/2025/05/31/a-chiropractors-guide-to-your-babys-growing-spine-0-2-years/                          /pediatric/
 Redirect 301 /blog/2026/04/22/thermography-vs-x-ray-what-each-one-actually-shows-you/                               /thermal-imaging/
 
+# Removed work-injury page — redirect any indexed copies to auto-accident
+RewriteRule ^work-injury/?$ /auto-accident/ [R=301,L]
+
 # All old WordPress dated blog posts → same post under /blog/
 RewriteRule ^([0-9]{4}/[0-9]{2}/[0-9]{2}/.+/?$) /blog/$1 [R=301,L]
 
