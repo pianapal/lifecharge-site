@@ -55,16 +55,33 @@
 </div>
 
 <!-- HERO -->
-<div class="page-hero">
- <div class="page-hero-bg" style="background-image: url('/assets/photos/xray-room.webp');"></div>
- <div class="page-hero-overlay"></div>
- <div class="page-hero-inner">
+<style>
+ .scol-hero { background: var(--deep); position: relative; overflow: hidden; }
+ .scol-hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 56px; padding: 72px 48px; }
+ .scol-hero-text .eyebrow { display: inline-block; }
+ .scol-hero-text h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 900; color: white; line-height: 1.05; letter-spacing: -0.02em; margin: 14px 0 18px; }
+ .scol-hero-text p { font-size: 16px; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 28px; max-width: 520px; }
+ .scol-hero-img { display: flex; justify-content: center; align-items: center; }
+ .scol-hero-img img { max-width: 100%; max-height: 520px; height: auto; width: auto; border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); background: white; }
+ @media (max-width: 900px) {
+  .scol-hero-inner { grid-template-columns: 1fr; gap: 32px; padding: 48px 22px; text-align: left; }
+  .scol-hero-img { order: -1; }
+  .scol-hero-img img { max-height: 360px; }
+ }
+</style>
+<div class="scol-hero">
+ <div class="scol-hero-inner">
+ <div class="scol-hero-text">
  <div class="eyebrow eyebrow-y">Gallatin &amp; Hendersonville, TN</div>
  <h1>Scoliosis<br>Chiropractor</h1>
- <p>Life Charge Chiropractic helps families in Gallatin and Hendersonville understand their scoliosis, what the curve is actually doing, and what specific care can realistically accomplish at every stage.</p>
+ <p>Life Charge Chiropractic helps families in Gallatin and Hendersonville understand their scoliosis, what the curve is actually doing, and what specific care can accomplish at every stage.</p>
  <div style="display:flex;gap:12px;flex-wrap:wrap;">
  <a class="btn-primary" href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener">Schedule First Visit</a>
  <a class="btn-ghost" style="color:white;border-color:rgba(255,255,255,0.25);" href="tel:+16152199912">Call (615) 219-9912</a>
+ </div>
+ </div>
+ <div class="scol-hero-img">
+ <img src="../assets/photos/scoliosis-illustration.webp" alt="Anatomical illustration of a scoliotic spine showing curve, shoulder asymmetry, and pelvic tilt with a small inset standing X-ray">
  </div>
  </div>
 </div>
@@ -198,7 +215,7 @@
  <div class="inner">
  <div class="two-col">
  <div class="col-photo">
- <img src="../assets/photos/scoliosis-illustration.webp" alt="Anatomical illustration of a scoliotic spine showing curve, shoulder asymmetry, and pelvic tilt with a small inset standing X-ray">
+ <img src="../assets/photos/dr-at-desk.webp" alt="Dr. Palmer reviewing scoliosis X-rays at the desk">
  </div>
  <div>
  <div class="eyebrow">A Clear Look at Scoliosis</div>
