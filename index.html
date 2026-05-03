@@ -46,10 +46,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/photos/palmer-adjusting-hands-on.webp" fetchpriority="high">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+<!-- Async-load Google Fonts to avoid render-blocking. Montserrat is already covered by local @font-face below; this fetches the Google copy as a non-blocking enhancement. Lora is needed for testimonial styling on a few pages. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,600&display=swap" media="print" onload="this.media='all'">
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,600&display=swap">
+</noscript>
 
 <!-- LocalBusiness / Chiropractor schema -->
 <script type="application/ld+json">
@@ -99,7 +102,9 @@
  "knowsLanguage": ["English", "Spanish"]
  },
  "sameAs": [
- "https://www.instagram.com/lifechargechiropractic/"
+ "https://www.instagram.com/lifechargechiropractic/",
+ "https://www.facebook.com/LifeChargeChiropractic/",
+ "https://www.yelp.com/biz/life-charge-chiropractic-gallatin"
  ],
  "aggregateRating": {
  "@type": "AggregateRating",
@@ -753,6 +758,7 @@
  <div class="aud-title">For car accidents and injuries</div>
  <div class="aud-body">Neck pain, stiffness, and headaches after a collision often show up days later. We help you document, evaluate, and address what the impact left behind.</div>
  <a href="auto-accident/" class="aud-link">Auto injury care →</a>
+ <a href="auto-accident-consultation/" class="aud-link" style="display:block;margin-top:6px;">Free auto accident consultation →</a>
  </div>
  <div class="audience-card">
  <div class="aud-num">03</div>
@@ -1039,7 +1045,13 @@
  <a href="low-back-pain/">Low Back Pain</a>
  <a href="sciatica/">Sciatica</a>
  <a href="headaches-and-migraines/">Headaches</a>
+ <a href="herniated-disc/">Herniated Disc</a>
+ <a href="scoliosis/">Scoliosis</a>
+ <a href="vertigo/">Vertigo</a>
+ <a href="tmj/">TMJ</a>
+ <a href="degenerative-disc-disease/">Degenerative Disc</a>
  <a href="auto-accident/">Auto Accident</a>
+ <a href="work-injury/">Work Injury</a>
  </div>
  </div>
  <div>

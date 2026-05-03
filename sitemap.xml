@@ -38,9 +38,18 @@
   <url><loc>https://lifechargechiropractic.com/prenatal/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://lifechargechiropractic.com/pediatric/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
+  <!-- Additional condition pages -->
+  <url><loc>https://lifechargechiropractic.com/herniated-disc/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://lifechargechiropractic.com/scoliosis/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/vertigo/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/tmj/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lifechargechiropractic.com/degenerative-disc-disease/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://lifechargechiropractic.com/work-injury/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
   <!-- Local landing pages -->
   <url><loc>https://lifechargechiropractic.com/chiropractor-gallatin-tn/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
   <url><loc>https://lifechargechiropractic.com/chiropractor-near-hendersonville-tn/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://lifechargechiropractic.com/sumner-county-chiropractor/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
   <url><loc>https://lifechargechiropractic.com/payment-options/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://lifechargechiropractic.com/patient-resources/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

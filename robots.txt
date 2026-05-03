@@ -3,6 +3,7 @@ Allow: /
 Disallow: /assets/photos/raw/
 
 Sitemap: https://lifechargechiropractic.com/sitemap.xml
+Sitemap: https://lifechargechiropractic.com/blog/wp-sitemap-posts-post-1.xml
 
 # AI assistant index (llmstxt.org)
 # https://lifechargechiropractic.com/llms.txt

@@ -3,6 +3,7 @@
 *.log
 *.sql
 *.env
+*.bak
 node_modules/
 .idea/
 .vscode/
