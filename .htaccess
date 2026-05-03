@@ -52,10 +52,12 @@ RewriteRule ^conditions-we-help-gallatin-chiropractor/?$ /low-back-pain/ [R=301,
 RewriteRule ^thermal-imaging-services-at-life-charge-chiropractic/?$ /thermal-imaging/ [R=301,L]
 RewriteRule ^eat-strong-stay-strong-the-diet-that-supports-longevity-after-55/?$ /blog/ [R=301,L]
 
-# Specific 404 blog URLs flagged by SEMrush — redirect to closest topical page
-RewriteRule ^blog/2025/05/03/why-chiropractic-care-is-essential-after-a-car-accident-in-gallatin-and-hendersonville/?$ /auto-accident/   [R=301,L]
-RewriteRule ^blog/2025/05/31/a-chiropractors-guide-to-your-babys-growing-spine-0-2-years/?$                          /pediatric/       [R=301,L]
-RewriteRule ^blog/2026/04/22/thermography-vs-x-ray-what-each-one-actually-shows-you/?$                               /thermal-imaging/ [R=301,L]
+# Specific 404 blog URLs flagged by SEMrush — redirect to closest topical page.
+# Uses Redirect (mod_alias) instead of RewriteRule because /blog/ is a WordPress
+# install with its own .htaccess that would reset RewriteRules from this parent.
+Redirect 301 /blog/2025/05/03/why-chiropractic-care-is-essential-after-a-car-accident-in-gallatin-and-hendersonville/ /auto-accident/
+Redirect 301 /blog/2025/05/31/a-chiropractors-guide-to-your-babys-growing-spine-0-2-years/                          /pediatric/
+Redirect 301 /blog/2026/04/22/thermography-vs-x-ray-what-each-one-actually-shows-you/                               /thermal-imaging/
 
 # All old WordPress dated blog posts → same post under /blog/
 RewriteRule ^([0-9]{4}/[0-9]{2}/[0-9]{2}/.+/?$) /blog/$1 [R=301,L]
