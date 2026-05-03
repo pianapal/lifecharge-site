@@ -167,8 +167,8 @@
  .nav-links { display: flex; align-items: center; gap: 2px; }
  .nav-links a { font-size: 12px; font-weight: 700; color: var(--charcoal); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 14px; border-radius: 6px; transition: background 0.15s, color 0.15s; }
  .nav-links a:hover { background: var(--cream); color: var(--red); }
- .nav-cta { background: var(--red); color: white; font-family: var(--font); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border: none; border-radius: 6px; padding: 11px 20px; cursor: pointer; margin-left: 12px; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
- .nav-cta:hover { background: #D42B30; transform: translateY(-1px); }
+ .nav-cta { background: var(--grad); color: white; font-family: var(--font); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border: none; border-radius: 6px; padding: 11px 20px; cursor: pointer; margin-left: 12px; transition: filter 0.2s, transform 0.15s, box-shadow 0.2s; white-space: nowrap; box-shadow: 0 4px 14px rgba(237,50,55,0.18); }
+ .nav-cta:hover { filter: brightness(0.95); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(237,50,55,0.28); }
 
  /* ─── BUTTONS ─── */
  .btn-primary { background: var(--grad); color: white; font-family: var(--font); font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border: none; border-radius: 6px; padding: 15px 28px; cursor: pointer; transition: filter 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 6px 18px rgba(237,50,55,0.18); }
@@ -571,8 +571,8 @@
   .sticky-cta a:active { transform: scale(0.97); }
   .sticky-cta .sc-call { background: white; color: var(--deep); border: 2px solid var(--border); }
   .sticky-cta .sc-call:hover { background: var(--cream); border-color: var(--deep); }
-  .sticky-cta .sc-book { background: var(--red); color: white; border: 2px solid var(--red); }
-  .sticky-cta .sc-book:hover { background: #D42B30; }
+  .sticky-cta .sc-book { background: var(--grad); color: white; border: 2px solid transparent; }
+  .sticky-cta .sc-book:hover { filter: brightness(0.95); }
   .sticky-cta svg { width: 16px; height: 16px; flex-shrink: 0; }
   @media (max-width: 1024px) { body { padding-bottom: 76px; } .sticky-cta { gap: 6px; padding: 8px; } .sticky-cta a { font-size: 11px; letter-spacing: 0.02em; padding: 12px 8px; gap: 6px; } }
   @media (min-width: 1025px) {
