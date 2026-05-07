@@ -279,10 +279,12 @@
     <label for="symptoms">Briefly, what are you feeling? <span style="font-weight:600;color:var(--charcoal);text-transform:none;letter-spacing:0;">(optional)</span></label>
     <textarea id="symptoms" name="symptoms" placeholder="Neck pain, headaches, stiffness, etc."></textarea>
 
-    <!-- Honeypot: hidden from humans, bots auto-fill it. If filled, submission is silently dropped. Do not change name, id, or styling. -->
+    <!-- Honeypots: hidden from humans, bots auto-fill them. If either is filled, submission is silently dropped. Do not change names, ids, or styling. -->
     <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;">
       <label for="hp-website">Website (leave this empty)</label>
       <input type="text" id="hp-website" name="website" autocomplete="off" tabindex="-1">
+      <label for="hp-company">Company (leave this empty)</label>
+      <input type="text" id="hp-company" name="company" autocomplete="off" tabindex="-1">
     </div>
 
     <button type="submit" id="submitBtn">Claim My Free Consultation</button>
@@ -432,15 +434,58 @@
   var success = document.getElementById('formSuccess');
   var error = document.getElementById('formError');
 
-  // Spam filter config
-  var MIN_FILL_TIME_MS = 3000;
+  // === Spam filter config ===
+  var MIN_FILL_TIME_MS = 3000 + Math.floor(Math.random() * 4000); // 3-7s, randomized
   var loadedAt = Date.now();
+  var humanInteractions = 0;
+  ['focusin','keydown','pointerdown','scroll'].forEach(function(ev){
+    document.addEventListener(ev, function(){ humanInteractions++; }, { once:false, passive:true });
+  });
+  function rateLimited(){
+    try {
+      var key = 'lc_form_log_v1';
+      var now = Date.now();
+      var log = JSON.parse(localStorage.getItem(key) || '[]').filter(function(t){ return now - t < 3600000; });
+      if (log.length >= 3) return true;
+      if (log.length && (now - log[log.length-1]) < 60000) return true;
+      log.push(now); localStorage.setItem(key, JSON.stringify(log));
+      return false;
+    } catch(e){ return false; }
+  }
+  function isValidPhone(v){
+    if(!v) return false;
+    var digits = String(v).replace(/\D/g,'');
+    if (digits.length === 11 && digits[0] === '1') digits = digits.slice(1);
+    if (digits.length !== 10) return false;
+    if (/^[01]/.test(digits)) return false;
+    if (/^(\d)\1{9}$/.test(digits)) return false;
+    if (/^(123|111|000)/.test(digits)) return false;
+    return true;
+  }
+  var BAD_EMAIL_DOMAINS = ['mailinator.com','guerrillamail.com','tempmail.com','tempmail.net','10minutemail.com','yopmail.com','trashmail.com','sharklasers.com','spam4.me','dispostable.com','throwawaymail.com','fakeinbox.com','getairmail.com','maildrop.cc','mintemail.com','tempr.email','emailondeck.com','dropmail.me','example.com','test.com'];
+  function isValidEmail(v){
+    if(!v) return false;
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v)) return false;
+    var dom = v.split('@')[1].toLowerCase();
+    if (BAD_EMAIL_DOMAINS.indexOf(dom) !== -1) return false;
+    return true;
+  }
+  function isValidName(v){
+    if(!v) return false;
+    if (/(https?:|www\.|@|<a\s|\d)/i.test(v)) return false;
+    if (!/[A-Za-zÀ-ÿ]/.test(v)) return false;
+    if (v.length > 60) return false;
+    return true;
+  }
   var SPAM_PATTERNS = [
-    /https?:\/\//i, /www\./i, /\[url=/i, /<a\s+href/i,
-    /\b(seo|seo services|backlink|rank.{0,4}(higher|website|google)|guest post|link.?building|cheap.{0,8}seo|website.{0,15}redesign)\b/i,
-    /\b(bitcoin|crypto|forex|investment opportunity|loan offer)\b/i,
-    /\b(viagra|cialis|casino|porn|escort)\b/i,
-    /[Ѐ-ӿ]{3,}/, /[一-鿿]{3,}/
+    /https?:\/\//i, /www\./i, /\[url=/i, /<a\s+href/i, /\.(com|net|org|io|biz|info|ru|cn|xyz|top|club|site)\b/i,
+    /\b(seo|backlink|rank.{0,4}(higher|website|google)|guest post|link.?building|cheap.{0,8}seo|website.{0,15}(redesign|build|design|service))\b/i,
+    /\b(bitcoin|crypto(?:currency)?|forex|investment opportunity|business proposal|loan offer|free trial|wire transfer|inheritance|nigerian)\b/i,
+    /\b(viagra|cialis|casino|porn|escort|adult site|sexy)\b/i,
+    /\b(make money|earn (extra|fast)|passive income|click here|act now|limited time offer|congratulations you|exclusive offer|risk.?free)\b/i,
+    /\b(ceo|founder|marketing director)\b.{0,40}\b(reach|contact|outreach|interested|opportunity)\b/i,
+    /[Ѐ-ӿ]{3,}/, /[一-鿿]{3,}/, /[؀-ۿ]{3,}/,
+    /\b[A-Z]{8,}\b/
   ];
   function looksSpammy(d){
     var blob = [d.full_name, d.symptoms, d.email, d.phone].filter(Boolean).join(' \n ');
@@ -451,8 +496,14 @@
         var caps = letters.replace(/[^A-Z]/g,'').length;
         if (caps/letters.length > 0.7) return true;
       }
+      var urlMatches = d.symptoms.match(/https?:\/\/|www\./gi);
+      if (urlMatches && urlMatches.length >= 1) return true;
     }
     return false;
+  }
+  function silentDrop(){
+    form.style.display = 'none';
+    success.style.display = 'block';
   }
 
   form.addEventListener('submit', async function(e){
@@ -466,14 +517,15 @@
       if (!el.value.trim()){ el.focus(); return; }
     }
 
-    // Spam filter 1: honeypot. Bots fill the hidden "website" field.
-    if (form.elements.website && form.elements.website.value.trim() !== ''){
-      form.style.display = 'none'; success.style.display = 'block'; return;
-    }
-    // Spam filter 2: time gate.
-    if (Date.now() - loadedAt < MIN_FILL_TIME_MS){
-      form.style.display = 'none'; success.style.display = 'block'; return;
-    }
+    // 1. Honeypots
+    if (form.elements.website && form.elements.website.value.trim() !== '') return silentDrop();
+    if (form.elements.company && form.elements.company.value.trim() !== '') return silentDrop();
+    // 2. Time gate
+    if (Date.now() - loadedAt < MIN_FILL_TIME_MS) return silentDrop();
+    // 3. Interaction signal
+    if (humanInteractions < 3) return silentDrop();
+    // 4. Rate limit
+    if (rateLimited()) return silentDrop();
 
     btn.disabled = true;
     btn.textContent = 'Sending...';
@@ -481,13 +533,15 @@
     var data = {};
     new FormData(form).forEach(function(v,k){ data[k] = v; });
 
-    // Spam filter 3: pattern check
-    if (looksSpammy(data)){
-      form.style.display = 'none'; success.style.display = 'block'; return;
-    }
+    // 5. Field validation
+    if (!isValidName(data.full_name)) return silentDrop();
+    if (!isValidPhone(data.phone)) return silentDrop();
+    if (!isValidEmail(data.email)) return silentDrop();
+    // 6. Pattern matching
+    if (looksSpammy(data)) return silentDrop();
 
-    // Strip honeypot from outgoing payload
-    delete data.website;
+    // Strip honeypots from outgoing payload
+    delete data.website; delete data.company;
     data.source = 'Auto Accident Landing - lifechargechiropractic.com';
     data.page_url = window.location.href;
     data.referrer = document.referrer || '';

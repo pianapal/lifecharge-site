@@ -170,10 +170,12 @@
  </select>
  </div>
  <div class="form-field"><label class="form-label" for="cf-message">What brings you in?</label><textarea class="form-input form-textarea" id="cf-message" name="message" placeholder="Briefly describe your main concern or question..."></textarea></div>
- <!-- Honeypot: hidden from humans, bots auto-fill it. If filled, submission is silently dropped. Do not change name, id, or styling. -->
+ <!-- Honeypots: hidden from humans, bots auto-fill them. If either is filled, submission is silently dropped. Do not change names, ids, or styling. -->
  <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;">
  <label for="cf-website">Website (leave this empty)</label>
  <input type="text" id="cf-website" name="website" autocomplete="off" tabindex="-1">
+ <label for="cf-company">Company (leave this empty)</label>
+ <input type="text" id="cf-company" name="company" autocomplete="off" tabindex="-1">
  </div>
  <button type="submit" class="btn-primary" id="cf-submit" style="width:100%;justify-content:center;">Send Message</button>
  <div class="form-fineprint">Or call us directly at (615) 219-9912</div>
@@ -215,29 +217,88 @@
  var success = document.getElementById('cfSuccess');
  var error = document.getElementById('cfError');
 
- // Spam filter config
- var MIN_FILL_TIME_MS = 3000; // form submitted faster than this is almost certainly a bot
+ // === Spam filter config ===
+ // Time gate: randomized 3-7s minimum to defeat bots that wait fixed delays
+ var MIN_FILL_TIME_MS = 3000 + Math.floor(Math.random() * 4000);
  var loadedAt = Date.now();
+ // Track interaction. Real humans focus a field, type, click, scroll etc.
+ var humanInteractions = 0;
+ ['focusin','keydown','pointerdown','scroll'].forEach(function(ev){
+  document.addEventListener(ev, function(){ humanInteractions++; }, { once:false, passive:true });
+ });
+ // Rate limit (per-browser via localStorage). Not bulletproof but stops the casual flood.
+ function rateLimited(){
+  try {
+   var key = 'lc_form_log_v1';
+   var now = Date.now();
+   var log = JSON.parse(localStorage.getItem(key) || '[]').filter(function(t){ return now - t < 3600000; }); // last hour
+   if (log.length >= 3) return true;
+   if (log.length && (now - log[log.length-1]) < 60000) return true; // < 1 min since last submit
+   log.push(now);
+   localStorage.setItem(key, JSON.stringify(log));
+   return false;
+  } catch(e){ return false; }
+ }
+ // Phone validation: must look like a US number (10 digits after stripping non-digits, valid area code)
+ function isValidPhone(v){
+  if(!v) return false;
+  var digits = String(v).replace(/\D/g,'');
+  if (digits.length === 11 && digits[0] === '1') digits = digits.slice(1);
+  if (digits.length !== 10) return false;
+  if (/^[01]/.test(digits)) return false; // area codes can't start with 0 or 1
+  if (/^(\d)\1{9}$/.test(digits)) return false; // 0000000000, 1111111111 etc
+  if (/^(123|111|000)/.test(digits)) return false;
+  return true;
+ }
+ // Email validation: real-looking + block common throwaway/disposable/spam domains
+ var BAD_EMAIL_DOMAINS = ['mailinator.com','guerrillamail.com','tempmail.com','tempmail.net','10minutemail.com','yopmail.com','trashmail.com','sharklasers.com','spam4.me','dispostable.com','throwawaymail.com','fakeinbox.com','getairmail.com','maildrop.cc','mintemail.com','tempr.email','emailondeck.com','dropmail.me','example.com','test.com'];
+ function isValidEmail(v){
+  if(!v) return false;
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v)) return false;
+  var dom = v.split('@')[1].toLowerCase();
+  if (BAD_EMAIL_DOMAINS.indexOf(dom) !== -1) return false;
+  return true;
+ }
+ // Name validation: no URLs, no @, no digits, must contain at least one letter
+ function isValidName(v){
+  if(!v) return false;
+  if (/(https?:|www\.|@|<a\s|\d)/i.test(v)) return false;
+  if (!/[A-Za-zÀ-ÿ]/.test(v)) return false;
+  if (v.length > 60) return false; // ridiculous lengths
+  return true;
+ }
+ // Spam patterns scanned across all visible fields
  var SPAM_PATTERNS = [
-  /https?:\/\//i, /www\./i, /\[url=/i, /<a\s+href/i,
-  /\b(seo|seo services|backlink|rank.{0,4}(higher|website|google)|guest post|link.?building|cheap.{0,8}seo|website.{0,15}redesign)\b/i,
-  /\b(bitcoin|crypto|forex|investment opportunity|loan offer)\b/i,
-  /\b(viagra|cialis|casino|porn|escort)\b/i,
+  /https?:\/\//i, /www\./i, /\[url=/i, /<a\s+href/i, /\.(com|net|org|io|biz|info|ru|cn|xyz|top|club|site)\b/i,
+  /\b(seo|backlink|rank.{0,4}(higher|website|google)|guest post|link.?building|cheap.{0,8}seo|website.{0,15}(redesign|build|design|service))\b/i,
+  /\b(bitcoin|crypto(?:currency)?|forex|investment opportunity|business proposal|loan offer|free trial|wire transfer|inheritance|nigerian)\b/i,
+  /\b(viagra|cialis|casino|porn|escort|adult site|sexy)\b/i,
+  /\b(make money|earn (extra|fast)|passive income|click here|act now|limited time offer|congratulations you|exclusive offer|risk.?free)\b/i,
+  /\b(ceo|founder|marketing director)\b.{0,40}\b(reach|contact|outreach|interested|opportunity)\b/i,
   /[Ѐ-ӿ]{3,}/, // Cyrillic runs of 3+
-  /[一-鿿]{3,}/  // CJK runs of 3+ (most patients are English/Spanish)
+  /[一-鿿]{3,}/, // CJK runs of 3+
+  /[؀-ۿ]{3,}/, // Arabic runs (most LCC patients are EN/ES)
+  /\b[A-Z]{8,}\b/ // very long all-caps tokens (BUYNOWBUYNOW)
  ];
  function looksSpammy(d){
   var blob = [d.first_name, d.last_name, d.message, d.email, d.phone].filter(Boolean).join(' \n ');
   for(var i=0;i<SPAM_PATTERNS.length;i++){ if(SPAM_PATTERNS[i].test(blob)) return true; }
-  // Excessive caps in message (>70% caps with length>20)
   if(d.message && d.message.length>20){
    var letters = d.message.replace(/[^A-Za-z]/g,'');
    if(letters.length>15){
     var caps = letters.replace(/[^A-Z]/g,'').length;
     if(caps/letters.length>0.7) return true;
    }
+   // Many URLs / many phone-like sequences in message = link spam
+   var urlMatches = d.message.match(/https?:\/\/|www\./gi);
+   if(urlMatches && urlMatches.length >= 1) return true;
   }
   return false;
+ }
+ function silentDrop(){
+  // Pretend to succeed so spammer thinks it landed. Never call the webhook.
+  form.style.display = 'none';
+  success.classList.add('success');
  }
 
  form.addEventListener('submit', async function(e){
@@ -249,29 +310,30 @@
  if(!el.value.trim()){ el.focus(); return; }
  }
 
- // Spam filter 1: honeypot. Bots fill the hidden "website" field; humans never see it.
- if(form.elements.website && form.elements.website.value.trim() !== ''){
-  // Pretend success to confuse the bot but never call the webhook.
-  form.style.display = 'none'; success.classList.add('success'); return;
- }
- // Spam filter 2: time gate. Submitted too fast = almost certainly a bot.
- if(Date.now() - loadedAt < MIN_FILL_TIME_MS){
-  form.style.display = 'none'; success.classList.add('success'); return;
- }
+ // 1. Honeypots (two now: website + company). Bots auto-fill any "looks important" hidden field.
+ if (form.elements.website && form.elements.website.value.trim() !== '') return silentDrop();
+ if (form.elements.company && form.elements.company.value.trim() !== '') return silentDrop();
+ // 2. Time gate (randomized 3-7s)
+ if (Date.now() - loadedAt < MIN_FILL_TIME_MS) return silentDrop();
+ // 3. Interaction signal: real humans focus, type, click. Bots that just programmatically fill+submit don't.
+ if (humanInteractions < 3) return silentDrop();
+ // 4. Rate limit per browser
+ if (rateLimited()) return silentDrop();
 
  btn.disabled = true;
  btn.textContent = 'Sending...';
  var data = {};
  new FormData(form).forEach(function(v,k){ data[k] = v; });
 
- // Spam filter 3: pattern check on payload
- if(looksSpammy(data)){
-  // Silent drop. Show a generic success so spammers don't know they were caught.
-  form.style.display = 'none'; success.classList.add('success'); return;
- }
+ // 5. Field validation
+ if (!isValidName(data.first_name) || !isValidName(data.last_name)) return silentDrop();
+ if (!isValidPhone(data.phone)) return silentDrop();
+ if (!isValidEmail(data.email)) return silentDrop();
+ // 6. Pattern matching across fields
+ if (looksSpammy(data)) return silentDrop();
 
- // Strip honeypot from outgoing payload
- delete data.website;
+ // Strip honeypots from outgoing payload
+ delete data.website; delete data.company;
  data.full_name = (data.first_name + ' ' + data.last_name).trim();
  data.preferred_contact = data.phone ? 'Phone' : 'Email';
  data.source = 'Contact Form - lifechargechiropractic.com/contact-us/';
