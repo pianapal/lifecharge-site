@@ -279,6 +279,12 @@
     <label for="symptoms">Briefly, what are you feeling? <span style="font-weight:600;color:var(--charcoal);text-transform:none;letter-spacing:0;">(optional)</span></label>
     <textarea id="symptoms" name="symptoms" placeholder="Neck pain, headaches, stiffness, etc."></textarea>
 
+    <!-- Honeypot: hidden from humans, bots auto-fill it. If filled, submission is silently dropped. Do not change name, id, or styling. -->
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;">
+      <label for="hp-website">Website (leave this empty)</label>
+      <input type="text" id="hp-website" name="website" autocomplete="off" tabindex="-1">
+    </div>
+
     <button type="submit" id="submitBtn">Claim My Free Consultation</button>
     <p class="lcl-form-fineprint">By submitting you agree to be contacted by Life Charge Chiropractic about your consultation. We do not share your info.</p>
    </form>
@@ -426,6 +432,29 @@
   var success = document.getElementById('formSuccess');
   var error = document.getElementById('formError');
 
+  // Spam filter config
+  var MIN_FILL_TIME_MS = 3000;
+  var loadedAt = Date.now();
+  var SPAM_PATTERNS = [
+    /https?:\/\//i, /www\./i, /\[url=/i, /<a\s+href/i,
+    /\b(seo|seo services|backlink|rank.{0,4}(higher|website|google)|guest post|link.?building|cheap.{0,8}seo|website.{0,15}redesign)\b/i,
+    /\b(bitcoin|crypto|forex|investment opportunity|loan offer)\b/i,
+    /\b(viagra|cialis|casino|porn|escort)\b/i,
+    /[Ѐ-ӿ]{3,}/, /[一-鿿]{3,}/
+  ];
+  function looksSpammy(d){
+    var blob = [d.full_name, d.symptoms, d.email, d.phone].filter(Boolean).join(' \n ');
+    for (var i=0;i<SPAM_PATTERNS.length;i++){ if(SPAM_PATTERNS[i].test(blob)) return true; }
+    if (d.symptoms && d.symptoms.length > 20){
+      var letters = d.symptoms.replace(/[^A-Za-z]/g,'');
+      if (letters.length > 15){
+        var caps = letters.replace(/[^A-Z]/g,'').length;
+        if (caps/letters.length > 0.7) return true;
+      }
+    }
+    return false;
+  }
+
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     error.style.display = 'none';
@@ -437,15 +466,33 @@
       if (!el.value.trim()){ el.focus(); return; }
     }
 
+    // Spam filter 1: honeypot. Bots fill the hidden "website" field.
+    if (form.elements.website && form.elements.website.value.trim() !== ''){
+      form.style.display = 'none'; success.style.display = 'block'; return;
+    }
+    // Spam filter 2: time gate.
+    if (Date.now() - loadedAt < MIN_FILL_TIME_MS){
+      form.style.display = 'none'; success.style.display = 'block'; return;
+    }
+
     btn.disabled = true;
     btn.textContent = 'Sending...';
 
     var data = {};
     new FormData(form).forEach(function(v,k){ data[k] = v; });
+
+    // Spam filter 3: pattern check
+    if (looksSpammy(data)){
+      form.style.display = 'none'; success.style.display = 'block'; return;
+    }
+
+    // Strip honeypot from outgoing payload
+    delete data.website;
     data.source = 'Auto Accident Landing - lifechargechiropractic.com';
     data.page_url = window.location.href;
     data.referrer = document.referrer || '';
     data.submitted_at = new Date().toISOString();
+    data.fill_time_seconds = Math.round((Date.now() - loadedAt) / 1000);
 
     try {
       if (WEBHOOK_URL.indexOf('REPLACE_') === 0) throw new Error('Webhook URL not configured');

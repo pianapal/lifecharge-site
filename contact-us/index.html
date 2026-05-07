@@ -170,6 +170,11 @@
  </select>
  </div>
  <div class="form-field"><label class="form-label" for="cf-message">What brings you in?</label><textarea class="form-input form-textarea" id="cf-message" name="message" placeholder="Briefly describe your main concern or question..."></textarea></div>
+ <!-- Honeypot: hidden from humans, bots auto-fill it. If filled, submission is silently dropped. Do not change name, id, or styling. -->
+ <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;">
+ <label for="cf-website">Website (leave this empty)</label>
+ <input type="text" id="cf-website" name="website" autocomplete="off" tabindex="-1">
+ </div>
  <button type="submit" class="btn-primary" id="cf-submit" style="width:100%;justify-content:center;">Send Message</button>
  <div class="form-fineprint">Or call us directly at (615) 219-9912</div>
  </form>
@@ -209,6 +214,32 @@
  var btn = document.getElementById('cf-submit');
  var success = document.getElementById('cfSuccess');
  var error = document.getElementById('cfError');
+
+ // Spam filter config
+ var MIN_FILL_TIME_MS = 3000; // form submitted faster than this is almost certainly a bot
+ var loadedAt = Date.now();
+ var SPAM_PATTERNS = [
+  /https?:\/\//i, /www\./i, /\[url=/i, /<a\s+href/i,
+  /\b(seo|seo services|backlink|rank.{0,4}(higher|website|google)|guest post|link.?building|cheap.{0,8}seo|website.{0,15}redesign)\b/i,
+  /\b(bitcoin|crypto|forex|investment opportunity|loan offer)\b/i,
+  /\b(viagra|cialis|casino|porn|escort)\b/i,
+  /[Ѐ-ӿ]{3,}/, // Cyrillic runs of 3+
+  /[一-鿿]{3,}/  // CJK runs of 3+ (most patients are English/Spanish)
+ ];
+ function looksSpammy(d){
+  var blob = [d.first_name, d.last_name, d.message, d.email, d.phone].filter(Boolean).join(' \n ');
+  for(var i=0;i<SPAM_PATTERNS.length;i++){ if(SPAM_PATTERNS[i].test(blob)) return true; }
+  // Excessive caps in message (>70% caps with length>20)
+  if(d.message && d.message.length>20){
+   var letters = d.message.replace(/[^A-Za-z]/g,'');
+   if(letters.length>15){
+    var caps = letters.replace(/[^A-Z]/g,'').length;
+    if(caps/letters.length>0.7) return true;
+   }
+  }
+  return false;
+ }
+
  form.addEventListener('submit', async function(e){
  e.preventDefault();
  error.classList.remove('error');
@@ -217,16 +248,37 @@
  var el = form.elements[required[i]];
  if(!el.value.trim()){ el.focus(); return; }
  }
+
+ // Spam filter 1: honeypot. Bots fill the hidden "website" field; humans never see it.
+ if(form.elements.website && form.elements.website.value.trim() !== ''){
+  // Pretend success to confuse the bot but never call the webhook.
+  form.style.display = 'none'; success.classList.add('success'); return;
+ }
+ // Spam filter 2: time gate. Submitted too fast = almost certainly a bot.
+ if(Date.now() - loadedAt < MIN_FILL_TIME_MS){
+  form.style.display = 'none'; success.classList.add('success'); return;
+ }
+
  btn.disabled = true;
  btn.textContent = 'Sending...';
  var data = {};
  new FormData(form).forEach(function(v,k){ data[k] = v; });
+
+ // Spam filter 3: pattern check on payload
+ if(looksSpammy(data)){
+  // Silent drop. Show a generic success so spammers don't know they were caught.
+  form.style.display = 'none'; success.classList.add('success'); return;
+ }
+
+ // Strip honeypot from outgoing payload
+ delete data.website;
  data.full_name = (data.first_name + ' ' + data.last_name).trim();
  data.preferred_contact = data.phone ? 'Phone' : 'Email';
  data.source = 'Contact Form - lifechargechiropractic.com/contact-us/';
  data.page_url = window.location.href;
  data.referrer = document.referrer || '';
  data.submitted_at = new Date().toISOString();
+ data.fill_time_seconds = Math.round((Date.now() - loadedAt) / 1000);
  data.tag = 'contact-form-general';
  try {
  var res = await fetch(WEBHOOK_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
