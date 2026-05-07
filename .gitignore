@@ -7,3 +7,5 @@
 node_modules/
 .idea/
 .vscode/
+# Local-only backups of original full-size images (kept on disk for re-encoding flexibility)
+assets/photos/.original-fullsize/

@@ -40,16 +40,14 @@
 <link rel="manifest" href="site.webmanifest">
 
 <!-- Performance hints -->
+<link rel="preload" as="image" href="assets/photos/palmer-adjusting-hands-on.webp" fetchpriority="high">
+<!-- Self-hosted fonts: preload so they start fetching with the HTML, not after CSS parses. -->
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Montserrat-VariableFont_wght.woff2" crossorigin>
+<!-- Lora (testimonial serif) is loaded async because it is below-the-fold. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="assets/photos/palmer-adjusting-hands-on.webp" fetchpriority="high">
-<!-- Async-load Google Fonts to avoid render-blocking. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,600&display=swap" media="print" onload="this.media='all'">
-<noscript>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,600&display=swap">
-</noscript>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400;1,600&display=swap"></noscript>
 
 <!-- LocalBusiness / Chiropractor schema -->
 <script type="application/ld+json">
@@ -134,8 +132,8 @@
 }
 </script>
 <style>
- @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype'); font-weight: 100 900; font-style: normal; font-display: swap; }
- @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype'); font-weight: 100 900; font-style: italic; font-display: swap; }
+ @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
+ @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Italic-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
 
  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  :root {
