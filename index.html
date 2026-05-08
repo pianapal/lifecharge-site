@@ -94,15 +94,26 @@
  ],
  "founder": {
  "@type": "Person",
+ "@id": "https://lifechargechiropractic.com/about/#palmer-piana",
  "name": "Dr. Palmer Piana",
+ "honorificSuffix": "DC",
  "jobTitle": "Doctor of Chiropractic",
  "alumniOf": { "@type": "EducationalOrganization", "name": "Palmer College of Chiropractic" },
- "knowsLanguage": ["English", "Spanish"]
+ "knowsLanguage": ["English", "Spanish"],
+ "url": "https://lifechargechiropractic.com/about/"
  },
+ "employee": [
+ { "@id": "https://lifechargechiropractic.com/about/#palmer-piana" }
+ ],
+ "slogan": "Better care starts with a clearer picture.",
+ "hasMap": "https://www.google.com/maps/place/Life+Charge+Chiropractic/@36.388,-86.452,17z/",
+ "paymentAccepted": ["Cash", "Credit Card", "Health Savings Account", "Flexible Spending Account", "Auto Insurance MedPay", "Major Medical Insurance"],
+ "currenciesAccepted": "USD",
  "sameAs": [
  "https://www.instagram.com/lifechargechiropractic/",
  "https://www.facebook.com/LifeChargeChiropractic/",
- "https://www.yelp.com/biz/life-charge-chiropractic-gallatin"
+ "https://www.yelp.com/biz/life-charge-chiropractic-gallatin",
+ "https://schedule.lifechargechiropractic.com/new-patient-offer"
  ],
  "aggregateRating": {
  "@type": "AggregateRating",
@@ -111,14 +122,29 @@
  "bestRating": "5",
  "worstRating": "1"
  },
- "makesOffer": [
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chiropractic Adjustments" } },
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Thermal Imaging" } },
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Digital X-Ray" } },
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Prenatal Chiropractic" } },
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pediatric Chiropractic" } },
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sports Injury Recovery" } },
- { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auto Accident Care" } }
+ "hasOfferCatalog": {
+ "@type": "OfferCatalog",
+ "name": "Chiropractic Services",
+ "itemListElement": [
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Chiropractic Adjustment", "url": "https://lifechargechiropractic.com/chiropractic-adjustments/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Blair Upper Cervical Chiropractic", "url": "https://lifechargechiropractic.com/upper-cervical-chiropractic/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Thermal Imaging", "url": "https://lifechargechiropractic.com/thermal-imaging/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Digital X-Ray Imaging" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Corrective Exercises", "url": "https://lifechargechiropractic.com/corrective-exercises/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Prenatal Chiropractic Care", "url": "https://lifechargechiropractic.com/prenatal/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Pediatric Chiropractic Care", "url": "https://lifechargechiropractic.com/pediatric/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Sports Injury Care", "url": "https://lifechargechiropractic.com/sports-injury/" } },
+ { "@type": "Offer", "itemOffered": { "@type": "MedicalProcedure", "name": "Auto Accident and Whiplash Care", "url": "https://lifechargechiropractic.com/auto-accident/" } }
+ ]
+ },
+ "availableService": [
+ { "@type": "MedicalProcedure", "name": "Care for Low Back Pain", "url": "https://lifechargechiropractic.com/low-back-pain/" },
+ { "@type": "MedicalProcedure", "name": "Care for Neck Pain", "url": "https://lifechargechiropractic.com/neck-pain/" },
+ { "@type": "MedicalProcedure", "name": "Care for Sciatica", "url": "https://lifechargechiropractic.com/sciatica/" },
+ { "@type": "MedicalProcedure", "name": "Care for Headaches and Migraines", "url": "https://lifechargechiropractic.com/headaches-and-migraines/" },
+ { "@type": "MedicalProcedure", "name": "Care for Herniated Disc", "url": "https://lifechargechiropractic.com/herniated-disc/" },
+ { "@type": "MedicalProcedure", "name": "Care for Vertigo", "url": "https://lifechargechiropractic.com/vertigo/" },
+ { "@type": "MedicalProcedure", "name": "Care for TMJ", "url": "https://lifechargechiropractic.com/tmj/" }
  ]
 }
 </script>
