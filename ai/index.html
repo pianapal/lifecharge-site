@@ -440,6 +440,46 @@
     text-transform: uppercase; margin-top: 5px;
   }
 
+  /* ── DOWNLOAD BUTTON (in CTA bar) ── */
+  .cta-dl {
+    margin-top: 4px;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--white); color: var(--red);
+    border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 14px; border-radius: 6px;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .cta-dl:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  .cta-dl svg { width: 14px; height: 14px; }
+
+  /* ── FLOATING DOWNLOAD BUTTON (screen only) ── */
+  .float-dl {
+    position: fixed; bottom: 22px; right: 22px;
+    z-index: 100;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--grad); color: var(--white);
+    border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 800; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 22px; border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .float-dl:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+  }
+  .float-dl svg { width: 16px; height: 16px; }
+  @media print { .float-dl { display: none !important; } }
+
   /* ── DOC FOOTER ── */
   .doc-foot {
     margin-top: 14px;
@@ -551,6 +591,11 @@
 </style>
 </head>
 <body>
+
+<!-- Floating download button (screen only, hidden in print) -->
+<button type="button" class="float-dl" onclick="window.print()" aria-label="Download as PDF">
+  <i data-lucide="download"></i>Download PDF
+</button>
 
 <!-- ════════════════════ PAGE 1 ════════════════════ -->
 <article class="page">
@@ -777,7 +822,9 @@ Build brand consistency.</div>
     <div class="cta-text">
       <div class="cta-title">Download this sheet and every link.</div>
       <div class="cta-url">lifechargechiropractic.com/ai</div>
-      <div class="cta-sub">Questions? Want to see the recall app or notes flow live? <span class="ph">[contact / book link]</span></div>
+      <button type="button" class="cta-dl" onclick="window.print()">
+        <i data-lucide="download"></i>Download as PDF
+      </button>
     </div>
     <div class="cta-qr">
       <div class="qbox"><div id="qr-cta"></div></div>
