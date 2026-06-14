@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Chiropractors: The Practical Playbook — Life Charge Chiropractic</title>
+<meta name="description" content="A practical AI cheat sheet for chiropractors from Dr. Palmer Piana — the tools, prompts, and use cases he uses every week at Life Charge Chiropractic.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#ED3237">
+<link rel="canonical" href="https://lifechargechiropractic.com/ai/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Life Charge Chiropractic">
+<meta property="og:url" content="https://lifechargechiropractic.com/ai/">
+<meta property="og:title" content="AI for Chiropractors: The Practical Playbook">
+<meta property="og:description" content="A practical AI cheat sheet for chiropractors. Tools, prompts, and use cases from Dr. Palmer Piana — Life Charge Chiropractic, Gallatin TN.">
+<meta property="og:image" content="https://lifechargechiropractic.com/assets/logo-stacked.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI for Chiropractors: The Practical Playbook">
+<meta name="twitter:description" content="A practical AI cheat sheet for chiropractors. Tools, prompts, and use cases from Dr. Palmer Piana.">
+<meta name="twitter:image" content="https://lifechargechiropractic.com/assets/logo-stacked.webp">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:        #ED3237;
+    --orange:     #F47B20;
+    --yellow:     #FFCC29;
+    --charcoal:   #606062;
+    --deep:       #2D2D2F;
+    --cream:      #FFF7E8;
+    --sand:       #EADDC8;
+    --white:      #FFFFFF;
+    --border:     #E5E5E5;
+    --border-2:   #D8D2C6;
+    --grad:       linear-gradient(120deg, #ED3237 0%, #F47B20 52%, #FFCC29 100%);
+    --ink:        #2D2D2F;
+    --body:       #4A4A4C;
+    --muted:      #8A8A8C;
+  }
+
+  html, body { background: #DEDCD7; }
+  body {
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--ink);
+    font-size: 11px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 28px 20px 60px;
+  }
+
+  /* ── PAGE SHEET ── */
+  .page {
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto 26px;
+    background: var(--white);
+    padding: 0.5in;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* watermark spine icon */
+  .wm {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 0;
+  }
+  .wm { z-index: 0; }
+  .wm img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .page > *:not(.wm) { position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--deep);
+  }
+  .header-logo img {
+    width: 118px; height: auto; display: block;
+  }
+  .header-main { padding-top: 2px; }
+  .eyebrow {
+    font-size: 9.5px; font-weight: 800; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 7px;
+  }
+  .title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px; font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--deep); line-height: 1.08;
+    margin-bottom: 6px;
+  }
+  .title .grad {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .subtitle {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 12.5px; font-style: italic;
+    color: var(--charcoal); line-height: 1.4;
+    margin-bottom: 7px;
+  }
+  .presented {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--deep);
+  }
+  .presented .ph { color: var(--red); }
+  .header-qr { text-align: center; }
+  .header-qr .qbox {
+    width: 78px; height: 78px;
+    border: 1px solid var(--border);
+    padding: 4px; background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .header-qr .qbox img,
+  .header-qr .qbox canvas { width: 100% !important; height: 100% !important; display: block; }
+  .header-qr .qcap {
+    font-size: 6.5px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-top: 4px; line-height: 1.3;
+  }
+
+  /* ── SECTION SCAFFOLD ── */
+  .sec { margin-top: 15px; }
+  .sec-head {
+    display: flex; align-items: center; gap: 9px;
+    margin-bottom: 9px;
+  }
+  .sec-num {
+    width: 22px; height: 22px; flex-shrink: 0;
+    border-radius: 6px;
+    background: var(--deep); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .sec-title {
+    font-size: 13px; font-weight: 800; letter-spacing: 0.01em;
+    color: var(--deep); text-transform: uppercase;
+  }
+  .sec-title .light { color: var(--muted); font-weight: 700; }
+
+  /* ── SECTION 1: MINDSET CALLOUT ── */
+  .mindset {
+    background: var(--cream);
+    border-radius: 10px;
+    border-left: 5px solid var(--red);
+    padding: 15px 20px;
+    display: flex; align-items: center; gap: 16px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .mindset .ms-icon {
+    flex-shrink: 0; color: var(--red);
+    width: 30px; height: 30px;
+  }
+  .mindset .ms-icon svg { width: 30px; height: 30px; }
+  .mindset p {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 14.5px; font-style: italic;
+    color: var(--deep); line-height: 1.45;
+  }
+
+  /* ── SECTION 2: STARTER STACK 2x2 ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+  }
+  .stack-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column;
+    background: var(--white);
+  }
+  .stack-card .sc-top {
+    display: flex; align-items: center; gap: 9px;
+    margin-bottom: 6px;
+  }
+  .stack-card .sc-icon {
+    width: 32px; height: 32px; flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .stack-card .sc-icon svg { width: 18px; height: 18px; }
+  .stack-card .sc-name {
+    font-size: 12px; font-weight: 800; color: var(--deep);
+    line-height: 1.15; letter-spacing: -0.005em;
+  }
+  .stack-card .sc-name .free {
+    display: block;
+    font-size: 8px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--orange);
+    margin-top: 2px;
+  }
+  .stack-card .sc-desc {
+    font-size: 10.5px; color: var(--body); line-height: 1.45;
+  }
+  .stack-card .sc-link {
+    margin-top: 7px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--red); word-break: break-all;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .stack-card .sc-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .stack-card .sc-note {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 9px; font-style: italic; color: var(--muted);
+    margin-top: 3px; line-height: 1.35;
+  }
+
+  /* ── SECTION 3: USE CASES (2-col list) ── */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px 22px;
+  }
+  .uc-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 7px 0;
+    border-top: 1px solid var(--border);
+  }
+  .uc-item .uc-icon {
+    width: 26px; height: 26px; flex-shrink: 0;
+    color: var(--red); margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .uc-item .uc-icon svg { width: 19px; height: 19px; }
+  .uc-item .uc-name {
+    font-size: 11px; font-weight: 800; color: var(--deep);
+    line-height: 1.2; margin-bottom: 2px;
+  }
+  .uc-item .uc-desc {
+    font-size: 9.8px; color: var(--body); line-height: 1.38;
+  }
+
+  .uc-footnote {
+    margin-top: 11px;
+    background: var(--deep);
+    border-radius: 8px;
+    padding: 9px 16px;
+    color: var(--white);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 11.5px; font-style: italic;
+    text-align: center;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  /* ── PAGE FOOTER (page number / brand) ── */
+  .page-foot {
+    margin-top: auto;
+    padding-top: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 7.5px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  .page-foot .brand { color: var(--charcoal); }
+
+  /* ── SECTION 4: WALKTHROUGH ── */
+  .walk {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .shot {
+    border: 1.5px dashed var(--border-2);
+    border-radius: 10px;
+    background: var(--cream);
+    min-height: 196px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; gap: 8px;
+    color: var(--muted);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .shot svg { width: 26px; height: 26px; opacity: 0.6; }
+  .shot .shot-label {
+    font-size: 9px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .shot .shot-sub {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 9px; font-style: italic;
+    color: var(--muted); max-width: 78%;
+  }
+  .shot .shot-tag {
+    position: absolute; top: 10px; left: 12px;
+    font-size: 7.5px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--red);
+  }
+  .shot-wrap { position: relative; display: flex; }
+  .shot-wrap .shot { flex: 1; }
+  .walk-bullets {
+    margin-top: 11px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .walk-bullets .wb {
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .walk-bullets .wb .n {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 18px; font-style: italic; font-weight: 500;
+    color: var(--red); line-height: 1; flex-shrink: 0;
+  }
+  .walk-bullets .wb p {
+    font-size: 10px; color: var(--body); line-height: 1.4;
+  }
+  .walk-bullets .wb strong { color: var(--deep); font-weight: 700; }
+
+  /* ── SECTION 5: SMART PROMPTING 2-COL ── */
+  .prompt-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .prompt-col {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .prompt-col .pc-head {
+    padding: 9px 14px;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--white);
+    display: flex; align-items: center; gap: 7px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .prompt-col .pc-head svg { width: 15px; height: 15px; }
+  .pc-head.flag { background: var(--red); }
+  .pc-head.voice { background: var(--grad); }
+  .prompt-col ul {
+    list-style: none;
+    padding: 11px 14px 12px;
+  }
+  .prompt-col li {
+    font-size: 10px; color: var(--body); line-height: 1.4;
+    padding-left: 16px; position: relative;
+    margin-bottom: 6px;
+  }
+  .prompt-col li:last-child { margin-bottom: 0; }
+  .prompt-col.flags li::before {
+    content: '✕';
+    position: absolute; left: 0; top: 0;
+    color: var(--red); font-weight: 800; font-size: 9px;
+  }
+  .prompt-col.voice-col li::before {
+    content: '';
+    position: absolute; left: 2px; top: 6px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--grad);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .prompt-col li code {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic; font-size: 10px;
+    color: var(--deep);
+  }
+
+  /* ── SECTION 6: CLINICAL SAFETY ── */
+  .safety {
+    background: var(--sand);
+    border-radius: 10px;
+    padding: 14px 18px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .safety-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .safety-list li {
+    display: flex; gap: 9px; align-items: flex-start;
+    font-size: 10.5px; color: var(--deep); line-height: 1.4;
+  }
+  .safety-list li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--red); margin-top: 1px; }
+  .safety-list li.warn { font-weight: 700; }
+  .safety-list li.warn svg { color: var(--red); }
+
+  /* ── SECTION 7: CTA BAR ── */
+  .cta {
+    margin-top: 14px;
+    background: var(--grad);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px; align-items: center;
+    color: var(--white);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .cta-text .cta-title {
+    font-size: 15px; font-weight: 800; letter-spacing: -0.01em;
+    line-height: 1.2; margin-bottom: 5px;
+  }
+  .cta-text .cta-url {
+    font-size: 13px; font-weight: 800;
+    background: rgba(255,255,255,0.22);
+    display: inline-block; padding: 3px 10px; border-radius: 5px;
+    letter-spacing: 0.01em; margin-bottom: 7px;
+  }
+  .cta-text .cta-sub {
+    font-size: 10px; font-weight: 600; line-height: 1.4;
+    opacity: 0.96;
+  }
+  .cta-text .cta-sub .ph {
+    background: rgba(255,255,255,0.28);
+    padding: 1px 6px; border-radius: 4px;
+    font-style: italic;
+  }
+  .cta-qr { text-align: center; }
+  .cta-qr .qbox {
+    width: 88px; height: 88px;
+    background: var(--white); border-radius: 8px;
+    padding: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cta-qr .qbox img, .cta-qr .qbox canvas { width: 100% !important; height: 100% !important; }
+  .cta-qr .qcap {
+    font-size: 7px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; margin-top: 5px;
+  }
+
+  /* ── DOC FOOTER ── */
+  .doc-foot {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .doc-foot .df-logo { display: flex; align-items: center; gap: 10px; }
+  .doc-foot .df-logo img { width: 34px; height: 34px; object-fit: contain; }
+  .doc-foot .df-text {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--deep);
+    line-height: 1.5;
+  }
+  .doc-foot .df-text .sub { color: var(--muted); font-weight: 600; }
+  .doc-foot .df-copy {
+    font-size: 8px; font-weight: 600; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── SECTION 4 (revised): AGENTS ── */
+  .agent-lead {
+    font-size: 11.5px; color: var(--body); line-height: 1.55;
+    margin-bottom: 13px;
+  }
+  .agent-lead strong { color: var(--deep); font-weight: 800; }
+  .agent-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px;
+  }
+  .agent-card {
+    border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); background: var(--white);
+    display: flex; flex-direction: column;
+  }
+  .agent-card.flagcard { background: var(--cream); border-color: #F1D9A6; }
+  .agent-card .ac-icon {
+    width: 34px; height: 34px; border-radius: 8px; background: var(--cream);
+    display: flex; align-items: center; justify-content: center; color: var(--red);
+    margin-bottom: 10px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .agent-card.flagcard .ac-icon { background: var(--white); color: var(--orange); }
+  .agent-card .ac-icon svg { width: 19px; height: 19px; }
+  .agent-card .ac-name {
+    font-size: 11.5px; font-weight: 800; color: var(--deep);
+    margin-bottom: 5px; letter-spacing: -0.005em; line-height: 1.2;
+  }
+  .agent-card .ac-desc { font-size: 10px; color: var(--body); line-height: 1.45; }
+  .agent-note {
+    margin-top: 13px; display: flex; gap: 10px; align-items: center;
+    font-family: 'Lora', Georgia, serif; font-size: 11px; font-style: italic;
+    color: var(--charcoal);
+    border-left: 4px solid var(--yellow); padding: 9px 14px; background: var(--cream);
+    border-radius: 0 8px 8px 0;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .agent-note svg { width: 17px; height: 17px; color: var(--red); flex-shrink: 0; }
+
+  /* Smart-prompting closing tip */
+  .prompt-tip {
+    margin-top: 12px; display: flex; gap: 10px; align-items: center;
+    background: var(--deep); color: var(--white); border-radius: 8px;
+    padding: 10px 15px;
+    font-family: 'Lora', Georgia, serif; font-size: 11.5px; font-style: italic;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .prompt-tip svg { width: 17px; height: 17px; color: var(--yellow); flex-shrink: 0; }
+
+  .pc-head.master { background: var(--deep); }
+  .prompt-col.master-col li::before {
+    content: ''; position: absolute; left: 2px; top: 6px;
+    width: 7px; height: 7px; border-radius: 2px; background: var(--deep);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .ai-tells {
+    margin-top: 12px; border: 1px solid #F1D6AE; background: var(--cream);
+    border-radius: 8px; padding: 9px 14px;
+    display: flex; gap: 12px; align-items: baseline;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .ai-tells .label {
+    font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--red); display: flex; align-items: center; gap: 6px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .ai-tells .label svg { width: 14px; height: 14px; }
+  .ai-tells .items { font-size: 9.5px; color: var(--body); line-height: 1.55; }
+  .ai-tells .items code { font-family: 'Lora', Georgia, serif; font-style: italic; color: var(--deep); }
+
+  /* page-2 breathing room */
+  .p2 .sec { margin-top: 11px; }
+  .p2 .walk-bullets { margin-top: 16px; }
+  .p2 .cta { margin-top: 11px; }
+  .p2 .doc-foot { margin-top: auto; }
+
+  /* ── PRINT ── */
+  @page { size: 8.5in 11in; margin: 0; }
+  @media print {
+    html, body { background: white; padding: 0; }
+    .page {
+      box-shadow: none; margin: 0;
+      width: 8.5in; height: 11in;
+      padding: 0.5in;
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ PAGE 1 ════════════════════ -->
+<article class="page">
+  <div class="wm" style="width: 340px; height: 340px; right: -90px; bottom: -80px;">
+    <img src="/assets/logo-icon.webp" alt="">
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="/assets/logo-stacked.webp" alt="Life Charge Chiropractic">
+    </div>
+    <div class="header-main">
+      <div class="eyebrow">Fire on the Mountain 2026</div>
+      <h1 class="title">AI for Chiropractors: <span class="grad">The Practical Playbook</span></h1>
+      <div class="subtitle">What I'm actually using in my practice, and how you can start this week.</div>
+      <div class="presented">Presented by Dr. <span class="ph">PALMER PIANA</span>, Life Charge Chiropractic</div>
+    </div>
+    <div class="header-qr">
+      <div class="qbox"><div id="qr-header"></div></div>
+      <div class="qcap">Scan to<br>download</div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: MINDSET -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">1</span>
+      <span class="sec-title">The Mindset Shift</span>
+    </div>
+    <div class="mindset">
+      <span class="ms-icon"><i data-lucide="lightbulb"></i></span>
+      <p>If you can dream it, it exists now. The bottleneck isn't the tech, it's knowing what to ask for. If you're not techy, have someone on your team who is.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: STARTER STACK -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">2</span>
+      <span class="sec-title">The Starter Stack <span class="light">/ four tools to begin with</span></span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="sc-top">
+          <span class="sc-icon"><i data-lucide="message-circle"></i></span>
+          <div class="sc-name">ChatGPT / Claude / XAI
+FREE TIER</div>
+        </div>
+        <div class="sc-desc">Clinical questions, patient explanations, and first drafts of almost anything.</div>
+      </div>
+      <div class="stack-card">
+        <div class="sc-top">
+          <span class="sc-icon"><i data-lucide="layout-template"></i></span>
+          <div class="sc-name">Claude Design</div>
+        </div>
+        <div class="sc-desc">Websites, posters, and layouts. I built this flyer in 90 seconds.
+
+
+Build brand consistency.</div>
+      </div>
+      <div class="stack-card">
+        <div class="sc-top">
+          <span class="sc-icon"><i data-lucide="badge-check"></i></span>
+          <div class="sc-name">ChatGPT for Clinicians</div>
+        </div>
+        <div class="sc-desc">Free upgraded access for verified providers with an NPI.</div>
+        <div class="sc-link"><i data-lucide="link"></i>chatgpt.com/plans/clinicians</div>
+        <div class="sc-note">Currently verifies MDs, NPs, PAs, pharmacists, and psychologists. DCs: sign up with your NPI and see if you qualify.</div>
+      </div>
+      <div class="stack-card">
+        <div class="sc-top">
+          <span class="sc-icon"><i data-lucide="zap"></i></span>
+          <div class="sc-name">Zapier + Agents (Open Claw)</div>
+        </div>
+        <div class="sc-desc">The glue and the muscle. Automates background tasks and takes actions on your computer.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: REAL USE CASES -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">3</span>
+      <span class="sec-title">Real Use Cases From My Office</span>
+    </div>
+    <div class="uc-grid">
+      <div class="uc-item">
+        <span class="uc-icon"><i data-lucide="globe"></i></span>
+        <div>
+          <div class="uc-name">Websites</div>
+          <div class="uc-desc">Built with Claude Design. No dev, no agency, no monthly retainer.</div>
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon"><i data-lucide="image"></i></span>
+        <div>
+          <div class="uc-name">Marketing visuals</div>
+          <div class="uc-desc">Posters, social posts, and office layout concepts, all on brand.</div>
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon"><i data-lucide="stethoscope"></i></span>
+        <div>
+          <div class="uc-name">Clinical Q&amp;A</div>
+          <div class="uc-desc">A fast second opinion and patient-friendly explanations on demand.</div>
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon"><i data-lucide="quote"></i></span>
+        <div>
+          <div class="uc-name">Custom quotes &amp; photos app</div>
+          <div class="uc-desc">Pulls my online content into one usable feed.</div>
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon"><i data-lucide="mic"></i></span>
+        <div>
+          <div class="uc-name">Patient conversation recall</div>
+          <div class="uc-desc">Runs locally with a rolling buffer, no storage. One button captures the last 30 seconds and turns it into a note.</div>
+        </div>
+      </div>
+      <div class="uc-item">
+        <span class="uc-icon"><i data-lucide="file-text"></i></span>
+        <div>
+          <div class="uc-name">Initial notes automation</div>
+          <div class="uc-desc">Voice memo to Zapier to finished notes, with no typing.</div>
+        </div>
+      </div>
+    </div>
+    <div class="uc-footnote">Want to see how any of these were built? Find me after the talk.</div>
+  </section>
+
+  <div class="page-foot">
+    <span class="brand">Life Charge Chiropractic &nbsp;·&nbsp; Gallatin, TN</span>
+    <span>Page 1 of 2</span>
+  </div>
+</article>
+
+<!-- ════════════════════ PAGE 2 ════════════════════ -->
+<article class="page p2">
+  <div class="wm" style="width: 320px; height: 320px; left: -90px; top: -70px;">
+    <img src="/assets/logo-icon.webp" alt="">
+  </div>
+
+  <!-- SECTION 4: AGENTS -->
+  <section class="sec" style="margin-top: 0;">
+    <div class="sec-head">
+      <span class="sec-num">4</span>
+      <span class="sec-title">Agents <span class="light">/ this year's real game-changer</span></span>
+    </div>
+    <p class="agent-lead">A chat model answers questions. An agent takes action. It can work through your documents, draft and send a text, or add something to your calendar. It takes a little more to set up, and it is where the biggest jump in usefulness is happening right now.</p>
+    <div class="agent-grid">
+      <div class="agent-card">
+        <span class="ac-icon"><i data-lucide="bot"></i></span>
+        <div class="ac-name">It acts, not just answers</div>
+        <div class="ac-desc">Reads and sorts documents, sends messages, and runs multi-step tasks for you. You can even kick one off from your phone.</div>
+      </div>
+      <div class="agent-card">
+        <span class="ac-icon"><i data-lucide="route"></i></span>
+        <div class="ac-name">Match the model to the task</div>
+        <div class="ac-desc">You pay for usage, so route it. Not every job needs the most powerful model. Send quick tasks to cheaper, faster ones and save the deep thinking for what earns it.</div>
+      </div>
+      <div class="agent-card flagcard">
+        <span class="ac-icon"><i data-lucide="shield-alert"></i></span>
+        <div class="ac-name">Handle with care</div>
+        <div class="ac-desc">This is the gray area. More access means more power, and more room to go wrong. Start small, stay in the loop, and never hand over what you can't double-check.</div>
+      </div>
+    </div>
+    <div class="agent-note"><i data-lucide="info"></i>Connecting your calendar or inbox takes a little trust. Hand over the keys gradually, and watch what an agent does before you let it run on its own.</div>
+  </section>
+
+  <!-- SECTION 5: SMART PROMPTING -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">5</span>
+      <span class="sec-title">Smart Prompting <span class="light">/ give it context, not just instructions</span></span>
+    </div>
+    <div class="prompt-grid">
+      <div class="prompt-col master-col">
+        <div class="pc-head master"><i data-lucide="folder-cog"></i>Build a Master File</div>
+        <ul>
+          <li>One document with your facts: services, hours, address, phone, and booking link.</li>
+          <li>Examples of your brand voice and how you actually talk to patients.</li>
+          <li>Your rules: what to always do, and what to never say.</li>
+          <li>Paste in your whole website so it has every detail straight.</li>
+          <li>Feed it the same file every time, so what it makes is accurate and on brand (OR BUILD A GPT)</li>
+        </ul>
+      </div>
+      <div class="prompt-col voice-col">
+        <div class="pc-head voice"><i data-lucide="pen-line"></i>HOW TO SOUND MORE NATURAL</div>
+        <ul>
+          <li>Paste samples of your own writing and say "match this voice."</li>
+          <li>Give it feedback - it remembers your preferences. </li>
+          <li>Name the audience, the length, and the reading level.</li>
+          <li>Use voice to speak and give it plenty direction so it understands what you want. More info the better. Doesn't have to be smooth. </li>
+          <li>Treat the first output as a rough draft, usually not the finished piece.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ai-tells">
+      <span class="label"><i data-lucide="alert-triangle"></i>Scrub these AI tells</span>
+      <span class="items">Em dashes everywhere &middot; <code>"it's not just X, it's Y"</code> &middot; <code>"delve," "tapestry," "navigate the landscape"</code> &middot; tired metaphors &middot; the same three-item list every time &middot; <code>"in today's fast-paced world..."</code></span>
+    </div>
+  </section>
+
+  <!-- SECTION 6: CLINICAL SAFETY -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-num">6</span>
+      <span class="sec-title">Clinical Use, Done Safely</span>
+    </div>
+    <div class="safety">
+      <ul class="safety-list">
+        <li><i data-lucide="check-circle"></i>Free chat models handle most general questions just fine.</li>
+        <li><i data-lucide="badge-check"></i>ChatGPT for Clinicians gives upgraded access to verified providers (NPI required).</li>
+        <li class="warn"><i data-lucide="shield-alert"></i>Never paste identifiable patient info into public models. No names, no DOBs, no MRNs.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 7: CTA -->
+  <section class="cta">
+    <div class="cta-text">
+      <div class="cta-title">Download this sheet and every link.</div>
+      <div class="cta-url">lifechargechiropractic.com/ai</div>
+      <div class="cta-sub">Questions? Want to see the recall app or notes flow live? <span class="ph">[contact / book link]</span></div>
+    </div>
+    <div class="cta-qr">
+      <div class="qbox"><div id="qr-cta"></div></div>
+      <div class="qcap">Scan me</div>
+    </div>
+  </section>
+
+  <!-- DOC FOOTER -->
+  <footer class="doc-foot">
+    <div class="df-logo">
+      <img src="/assets/logo-icon.webp" alt="Life Charge Chiropractic">
+      <div class="df-text">
+        Life Charge Chiropractic<br>
+        <span class="sub">Gallatin, TN &nbsp;·&nbsp; lifechargechiropractic.com</span>
+      </div>
+    </div>
+    <div class="df-copy">&copy; 2026 Life Charge Chiropractic<br>All rights reserved</div>
+  </footer>
+</article>
+
+
+
+<script>
+  // Lucide line icons
+  if (window.lucide) lucide.createIcons();
+
+  // QR codes → download page (update DOWNLOAD_URL when the final URL is set)
+  var DOWNLOAD_URL = "https://lifechargechiropractic.com/ai";
+  function makeQR(id, size) {
+    var el = document.getElementById(id);
+    if (el && window.QRCode) {
+      new QRCode(el, {
+        text: DOWNLOAD_URL,
+        width: size, height: size,
+        colorDark: "#2D2D2F", colorLight: "#FFFFFF",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+  }
+  makeQR("qr-header", 140);
+  makeQR("qr-cta", 160);
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>if (window.lucide) lucide.createIcons();</script>
+</body>
+</html>
