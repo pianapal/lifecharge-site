@@ -1,0 +1,82 @@
+(function () {
+  'use strict';
+
+  var MEASUREMENT_ID = 'G-EJ93DS5ESH';
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () {
+    window.dataLayer.push(arguments);
+  };
+
+  window.gtag('js', new Date());
+  window.gtag('config', MEASUREMENT_ID);
+
+  var googleTag = document.createElement('script');
+  googleTag.async = true;
+  googleTag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(MEASUREMENT_ID);
+  document.head.appendChild(googleTag);
+
+  function cleanText(value) {
+    return (value || '').replace(/\s+/g, ' ').trim().slice(0, 100);
+  }
+
+  function ctaLocation(link) {
+    if (link.closest('.sticky-cta')) return 'sticky_cta';
+    if (link.closest('nav')) return 'navigation';
+    if (link.closest('footer')) return 'footer';
+    if (link.closest('.page-hero, header')) return 'hero';
+    if (link.closest('.page-cta')) return 'page_cta';
+    return 'content';
+  }
+
+  function track(eventName, link, extraParameters) {
+    var parameters = {
+      cta_location: ctaLocation(link),
+      link_text: cleanText(link.textContent),
+      page_path: window.location.pathname,
+      page_language: document.documentElement.lang || 'en'
+    };
+
+    Object.keys(extraParameters || {}).forEach(function (key) {
+      parameters[key] = extraParameters[key];
+    });
+
+    window.gtag('event', eventName, parameters);
+  }
+
+  document.addEventListener('click', function (event) {
+    if (!event.target || typeof event.target.closest !== 'function') return;
+    var link = event.target.closest('a[href]');
+    if (!link) return;
+
+    var href = link.getAttribute('href') || '';
+
+    if (href.indexOf('tel:') === 0) {
+      track('phone_call_click', link);
+      return;
+    }
+
+    if (href.indexOf('mailto:') === 0) {
+      track('email_click', link);
+      return;
+    }
+
+    try {
+      var destination = new URL(link.href, window.location.href);
+
+      if (destination.hostname === 'schedule.lifechargechiropractic.com') {
+        track('schedule_click', link, {
+          destination_path: destination.pathname
+        });
+        return;
+      }
+
+      if (destination.origin === window.location.origin &&
+          destination.pathname.replace(/\/+$/, '') === '/auto-accident-consultation') {
+        track('consultation_click', link);
+      }
+    } catch (error) {
+      // Ignore malformed links and allow normal navigation to continue.
+    }
+  }, true);
+})();
