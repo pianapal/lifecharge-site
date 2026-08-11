@@ -183,6 +183,18 @@
  .hero h1 { font-size: clamp(38px, 4.5vw, 64px); font-weight: 900; line-height: 1.08; letter-spacing: -0.03em; color: var(--white); margin-bottom: 20px; }
  .hero-sub { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.70); line-height: 1.72; max-width: 440px; margin-bottom: 36px; }
  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+ /* Award seal: TCA Rising Chiropractor of the Year */
+ .award-seal { display: inline-flex; align-items: center; gap: 13px; padding: 11px 20px 11px 15px; margin-bottom: 30px; border-radius: 999px; text-decoration: none; background: linear-gradient(100deg, rgba(255,204,41,0.16) 0%, rgba(255,204,41,0.05) 100%); border: 1px solid rgba(255,204,41,0.42); box-shadow: 0 6px 22px rgba(255,204,41,0.10); transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease; align-self: flex-start; }
+ .award-seal:hover { border-color: rgba(255,204,41,0.8); box-shadow: 0 10px 30px rgba(255,204,41,0.20); transform: translateY(-1px); }
+ .award-seal svg { width: 30px; height: 30px; flex-shrink: 0; color: var(--yellow); }
+ .award-seal-year { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,204,41,0.75); margin-bottom: 2px; }
+ .award-seal-title { font-size: 13.5px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.005em; }
+ .award-seal-org { font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 2px; }
+ @media (max-width: 600px) {
+  .award-seal { padding: 10px 16px 10px 12px; gap: 10px; margin-bottom: 24px; }
+  .award-seal svg { width: 26px; height: 26px; }
+  .award-seal-title { font-size: 12.5px; }
+ }
  .hero-badges { display: flex; flex-direction: column; gap: 8px; }
  .hero-badge { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.55); }
  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--grad); flex-shrink: 0; }
@@ -558,6 +570,21 @@
  <div class="hero-eyebrow">Gallatin &amp; Hendersonville, TN</div>
  <h1>Gallatin Chiropractor for Back Pain, Sciatica &amp; Headaches</h1>
  <p class="hero-sub">Neck pain, back pain, or headaches? Start here. A focused exam, digital X-rays and thermal imaging when appropriate, and a clear plan, designed for families across Gallatin, Hendersonville, and Sumner County.</p>
+ <a class="award-seal" href="about/" aria-label="Dr. Palmer Piana, 2026 Rising Chiropractor of the Year, Tennessee Chiropractic Association">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+ <path d="M8.6 3.4C6 4.6 4.2 7.1 4.2 10.1c0 2.2 1 4.2 2.6 5.5"/>
+ <path d="M15.4 3.4c2.6 1.2 4.4 3.7 4.4 6.7 0 2.2-1 4.2-2.6 5.5"/>
+ <path d="M7.4 6.6c-.8.9-1.3 2.1-1.3 3.5 0 1.5.6 2.9 1.6 3.8"/>
+ <path d="M16.6 6.6c.8.9 1.3 2.1 1.3 3.5 0 1.5-.6 2.9-1.6 3.8"/>
+ <circle cx="12" cy="9.8" r="3.1"/>
+ <path d="M9.4 15.2 8.2 21l3.8-2 3.8 2-1.2-5.8"/>
+ </svg>
+ <span>
+ <span class="award-seal-year" style="display:block;">2026 Award</span>
+ <span class="award-seal-title" style="display:block;">Rising Chiropractor of the Year</span>
+ <span class="award-seal-org" style="display:block;">Tennessee Chiropractic Association</span>
+ </span>
+ </a>
  <div class="hero-actions">
  <a href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener" class="btn-primary">Claim $49 New Patient Special</a>
  <a href="what-to-expect/" class="btn-ghost-light">See What to Expect</a>
