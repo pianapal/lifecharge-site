@@ -386,16 +386,31 @@
   margin: 0 auto;
  }
  .fit-copy, .fit-list-wrap { min-width: 0; }
- .fit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+ .fit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(45,45,47,0.14);
+ }
  .fit-item {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 18px;
   align-items: start;
+  padding: 19px 0;
+  border-bottom: 1px solid rgba(45,45,47,0.14);
   color: var(--charcoal);
   line-height: 1.65;
  }
- .fit-check { color: var(--red); font-weight: 900; font-size: 18px; line-height: 1.2; }
+ .fit-num {
+  padding-top: 4px;
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+ }
  .fit-item strong { color: var(--deep); font-weight: 800; }
 
  /* ─── THERMAL ─── */
@@ -601,17 +616,13 @@
  .hero-review-chip { display: none; }
  .hero-eyebrow { font-size: 9px; }
  .fit-copy .btn-primary { display: flex; width: 100%; justify-content: center; text-align: center; }
- .fit-list { gap: 12px; }
  .fit-item {
-  grid-template-columns: 20px minmax(0, 1fr);
-  gap: 10px;
-  padding: 14px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+  padding: 17px 0;
   font-size: 14px;
  }
- .fit-check { font-size: 16px; }
+ .fit-num { padding-top: 5px; font-size: 9px; }
  }
  @media (max-width: 480px) {
  body { font-size: 14px; }
@@ -907,17 +918,17 @@
  <div class="fit-copy">
  <div class="eyebrow">Is This the Right Fit?</div>
  <h2 class="section-h2" style="font-size:clamp(28px,3.5vw,40px);margin-bottom:14px;">Life Charge may be a good fit if you want:</h2>
- <p style="font-size:15px;color:var(--charcoal);line-height:1.7;margin-bottom:24px;">We are a doctor-led, family-run office, not a high-volume chain. If you are looking for the cheapest possible adjustment without an exam, we are probably not the right fit, and that is OK. If any of the below sounds like you, we would love to meet you.</p>
- <a class="btn-primary" href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener">Claim $49 New Patient Special</a>
+ <p style="font-size:15px;color:var(--charcoal);line-height:1.7;margin-bottom:24px;">Life Charge is a doctor-led, family-run office built around careful evaluation, clear explanations, and care that adapts to the person in front of us. If that is the kind of experience you are looking for, we would love to meet you.</p>
+ <a class="btn-primary" href="https://schedule.lifechargechiropractic.com/new-patient-offer" target="_blank" rel="noopener">Schedule First Visit</a>
  </div>
  <div class="fit-list-wrap">
  <ul class="fit-list">
- <li class="fit-item"><span class="fit-check">✓</span><div><strong>A clear, focused exam before any care begins.</strong> No guessing. You will know what is going on and why we are recommending what we are recommending.</div></li>
- <li class="fit-item"><span class="fit-check">✓</span><div><strong>Objective findings explained plainly.</strong> Digital X-rays and thermal imaging when they would meaningfully add to the picture, not as a default upsell.</div></li>
- <li class="fit-item"><span class="fit-check">✓</span><div><strong>Care for back pain, neck pain, headaches, sciatica, or an <a href="auto-accident/">auto accident</a>.</strong> You get a consistent exam process and the same whole-system approach across conditions.</div></li>
- <li class="fit-item"><span class="fit-check">✓</span><div><strong>Spanish-speaking chiropractic care.</strong> Dr. Palmer is fluent in Spanish. <a href="es/">Atención en español aquí</a>.</div></li>
- <li class="fit-item"><span class="fit-check">✓</span><div><strong>A family-run office, not a high-volume chain.</strong> We are local, we live here, and we built this place for households like ours.</div></li>
- <li class="fit-item"><span class="fit-check">✓</span><div><strong>Care that adapts to the patient.</strong> The technique for a child, an adult, an athlete, an expecting mom, and an older adult all look different. We adjust to you, not the other way around.</div></li>
+ <li class="fit-item"><span class="fit-num">01</span><div><strong>A clear, focused exam before any care begins.</strong> No guessing. You will know what is going on and why we are recommending what we are recommending.</div></li>
+ <li class="fit-item"><span class="fit-num">02</span><div><strong>Objective findings explained plainly.</strong> Digital X-rays and thermal imaging when they would meaningfully add to the picture, not as a default upsell.</div></li>
+ <li class="fit-item"><span class="fit-num">03</span><div><strong>Care for back pain, neck pain, headaches, sciatica, or an <a href="auto-accident/">auto accident</a>.</strong> You get a consistent exam process and the same whole-system approach across conditions.</div></li>
+ <li class="fit-item"><span class="fit-num">04</span><div><strong>Spanish-speaking chiropractic care.</strong> Dr. Palmer is fluent in Spanish. <a href="es/">Atención en español aquí</a>.</div></li>
+ <li class="fit-item"><span class="fit-num">05</span><div><strong>A family-run office, not a high-volume chain.</strong> We are local, we live here, and we built this place for households like ours.</div></li>
+ <li class="fit-item"><span class="fit-num">06</span><div><strong>Care that adapts to the patient.</strong> The technique for a child, an adult, an athlete, an expecting mom, and an older adult all look different. We adjust to you, not the other way around.</div></li>
  </ul>
  </div>
  </div>
