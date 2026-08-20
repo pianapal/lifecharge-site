@@ -84,6 +84,21 @@ nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.98)
   border-bottom-color: var(--red);
 }
 
+/* Phone numbers added to body copy and footers remain visually native while
+   exposing a clear tap/click affordance. Clicks are tracked in analytics.js. */
+.tracked-phone-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(237,50,55,0.35);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+.tracked-phone-link:hover {
+  color: var(--red);
+  text-decoration-color: var(--red);
+}
+
 /* SYMPTOM GRID */
 .symptom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; counter-reset: sym-counter; }
 .symptom-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 30px 28px 26px; box-shadow: 0 4px 14px rgba(0,0,0,0.04); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; position: relative; overflow: hidden; counter-increment: sym-counter; }

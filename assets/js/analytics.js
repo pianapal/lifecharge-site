@@ -2,14 +2,23 @@
   'use strict';
 
   var MEASUREMENT_ID = 'G-EJ93DS5ESH';
+  var GOOGLE_ADS_ID = 'AW-16473892179';
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () {
     window.dataLayer.push(arguments);
   };
 
+  window.gtag('set', 'linker', {
+    domains: [
+      'lifechargechiropractic.com',
+      'schedule.lifechargechiropractic.com'
+    ],
+    decorate_forms: true
+  });
   window.gtag('js', new Date());
   window.gtag('config', MEASUREMENT_ID);
+  window.gtag('config', GOOGLE_ADS_ID);
 
   var googleTag = document.createElement('script');
   googleTag.async = true;
@@ -33,6 +42,7 @@
     var parameters = {
       cta_location: ctaLocation(link),
       link_text: cleanText(link.textContent),
+      link_url: link.href,
       page_path: window.location.pathname,
       page_language: document.documentElement.lang || 'en'
     };
@@ -64,8 +74,17 @@
     try {
       var destination = new URL(link.href, window.location.href);
 
+      if (destination.hostname === 'wa.me' ||
+          destination.hostname === 'api.whatsapp.com') {
+        track('whatsapp_click', link, {
+          destination_host: destination.hostname
+        });
+        return;
+      }
+
       if (destination.hostname === 'schedule.lifechargechiropractic.com') {
         track('schedule_click', link, {
+          destination_host: destination.hostname,
           destination_path: destination.pathname
         });
         return;
