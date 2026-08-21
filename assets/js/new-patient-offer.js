@@ -2,7 +2,7 @@
   'use strict';
 
   var WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/7gE4vBVcRffrJnXyvGmu/webhook-trigger/81c6a464-264f-4573-b771-956bf2bd5b23';
-  var BOOKING_URL = 'https://schedule.lifechargechiropractic.com/new-patient-offer';
+  var BOOKING_URL = 'https://lifechargechiropractic.com/book-new-patient/';
   var ATTRIBUTION_STORAGE_KEY = 'lc_attribution_v1';
   var ATTRIBUTION_KEYS = [
     'utm_source',
@@ -98,6 +98,15 @@
 
     var firstName = document.getElementById('first_name');
     if (firstName) firstName.focus({ preventScroll: true });
+
+    ['https://api.leadconnectorhq.com', 'https://link.msgsndr.com'].forEach(function (origin) {
+      if (document.querySelector('link[rel="preconnect"][href="' + origin + '"]')) return;
+      var preconnect = document.createElement('link');
+      preconnect.rel = 'preconnect';
+      preconnect.href = origin;
+      preconnect.crossOrigin = 'anonymous';
+      document.head.appendChild(preconnect);
+    });
 
     track('offer_details_started', {
       form_name: 'new_patient_offer',
