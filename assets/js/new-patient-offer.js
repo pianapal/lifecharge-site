@@ -35,6 +35,7 @@
   var reserveCard = document.getElementById('reserve');
   var startedAt = Date.now();
   var isSubmitting = false;
+  var hasHandedOff = false;
 
   if (!form || !preferencePanel || !detailsPanel) return;
 
@@ -170,8 +171,10 @@
   }
 
   function handoffToCalendar() {
+    if (hasHandedOff) return;
+    hasHandedOff = true;
     prepareCalendarLinks();
-    calendarHandoff.click();
+    window.location.assign(calendarHandoff.href);
   }
 
   form.querySelectorAll('input[name="preferred_time"]').forEach(function (radio) {
@@ -198,19 +201,29 @@
 
     isSubmitting = true;
     submitButton.disabled = true;
-    submitButton.textContent = 'Saving Your Visit...';
+    submitButton.textContent = 'Saving & Opening Calendar...';
     formError.classList.remove('is-visible');
 
     var payload = formPayload();
+    var handoffTimer = window.setTimeout(function () {
+      track('schedule_handoff', {
+        form_name: 'new_patient_offer',
+        destination_host: 'lifechargechiropractic.com',
+        webhook_status: 'pending'
+      });
+      handoffToCalendar();
+    }, 1800);
 
     fetch(WEBHOOK_URL, {
       method: 'POST',
       mode: 'cors',
+      keepalive: true,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).then(function (response) {
       if (!response.ok) throw new Error('Lead capture failed');
 
+      window.clearTimeout(handoffTimer);
       form.hidden = true;
       formSuccess.classList.add('is-visible');
       track('generate_lead', {
@@ -221,15 +234,18 @@
       });
       track('schedule_handoff', {
         form_name: 'new_patient_offer',
-        destination_host: 'schedule.lifechargechiropractic.com'
+        destination_host: 'lifechargechiropractic.com',
+        webhook_status: 'saved'
       });
 
       if (typeof window.fbq === 'function') {
         window.fbq('track', 'Lead', { value: 49, currency: 'USD' });
       }
 
-      window.setTimeout(handoffToCalendar, 850);
+      window.setTimeout(handoffToCalendar, 250);
     }).catch(function () {
+      window.clearTimeout(handoffTimer);
+      if (hasHandedOff) return;
       isSubmitting = false;
       submitButton.disabled = false;
       submitButton.textContent = 'Claim My $49 Visit & See Times';
