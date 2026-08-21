@@ -29,6 +29,69 @@
     return (value || '').replace(/\s+/g, ' ').trim().slice(0, 100);
   }
 
+  var ATTRIBUTION_STORAGE_KEY = 'lc_attribution_v1';
+  var ATTRIBUTION_KEYS = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'gclid',
+    'dclid',
+    'wbraid',
+    'gbraid',
+    'fbclid',
+    'msclkid'
+  ];
+
+  function cleanAttributionValue(value) {
+    return String(value || '').replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 300);
+  }
+
+  function readAttribution() {
+    try {
+      var stored = window.sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function captureAttribution() {
+    var attribution = readAttribution();
+    var query = new URLSearchParams(window.location.search);
+    var isFirstCapture = !attribution.first_landing_page;
+
+    if (isFirstCapture) {
+      attribution.first_landing_page = cleanAttributionValue(
+        window.location.pathname + window.location.search
+      );
+      attribution.first_referrer = cleanAttributionValue(document.referrer);
+    }
+
+    ATTRIBUTION_KEYS.forEach(function (key) {
+      if (query.has(key)) {
+        attribution[key] = cleanAttributionValue(query.get(key));
+      }
+    });
+
+    attribution.latest_page = cleanAttributionValue(
+      window.location.pathname + window.location.search
+    );
+
+    try {
+      window.sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(attribution));
+    } catch (error) {
+      // Keep navigation and analytics working when storage is unavailable.
+    }
+
+    return attribution;
+  }
+
+  window.LifeChargeAnalytics = window.LifeChargeAnalytics || {};
+  window.LifeChargeAnalytics.getAttribution = readAttribution;
+  window.LifeChargeAnalytics.attribution = captureAttribution();
+
   function ctaLocation(link) {
     if (link.closest('.sticky-cta')) return 'sticky_cta';
     if (link.closest('nav')) return 'navigation';
@@ -87,6 +150,12 @@
           destination_host: destination.hostname,
           destination_path: destination.pathname
         });
+        return;
+      }
+
+      if (destination.origin === window.location.origin &&
+          destination.pathname.replace(/\/+$/, '') === '/new-patient-offer') {
+        track('offer_click', link);
         return;
       }
 
