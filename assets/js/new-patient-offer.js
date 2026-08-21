@@ -240,6 +240,16 @@
     });
   });
 
+  document.querySelectorAll('a[data-track="directions"]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      track('directions_click', {
+        link_text: (link.textContent || link.getAttribute('aria-label') || '').trim().slice(0, 100),
+        destination_host: 'www.google.com',
+        page_path: window.location.pathname
+      });
+    });
+  });
+
   if (mobileReserve && reserveCard && 'IntersectionObserver' in window) {
     var reserveVisible = true;
     var reserveObserver = new IntersectionObserver(function (entries) {

@@ -160,6 +160,14 @@
   .doctor-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
   .doctor-fact { padding: 8px 11px; border-radius: 999px; background: white; border: 1px solid var(--sand); font-size: 9px; font-weight: 800; color: var(--deep); }
 
+  .location-section { background: white; }
+  .location-map-card { display: block; overflow: hidden; border: 1px solid #e8e1d7; border-radius: 20px; background: #f7f3ed; box-shadow: 0 24px 60px rgba(45,45,47,.13); }
+  .location-map-card img { display: block; width: 100%; height: auto; }
+  .location-meta { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 24px; padding: 0 5px; }
+  .location-address strong { display: block; margin-bottom: 4px; font-size: 14px; font-weight: 900; }
+  .location-address span { display: block; color: var(--charcoal); font-size: 11px; }
+  .location-directions { display: inline-block; flex: 0 0 auto; padding: 13px 18px; border-radius: 7px; background: var(--deep); color: white; text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+
   .faq-section { background: white; }
   .offer-faq { max-width: 850px; margin: 0 auto; border-top: 1px solid var(--sand); }
   .offer-faq details { border-bottom: 1px solid var(--sand); }
@@ -223,6 +231,9 @@
     .visit-photo { aspect-ratio: 4/3; }
     .review-card { padding: 23px; }
     .doctor-collage { max-width: 520px; }
+    .location-map-card { border-radius: 14px; }
+    .location-meta { display: block; margin-top: 19px; padding: 0; }
+    .location-directions { margin-top: 16px; }
     .final-cta { padding: 55px 18px; }
     .final-cta-inner { display: block; }
     .final-cta-link { margin-top: 24px; }
@@ -398,6 +409,26 @@
         <p>Dr. Palmer and Dr. Pierce Piana are both Palmer College of Chiropractic graduates. They use the same examination process, explain findings in plain language, and build care around what your body and imaging actually show.</p>
         <p>When a case benefits from another perspective, they can review the findings together. You get a personal doctor relationship with the advantage of a second clinical viewpoint under the same roof.</p>
         <div class="doctor-facts"><span class="doctor-fact">Palmer College graduates</span><span class="doctor-fact">Two-doctor collaboration</span><span class="doctor-fact">Spanish care with Dr. Palmer</span><span class="doctor-fact">Gallatin family practice</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offer-section location-section">
+    <div class="offer-section-inner">
+      <div class="section-heading center">
+        <div class="section-kicker">Easy from either direction</div>
+        <h2>Close to the lake. Right on Nashville Pike.</h2>
+        <p>Life Charge sits between Hendersonville and downtown Gallatin, near Old Hickory Lake, with free parking and a ground-floor entrance.</p>
+      </div>
+      <a class="location-map-card" data-track="directions" href="https://www.google.com/maps/search/?api=1&amp;query=Life+Charge+Chiropractic+Gallatin+TN" target="_blank" rel="noopener" aria-label="Open Life Charge Chiropractic in Google Maps">
+        <picture>
+          <source media="(max-width:720px)" srcset="../assets/photos/location-hendersonville-gallatin-mobile.webp" width="1080" height="1350">
+          <img src="../assets/photos/location-hendersonville-gallatin.webp" width="1672" height="941" alt="Map based on real road geography showing Life Charge Chiropractic on Nashville Pike between Hendersonville and Gallatin beside Old Hickory Lake" loading="lazy">
+        </picture>
+      </a>
+      <div class="location-meta">
+        <div class="location-address"><strong>1921 Nashville Pike, Suite 500</strong><span>Gallatin, TN 37066</span></div>
+        <a class="location-directions" data-track="directions" href="https://www.google.com/maps/search/?api=1&amp;query=Life+Charge+Chiropractic+Gallatin+TN" target="_blank" rel="noopener">Get Directions</a>
       </div>
     </div>
   </section>
