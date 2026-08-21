@@ -141,6 +141,16 @@
     return true;
   }
 
+  function clearBrowserAutofillFromHoneypots() {
+    form.querySelectorAll('.hp-field input').forEach(function (field) {
+      try {
+        if (field.matches(':-webkit-autofill')) field.value = '';
+      } catch (error) {
+        // Ignore browsers that do not expose an autofill selector.
+      }
+    });
+  }
+
   function formPayload() {
     var data = new FormData(form);
     var payload = {};
@@ -164,8 +174,8 @@
     payload.tag = 'new-patient-offer';
     payload.offer_name = '$49 New Patient Visit';
     payload.offer_value = '49';
-    delete payload.website;
-    delete payload.company;
+    delete payload.lc_check_a;
+    delete payload.lc_check_b;
 
     return payload;
   }
@@ -195,9 +205,10 @@
     event.preventDefault();
     if (isSubmitting || !validateDetails()) return;
 
-    var website = document.getElementById('website');
-    var company = document.getElementById('company');
-    if ((website && website.value) || (company && company.value)) return;
+    clearBrowserAutofillFromHoneypots();
+    var honeyA = document.getElementById('lc_check_a');
+    var honeyB = document.getElementById('lc_check_b');
+    if ((honeyA && honeyA.value) || (honeyB && honeyB.value)) return;
 
     isSubmitting = true;
     submitButton.disabled = true;
