@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/7gE4vBVcRffrJnXyvGmu/webhook-trigger/9c5d118a-8317-4a2a-b14a-d5760f038385';
+  var WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/7gE4vBVcRffrJnXyvGmu/webhook-trigger/81c6a464-264f-4573-b771-956bf2bd5b23';
   var BOOKING_URL = 'https://schedule.lifechargechiropractic.com/new-patient-offer';
   var ATTRIBUTION_STORAGE_KEY = 'lc_attribution_v1';
   var ATTRIBUTION_KEYS = [
