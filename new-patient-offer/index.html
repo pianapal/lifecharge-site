@@ -14,11 +14,11 @@
 <meta property="og:url" content="https://lifechargechiropractic.com/new-patient-offer/">
 <meta property="og:title" content="$49 New Patient Visit | Life Charge Chiropractic">
 <meta property="og:description" content="Start with a real conversation, a focused exam, objective imaging when appropriate, and a clear plan.">
-<meta property="og:image" content="https://lifechargechiropractic.com/assets/photos/front-desk-sign.webp">
+<meta property="og:image" content="https://lifechargechiropractic.com/assets/photos/exterior-02.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="$49 New Patient Visit | Life Charge Chiropractic">
 <meta name="twitter:description" content="Reserve your visit, then choose an exact appointment from the live calendar.">
-<meta name="twitter:image" content="https://lifechargechiropractic.com/assets/photos/front-desk-sign.webp">
+<meta name="twitter:image" content="https://lifechargechiropractic.com/assets/photos/exterior-02.webp">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
@@ -54,7 +54,7 @@
   .offer-value-note { font-size: 11px; line-height: 1.45; color: rgba(255,255,255,.5); max-width: 240px; }
   .hero-visual { position: relative; min-width: 0; margin-top: 38px; max-width: 620px; }
   .hero-image { overflow: hidden; border-radius: 22px; aspect-ratio: 16/9; box-shadow: 0 28px 70px rgba(0,0,0,.3); }
-  .hero-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 38%; }
+  .hero-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 54%; }
   .hero-proof { position: absolute; left: 22px; bottom: -20px; width: min(355px,calc(100% - 44px)); padding: 16px 19px; border-radius: 12px; background: white; color: var(--deep); box-shadow: 0 16px 38px rgba(0,0,0,.22); }
   .hero-proof-top { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
   .hero-stars { color: #F4A623; letter-spacing: 2px; font-size: 13px; }
@@ -119,8 +119,14 @@
   .section-heading h2 { margin: 0 0 15px; font-size: clamp(30px,4vw,49px); line-height: 1.06; letter-spacing: -.035em; font-weight: 900; }
   .section-heading p { margin: 0; font-size: 15px; line-height: 1.75; color: var(--charcoal); }
   .visit-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 68px; align-items: center; }
+  .visit-visuals { min-width: 0; }
   .visit-photo { position: relative; border-radius: 19px; overflow: hidden; aspect-ratio: 4/5; box-shadow: 0 22px 55px rgba(45,45,47,.16); }
   .visit-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .thermal-preview { margin: 14px 0 0; overflow: hidden; border-radius: 14px; background: var(--deep); box-shadow: 0 16px 35px rgba(45,45,47,.14); }
+  .thermal-preview img { display: block; width: 100%; height: auto; background: #050505; }
+  .thermal-preview figcaption { padding: 13px 16px 14px; color: white; }
+  .thermal-preview strong { display: block; margin-bottom: 3px; font-size: 11px; font-weight: 900; }
+  .thermal-preview span { display: block; font-size: 9px; line-height: 1.5; color: rgba(255,255,255,.58); }
   .visit-list { border-top: 1px solid var(--sand); }
   .visit-item { display: grid; grid-template-columns: 8px 1fr; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--sand); }
   .visit-mark { width: 4px; height: 34px; margin-top: 2px; border-radius: 4px; background: var(--grad); }
@@ -213,7 +219,8 @@
     .offer-section { padding: 68px 18px; }
     .section-heading { margin-bottom: 34px; }
     .visit-grid, .doctors-grid { grid-template-columns: 1fr; gap: 38px; }
-    .visit-photo { aspect-ratio: 4/3; order: 2; }
+    .visit-visuals { order: 2; }
+    .visit-photo { aspect-ratio: 4/3; }
     .review-card { padding: 23px; }
     .doctor-collage { max-width: 520px; }
     .final-cta { padding: 55px 18px; }
@@ -319,10 +326,10 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-image"><img src="../assets/photos/front-desk-sign.webp" width="1800" height="1125" alt="Life Charge Chiropractic front desk and office sign in Gallatin, Tennessee"></div>
+        <div class="hero-image"><img src="../assets/photos/exterior-02.webp" width="1546" height="1024" alt="Life Charge Chiropractic storefront and Suite 500 entrance in Gallatin, Tennessee"></div>
         <div class="hero-proof">
           <div class="hero-proof-top"><span class="hero-stars">★★★★★</span><strong>5.0 from 94+ Google reviews</strong></div>
-          <p>Local, family-owned chiropractic care serving Gallatin, Hendersonville, and Sumner County.</p>
+          <p>Look for the Life Charge sign above Suite 500 at 1921 Nashville Pike.</p>
         </div>
       </div>
     </div>
@@ -339,7 +346,13 @@
 
   <section class="offer-section">
     <div class="offer-section-inner visit-grid">
-      <div class="visit-photo"><img src="../assets/photos/dr-adjusting-athlete.webp" width="1536" height="1024" alt="Dr. Palmer providing a hands-on chiropractic adjustment" loading="lazy"></div>
+      <div class="visit-visuals">
+        <div class="visit-photo"><img src="../assets/photos/dr-adjusting-athlete.webp" width="1536" height="1024" alt="Dr. Palmer providing a hands-on chiropractic adjustment" loading="lazy"></div>
+        <figure class="thermal-preview">
+          <img src="../assets/photos/horizontal-thermography.webp" width="1800" height="321" alt="Examples of thermal imaging scans used at Life Charge Chiropractic" loading="lazy">
+          <figcaption><strong>Non-invasive thermal imaging</strong><span>A visual scan used when clinically appropriate to add objective information to your examination.</span></figcaption>
+        </figure>
+      </div>
       <div>
         <div class="section-heading" style="margin-bottom:28px;">
           <div class="section-kicker">A clearer first step</div>
