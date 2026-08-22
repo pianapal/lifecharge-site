@@ -271,7 +271,7 @@ Do not send crash patients to the $49 offer. Their care is typically MedPay cove
 | Dr. Palmer credentials | Palmer College of Chiropractic, Board-Certified Thermologist, Blair Upper Cervical certified, bilingual English/Spanish, author of *The Day the Animals Found Their Wiggle* (ISBN 9798993409108), **2026 TCA Rising Chiropractor of the Year** |
 | Dr. Pierce credentials | Palmer College of Chiropractic, Pi Kappa Chi |
 | Both | Brothers, rugby players and athletes, Pi Kappa Chi (the professional chiropractic fraternity) |
-| Reviews | 5.0 average, 94+ Google reviews |
+| Reviews | 4.9 average, 105 Google reviews |
 | Service area | Gallatin, Hendersonville, Goodlettsville, Portland, White House, Sumner County |
 
 **Always write "Dr. Pierce", never bare "Pierce".** Same for Dr. Palmer.
