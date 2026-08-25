@@ -3,6 +3,26 @@
 
   var MEASUREMENT_ID = 'G-EJ93DS5ESH';
   var GOOGLE_ADS_ID = 'AW-16473892179';
+  var OPENAI_PIXEL_ID = '4jGoU3ZqHRPhPmKs7JG5xJ';
+
+  if (!window.oaiq) {
+    var openAIQueue = function () {
+      openAIQueue.q.push(arguments);
+    };
+    openAIQueue.q = [];
+    window.oaiq = openAIQueue;
+
+    var openAIPixel = document.createElement('script');
+    openAIPixel.async = true;
+    openAIPixel.src = 'https://bzrcdn.openai.com/sdk/oaiq.min.js';
+    var firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode.insertBefore(openAIPixel, firstScript);
+  }
+
+  window.oaiq('init', {
+    pixelId: OPENAI_PIXEL_ID,
+    debug: true
+  });
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () {
@@ -91,6 +111,11 @@
   window.LifeChargeAnalytics = window.LifeChargeAnalytics || {};
   window.LifeChargeAnalytics.getAttribution = readAttribution;
   window.LifeChargeAnalytics.attribution = captureAttribution();
+  window.LifeChargeAnalytics.measureOpenAI = function (eventName, parameters) {
+    if (typeof window.oaiq === 'function') {
+      window.oaiq('measure', eventName, parameters || {});
+    }
+  };
 
   function ctaLocation(link) {
     if (link.closest('.sticky-cta')) return 'sticky_cta';

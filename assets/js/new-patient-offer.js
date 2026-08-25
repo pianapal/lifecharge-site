@@ -36,12 +36,32 @@
   var startedAt = Date.now();
   var isSubmitting = false;
   var hasHandedOff = false;
+  var hasMeasuredOpenAIConversion = false;
 
   if (!form || !preferencePanel || !detailsPanel) return;
 
   function track(eventName, parameters) {
     if (typeof window.gtag === 'function') {
       window.gtag('event', eventName, parameters || {});
+    }
+  }
+
+  function measureOpenAIConversion() {
+    if (hasMeasuredOpenAIConversion) return;
+    hasMeasuredOpenAIConversion = true;
+
+    if (window.LifeChargeAnalytics &&
+        typeof window.LifeChargeAnalytics.measureOpenAI === 'function') {
+      window.LifeChargeAnalytics.measureOpenAI('appointment_scheduled', {
+        type: 'customer_action'
+      });
+      return;
+    }
+
+    if (typeof window.oaiq === 'function') {
+      window.oaiq('measure', 'appointment_scheduled', {
+        type: 'customer_action'
+      });
     }
   }
 
@@ -214,6 +234,7 @@
     submitButton.disabled = true;
     submitButton.textContent = 'Saving & Opening Calendar...';
     formError.classList.remove('is-visible');
+    measureOpenAIConversion();
 
     var payload = formPayload();
     var handoffTimer = window.setTimeout(function () {
