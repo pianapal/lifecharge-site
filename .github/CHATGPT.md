@@ -43,3 +43,11 @@ Commit both CSS files together. WordPress `/blog/` is separate and excluded from
 > Use GitHub to edit this repository. Read `.github/CHATGPT.md` and any `AGENTS.md`.
 > Make this change: [describe the change]. Check it, publish it to main, then verify
 > the deployment and the changed live page. Use cloud tools without my computer.
+
+## Connection setup
+
+The ChatGPT Codex Connector must be both authorized for the GitHub user and
+installed on the repository owner's account. Reconnecting OAuth alone does not
+install the app. Manage installation access in GitHub Settings > Applications >
+Installed GitHub Apps. All-repository access includes future repositories under
+that owner, but each future website still needs its own cloud publishing setup.
