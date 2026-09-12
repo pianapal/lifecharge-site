@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="/assets/js/analytics.js?v=20260825a"></script>
+<script defer src="/assets/js/analytics.js?v=20260912a"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
@@ -46,7 +46,7 @@
 <!-- Performance hints -->
 <link rel="preload" as="image" href="assets/photos/palmer-adjusting-hands-on.webp" fetchpriority="high">
 <!-- Self-hosted fonts: preload so they start fetching with the HTML, not after CSS parses. -->
-<link rel="preload" as="font" type="font/woff2" href="/fonts/Montserrat-VariableFont_wght.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Montserrat-Latin-Variable.woff2" crossorigin>
 <!-- Lora (testimonial serif) is loaded async because it is below-the-fold. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -170,8 +170,10 @@
 }
 </script>
 <style>
- @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
+ @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Variable.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
  @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Italic-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
+ @font-face { font-family: 'Montserrat Fallback'; src: local('Arial'); font-weight: 100 600; size-adjust: 109.52%; ascent-override: 88.39%; descent-override: 22.92%; line-gap-override: 0%; }
+ @font-face { font-family: 'Montserrat Fallback'; src: local('Arial Bold'); font-weight: 601 900; size-adjust: 112.51%; ascent-override: 86.04%; descent-override: 22.31%; line-gap-override: 0%; }
 
  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  :root {
@@ -179,7 +181,7 @@
  --deep: #2D2D2F; --cream: #FFF7E8; --sand: #EADDC8;
  --sage: #AEBFA3; --white: #fff; --border: #E5E5E5;
  --grad: linear-gradient(135deg, #ED3237 0%, #F47B20 50%, #FFCC29 100%);
- --font: 'Montserrat', sans-serif; --serif: 'Lora', Georgia, serif;
+ --font: 'Montserrat', 'Montserrat Fallback', sans-serif; --serif: 'Lora', Georgia, serif;
  }
  html { scroll-behavior: smooth; }
  body { font-family: var(--font); color: var(--deep); background: var(--white); }
@@ -1065,21 +1067,21 @@
  <div class="blog-grid">
  <div class="blog-card">
  <div class="blog-num">01</div>
- <div class="blog-title">Thermography vs. X-ray: What Each One Actually Shows You</div>
- <div class="blog-body">A plain-language look at what X-rays and thermography each show, and why they answer different questions in care.</div>
- <a href="blog/" class="blog-link">Read more →</a>
+ <div class="blog-title">Thermal Imaging Explained: What the Colors on Your Scan Actually Mean</div>
+ <div class="blog-body">A closer look at surface temperature patterns, scan colors, and how thermal imaging is used in the office.</div>
+ <a href="blog/thermal-imaging-colors-scan-explained/" class="blog-link">Read more →</a>
  </div>
  <div class="blog-card">
  <div class="blog-num">02</div>
- <div class="blog-title">Spring Chiropractic Care in Gallatin, TN</div>
- <div class="blog-body">Why spring activity, yard work, travel, and longer days can make this a smart season to check how your body is moving.</div>
- <a href="blog/" class="blog-link">Read more →</a>
+ <div class="blog-title">The “I Slept Wrong” Neck Pain Problem</div>
+ <div class="blog-body">Why neck pain can show up after sleep, what to consider about your pillow and daily habits, and when to get evaluated.</div>
+ <a href="blog/i-slept-wrong-neck-pain/" class="blog-link">Read more →</a>
  </div>
  <div class="blog-card">
  <div class="blog-num">03</div>
- <div class="blog-title">Golf, Yard Work, and Spring Activity: Avoid Back Flare-Ups</div>
- <div class="blog-body">Practical reminders for golfers, weekend warriors, and yard-work days that tend to wake up the low back.</div>
- <a href="blog/" class="blog-link">Read more →</a>
+ <div class="blog-title">Dr. Palmer Piana: 2026 Rising Chiropractor of the Year</div>
+ <div class="blog-body">Read about Dr. Palmer's recognition from the Tennessee Chiropractic Association and his work in the Gallatin community.</div>
+ <a href="blog/dr-palmer-piana-2026-rising-chiropractor-of-the-year/" class="blog-link">Read more →</a>
  </div>
  </div>
  <div style="margin-top:28px;"><a href="blog/" class="reviews-link">Browse the Blog →</a></div>
@@ -1206,7 +1208,7 @@
  <a href="payment-options/">Payment Options</a>
  <a href="our-philosophy/">Our Philosophy</a>
  <a href="blog/">Blog</a>
- <a href="blog/">All Pages</a>
+ <a href="patient-resources/">Patient Resources</a>
  </div>
  </div>
  </div>

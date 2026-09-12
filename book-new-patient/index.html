@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="/assets/js/analytics.js?v=20260825a"></script>
+<script defer src="/assets/js/analytics.js?v=20260912a"></script>
 <meta charset="UTF-8">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Montserrat-Latin-Variable.woff2" crossorigin>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Choose Your Appointment | Life Charge Chiropractic</title>
 <meta name="description" content="Choose an available new-patient appointment at Life Charge Chiropractic in Gallatin, Tennessee.">
@@ -17,7 +18,7 @@
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
-<link rel="stylesheet" href="../shared.css?v=20260822b">
+<link rel="stylesheet" href="../shared.css?v=20260912a">
 <style>
   body { min-height: 100vh; background: var(--cream); color: var(--deep); }
   .booking-header { background: rgba(255,255,255,.96); border-bottom: 1px solid rgba(45,45,47,.08); }
@@ -67,6 +68,8 @@
 <script>
   window.lifeChargeCalendarReady = function () {
     document.documentElement.classList.add('calendar-ready');
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     if (typeof window.gtag === 'function') {
       window.gtag('event', 'booking_calendar_loaded', {
         calendar_id: 'uiad6ZBD9FlTcCf5M9ed',
@@ -111,12 +114,14 @@
 
 <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function () {
   if (typeof window.gtag === 'function') {
     window.gtag('event', 'booking_calendar_view', {
       calendar_id: 'uiad6ZBD9FlTcCf5M9ed',
       form_name: 'new_patient_offer'
     });
   }
+});
 </script>
 </body>
 </html>

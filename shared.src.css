@@ -4,8 +4,11 @@
    ═══════════════════════════════════════════ */
 
 /* Self-hosted Montserrat (WOFF2). Avoids the render-blocking @import to Google Fonts. */
-@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Variable.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Italic-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
+/* Match fallback text metrics while the brand font downloads. */
+@font-face { font-family: 'Montserrat Fallback'; src: local('Arial'); font-weight: 100 600; size-adjust: 109.52%; ascent-override: 88.39%; descent-override: 22.92%; line-gap-override: 0%; }
+@font-face { font-family: 'Montserrat Fallback'; src: local('Arial Bold'); font-weight: 601 900; size-adjust: 112.51%; ascent-override: 86.04%; descent-override: 22.31%; line-gap-override: 0%; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -13,7 +16,7 @@
   --deep: #2D2D2F; --cream: #FFF7E8; --sand: #EADDC8;
   --sage: #AEBFA3; --white: #fff; --border: #E5E5E5;
   --grad: linear-gradient(135deg, #ED3237 0%, #F47B20 50%, #FFCC29 100%);
-  --font: 'Montserrat', sans-serif; --serif: 'Lora', Georgia, serif;
+  --font: 'Montserrat', 'Montserrat Fallback', sans-serif; --serif: 'Lora', Georgia, serif;
 }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); color: var(--deep); background: var(--white); }
