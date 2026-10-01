@@ -34,6 +34,12 @@
  "@context": "https://schema.org",
  "@graph": [
  {
+ "@type": "LocalBusiness",
+ "@id": "https://lifechargechiropractic.com/#chiropractor",
+ "url": "https://lifechargechiropractic.com/",
+ "founder": { "@id": "https://lifechargechiropractic.com/about/#palmer-piana" }
+ },
+ {
  "@type": "Person",
  "@id": "https://lifechargechiropractic.com/about/#palmer-piana",
  "name": "Dr. Palmer Piana",
@@ -44,7 +50,6 @@
  "image": "https://lifechargechiropractic.com/assets/photos/dr-at-desk.webp",
  "url": "https://lifechargechiropractic.com/about/",
  "worksFor": { "@id": "https://lifechargechiropractic.com/#chiropractor" },
- "founder": { "@id": "https://lifechargechiropractic.com/#chiropractor" },
  "alumniOf": {
  "@type": "EducationalOrganization",
  "name": "Palmer College of Chiropractic",
@@ -66,9 +71,11 @@
   "https://www.amazon.com/Day-Animals-Found-Their-Wiggle/dp/B0GFJ5K4CN",
   "https://www.instagram.com/lifechargechiropractic/",
   "https://www.facebook.com/LifeChargeChiropractic/"
- ],
- "author": {
+ ]
+ },
+ {
   "@type": "Book",
+  "author": { "@id": "https://lifechargechiropractic.com/about/#palmer-piana" },
   "name": "The Day the Animals Found Their Wiggle: A Chiropractic Tale",
   "url": "https://lifechargechiropractic.com/the-wiggle-book/",
   "image": "https://lifechargechiropractic.com/assets/photos/wiggle-book-cover.webp",
@@ -77,7 +84,6 @@
   "audience": { "@type": "Audience", "audienceType": "Children, ages 3 to 8" },
   "isbn": "9798993409108",
   "illustrator": { "@type": "Person", "name": "Farheen Fatima" }
- }
  },
  {
  "@type": "Person",
