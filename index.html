@@ -44,7 +44,7 @@
 <link rel="manifest" href="site.webmanifest">
 
 <!-- Performance hints -->
-<link rel="preload" as="image" href="assets/photos/palmer-adjusting-hands-on.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/photos/palmer-adjusting-hands-on.webp" imagesrcset="assets/photos/palmer-adjusting-hands-on-480w.webp 480w, assets/photos/palmer-adjusting-hands-on-800w.webp 800w, assets/photos/palmer-adjusting-hands-on.webp 1200w" imagesizes="(max-width: 980px) 100vw, 50vw" fetchpriority="high">
 <!-- Self-hosted fonts: preload so they start fetching with the HTML, not after CSS parses. -->
 <link rel="preload" as="font" type="font/woff2" href="/fonts/Montserrat-Latin-Variable.woff2" crossorigin>
 <!-- Lora (testimonial serif) is loaded async because it is below-the-fold. -->
@@ -164,8 +164,8 @@
 }
 </script>
 <style>
- @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Variable.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
- @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Italic-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
+ @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Variable.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: optional; }
+ @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Italic.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
  @font-face { font-family: 'Montserrat Fallback'; src: local('Arial'); font-weight: 100 600; size-adjust: 109.52%; ascent-override: 88.39%; descent-override: 22.92%; line-gap-override: 0%; }
  @font-face { font-family: 'Montserrat Fallback'; src: local('Arial Bold'); font-weight: 601 900; size-adjust: 112.51%; ascent-override: 86.04%; descent-override: 22.31%; line-gap-override: 0%; }
 
@@ -730,7 +730,7 @@
  </div>
  </div>
  <div class="hero-right">
- <img src="assets/photos/palmer-adjusting-hands-on.webp" width="1200" height="750" alt="Dr. Palmer Piana providing hands-on chiropractic care" fetchpriority="high" decoding="async">
+ <img src="assets/photos/palmer-adjusting-hands-on.webp" width="1200" height="750" alt="Dr. Palmer Piana providing hands-on chiropractic care" fetchpriority="high" decoding="async" srcset="assets/photos/palmer-adjusting-hands-on-480w.webp 480w, assets/photos/palmer-adjusting-hands-on-800w.webp 800w, assets/photos/palmer-adjusting-hands-on.webp 1200w" sizes="(max-width: 980px) 100vw, 50vw">
  <div class="hero-review-chip">
  <div class="chip-stars">★★★★★</div>
  <div class="chip-quote">"Best decision I have made. I felt heard, understood, and clear on the plan."</div>
@@ -756,7 +756,7 @@
  <p class="section-p process-intro">Better care starts with a clearer picture. On your first visit we work through three assessments, none of it generic, so the plan is built around what is actually happening in your body.</p>
 
  <div class="process-step">
- <div class="process-step-img"><img src="assets/photos/dr-adjusting-instrument.webp" width="1200" height="750" alt="Postural and spinal exam at Life Charge Chiropractic" loading="lazy" decoding="async"></div>
+ <div class="process-step-img"><img src="assets/photos/dr-adjusting-instrument.webp" width="1200" height="750" alt="Postural and spinal exam at Life Charge Chiropractic" loading="lazy" decoding="async" srcset="assets/photos/dr-adjusting-instrument-480w.webp 480w, assets/photos/dr-adjusting-instrument-800w.webp 800w, assets/photos/dr-adjusting-instrument.webp 1200w" sizes="(max-width: 980px) 100vw, 45vw"></div>
  <div class="process-step-text">
 <h3 class="process-step-title">Postural &amp; spinal exam</h3>
  <p class="process-step-body">A hands-on, palpatory exam to feel for joint restriction, tension patterns, and where the structure is compensating. Combined with a posture check that shows how everything is working together when you stand and move.</p>
@@ -764,7 +764,7 @@
  </div>
 
  <div class="process-step reverse">
- <div class="process-step-img"><img src="assets/photos/thermal-explainer.webp" width="938" height="1000" alt="Whole-back thermal imaging scan at Life Charge Chiropractic" loading="lazy" decoding="async"></div>
+ <div class="process-step-img"><img src="assets/photos/thermal-explainer.webp" width="938" height="705" alt="Whole-back thermal imaging scan at Life Charge Chiropractic" loading="lazy" decoding="async" srcset="assets/photos/thermal-explainer-480w.webp 480w, assets/photos/thermal-explainer-800w.webp 800w, assets/photos/thermal-explainer.webp 938w" sizes="(max-width: 980px) 100vw, 45vw"></div>
  <div class="process-step-text">
 <h3 class="process-step-title">Thermal imaging</h3>
  <p class="process-step-body">A whole-back thermal scan shows where your spine is putting stress on the nervous system. It reveals what is actually driving the symptoms, not just where you feel them.</p>
@@ -772,7 +772,7 @@
  </div>
 
  <div class="process-step">
- <div class="process-step-img"><img src="assets/photos/xray-office.webp" width="1200" height="916" alt="Digital X-ray suite at Life Charge Chiropractic" loading="lazy" decoding="async"></div>
+ <div class="process-step-img"><img src="assets/photos/xray-office.webp" width="1200" height="916" alt="Digital X-ray suite at Life Charge Chiropractic" loading="lazy" decoding="async" srcset="assets/photos/xray-office-480w.webp 480w, assets/photos/xray-office-800w.webp 800w, assets/photos/xray-office.webp 1200w" sizes="(max-width: 980px) 100vw, 45vw"></div>
  <div class="process-step-text">
 <h3 class="process-step-title">Digital X-rays</h3>
  <p class="process-step-body">When the picture is incomplete, our digital X-ray system finds curves, degeneration, or disc-space issues you cannot see any other way. We only use X-rays when clinically appropriate, so the plan is built on what is actually there.</p>
@@ -1133,22 +1133,58 @@
 <!-- FAQPage schema (Google rich snippet) -->
 <script type="application/ld+json">
 {
- "@context": "https://schema.org",
- "@type": "FAQPage",
- "mainEntity": [
- { "@type": "Question", "name": "What happens on my first visit?",
- "acceptedAnswer": { "@type": "Answer", "text": "You get a real conversation about what you are dealing with, a focused chiropractic exam, and, when clinically appropriate, digital X-rays and thermal imaging. Then your doctor explains what the findings mean and what is recommended before any care begins." } },
- { "@type": "Question", "name": "Do I need a referral to see a chiropractor?",
- "acceptedAnswer": { "@type": "Answer", "text": "No. You can book directly with Life Charge Chiropractic. If you have insurance or are coming in after an accident, bring those details and the front desk will help." } },
- { "@type": "Question", "name": "Is chiropractic safe for kids and pregnancy?",
- "acceptedAnswer": { "@type": "Answer", "text": "Yes, when done thoughtfully. Our doctors adapt the technique to the patient, using gentler approaches for children and modified positioning for pregnancy. You will always know what is being done and why." } },
- { "@type": "Question", "name": "How long is a typical chiropractic appointment?",
- "acceptedAnswer": { "@type": "Answer", "text": "New patient visits run about 45–60 minutes so there is real time to listen, examine, and explain. Routine follow-ups are shorter and focused on the care plan." } },
- { "@type": "Question", "name": "Do you take insurance?",
- "acceptedAnswer": { "@type": "Answer", "text": "Yes, we accept most major medical insurance plans. Bring your insurance card and a photo ID to your first visit and we will run a complimentary check of your benefits and explain exactly what is covered before any care begins. Costs and recommendations are always reviewed with you up front." } },
- { "@type": "Question", "name": "Where is Life Charge Chiropractic located?",
- "acceptedAnswer": { "@type": "Answer", "text": "Life Charge Chiropractic is at 1921 Nashville Pike, Suite 500, Gallatin, TN 37066, right between Cages Bend and Douglas Bend, easy to reach from Gallatin, Hendersonville, and Sumner County." } }
- ]
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What happens on my first visit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You get a real conversation about what you are dealing with, a focused chiropractic exam, and, when clinically appropriate, digital X-rays and thermal imaging. Then your doctor explains what the findings mean and what is recommended before any care begins."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a referral?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. You can book directly with Life Charge Chiropractic. If you have insurance or are coming in after an accident, bring those details and the front desk will help."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is chiropractic safe for kids and pregnancy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when done thoughtfully. Our doctors adapt the technique to the patient, using gentler approaches for children and modified positioning for pregnancy. You will always know what is being done and why."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long is a typical appointment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "New patient visits run about 45–60 minutes so there is real time to listen, examine, and explain. Routine follow-ups are shorter and focused on the care plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you take insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we accept most major medical insurance plans. Bring your insurance card and a photo ID to your first visit and we will run a complimentary check of your benefits and explain exactly what is covered before any care begins. Costs and recommendations are always reviewed with you up front."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is the office?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Life Charge Chiropractic is at 1921 Nashville Pike, Suite 500, Gallatin, TN 37066, right between Cages Bend and Douglas Bend, easy to reach from Gallatin, Hendersonville, and Sumner County."
+      }
+    }
+  ]
 }
 </script>
 
