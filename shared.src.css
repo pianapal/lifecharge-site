@@ -5,7 +5,7 @@
 
 /* Self-hosted Montserrat (WOFF2). Avoids the render-blocking @import to Google Fonts. */
 @font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Variable.woff2') format('woff2-variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Italic-VariableFont_wght.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Montserrat'; src: url('/fonts/Montserrat-Latin-Italic.woff2') format('woff2-variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
 /* Match fallback text metrics while the brand font downloads. */
 @font-face { font-family: 'Montserrat Fallback'; src: local('Arial'); font-weight: 100 600; size-adjust: 109.52%; ascent-override: 88.39%; descent-override: 22.92%; line-gap-override: 0%; }
 @font-face { font-family: 'Montserrat Fallback'; src: local('Arial Bold'); font-weight: 601 900; size-adjust: 112.51%; ascent-override: 86.04%; descent-override: 22.31%; line-gap-override: 0%; }
