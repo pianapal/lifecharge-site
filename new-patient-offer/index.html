@@ -209,14 +209,15 @@
     .offer-logo img { width: 168px; }
     .offer-call-copy { display: none; }
     .offer-call-mark { width: 38px; height: 38px; }
-    .offer-hero-inner { padding: 44px 18px 58px; gap: 54px; }
+    .offer-hero-inner { padding: 28px 18px 58px; gap: 28px; }
+    .offer-eyebrow { margin-bottom: 16px; }
     .offer-copy h1 { font-size: clamp(36px,11vw,48px); }
-    .offer-lead { font-size: 15px; line-height: 1.7; }
+    .offer-lead { font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
     .offer-positioning { font-size: 13px; }
     .hero-visual { margin-top: 33px; }
     .hero-image { aspect-ratio: 4/3; border-radius: 15px; }
     .hero-proof { left: 12px; bottom: -30px; width: calc(100% - 24px); }
-    .offer-form-card { padding: 25px 19px; border-radius: 16px; }
+    .offer-form-card { padding: 25px 19px; border-radius: 16px; margin-top: 0; }
     .offer-form-card h2 { font-size: 25px; }
     .time-grid { grid-template-columns: 1fr; }
     .time-card { min-height: 69px; }
@@ -341,8 +342,8 @@
       <div class="offer-copy">
         <div class="offer-eyebrow">New patients welcome in Gallatin, TN</div>
         <h1>Your First Chiropractic Visit in <span>Gallatin.</span></h1>
-        <p class="offer-lead">Your first visit is built to understand what is driving the problem. You will sit down with one of our doctors, complete a focused exam, and use digital X-rays and thermal imaging when clinically appropriate.</p>
-        <p class="offer-positioning">Before care begins, your doctor explains what we found, what it means, and what we recommend in plain language.</p>
+        <p class="offer-lead">Meet your doctor, get a focused exam, and understand your options before care begins.</p>
+        <p class="offer-positioning">Digital X-rays and thermal imaging are used when clinically appropriate. Your doctor explains the findings and recommendations in plain language.</p>
         <div class="offer-value">
           <div class="offer-price">New patient visit <strong>$49</strong></div>
           <div class="offer-value-note">A complete first-step evaluation with a regular combined value of $200 or more.</div>
@@ -355,7 +356,7 @@
           <span class="form-availability"><span class="availability-dot"></span>Same-week times often available</span>
         </div>
         <h2>What time works best?</h2>
-        <p class="form-intro">Choose the window you prefer. After we save your offer, you will select an exact appointment from the live calendar.</p>
+        <p class="form-intro">Choose your preferred window, enter your details, then select an exact appointment from the live calendar.</p>
         <div class="form-stage" aria-label="Reservation progress">
           <div class="stage-item active" id="stagePreference">Preference</div>
           <div class="stage-item" id="stageDetails">Your details</div>
@@ -407,7 +408,7 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-image"><img src="../assets/photos/exterior-02.webp" width="1546" height="1024" alt="Life Charge Chiropractic storefront and Suite 500 entrance in Gallatin, Tennessee"></div>
+        <div class="hero-image"><img src="../assets/photos/exterior-02.webp" srcset="../assets/photos/exterior-02-640.webp 640w, ../assets/photos/exterior-02-960.webp 960w, ../assets/photos/exterior-02.webp 1546w" sizes="(max-width: 720px) calc(100vw - 36px), (max-width: 980px) 620px, (max-width: 1220px) calc((100vw - 128px) * 0.52), 568px" width="1546" height="1024" alt="Life Charge Chiropractic storefront and Suite 500 entrance in Gallatin, Tennessee" decoding="async"></div>
         <div class="hero-proof">
           <div class="hero-proof-top"><span class="hero-stars">★★★★★</span><strong>Reviews from local patients</strong></div>
           <p>Look for the Life Charge sign above Suite 500 at 1921 Nashville Pike.</p>
@@ -428,7 +429,7 @@
   <section class="offer-section">
     <div class="offer-section-inner visit-grid">
       <div class="visit-visuals">
-        <div class="visit-photo"><img src="../assets/photos/dr-adjusting-athlete.webp" width="1536" height="1024" alt="Dr. Palmer providing a hands-on chiropractic adjustment" loading="lazy"></div>
+        <div class="visit-photo"><img src="../assets/photos/dr-adjusting-athlete.webp" srcset="../assets/photos/dr-adjusting-athlete-640.webp 640w, ../assets/photos/dr-adjusting-athlete-960.webp 960w, ../assets/photos/dr-adjusting-athlete.webp 1536w" sizes="(max-width: 720px) calc(100vw - 36px), 492px" width="1536" height="1024" alt="Dr. Palmer providing a hands-on chiropractic adjustment" loading="lazy" decoding="async"></div>
         <figure class="thermal-preview">
           <img src="../assets/photos/horizontal-thermography.webp" width="1800" height="321" alt="Examples of thermal imaging scans used at Life Charge Chiropractic" loading="lazy">
           <figcaption><strong>Non-invasive thermal imaging</strong><span>A visual scan used when clinically appropriate to add objective information to your examination.</span></figcaption>
