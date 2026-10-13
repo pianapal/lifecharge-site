@@ -276,9 +276,7 @@
         webhook_status: 'saved'
       });
 
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'Lead', { value: 49, currency: 'USD' });
-      }
+      // Patient-form conversions stay out of the restricted Meta integration.
 
       window.setTimeout(handoffToCalendar, 250);
     }).catch(function () {

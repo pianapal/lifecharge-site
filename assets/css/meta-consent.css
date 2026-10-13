@@ -1,0 +1,40 @@
+.meta-consent[hidden], [data-meta-privacy][hidden] { display: none !important; }
+.meta-consent {
+  position: fixed;
+  z-index: 10000;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--cream);
+  color: var(--deep);
+  border: 1px solid var(--sand);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 16%);
+  font-family: inherit;
+}
+.meta-consent h2 { font: inherit; font-size: 16px; font-weight: 800; margin: 0 0 8px; color: var(--deep); }
+.meta-consent p { font-size: 12px; line-height: 1.6; margin: 0 0 6px; color: var(--deep); }
+.meta-consent .meta-consent-status { font-weight: 600; }
+.meta-consent a { color: var(--deep); font-size: 12px; text-decoration: underline; }
+.meta-consent-actions { display: flex; flex: 0 0 auto; gap: 10px; }
+.meta-consent button, .meta-privacy-button {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.meta-consent button { min-height: 44px; padding: 10px 14px; color: var(--deep); background: var(--white); border: 1px solid var(--charcoal); border-radius: 6px; }
+.meta-consent button:focus-visible, .meta-privacy-button:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.meta-consent button:disabled { opacity: .55; cursor: not-allowed; }
+.meta-privacy-button { background: none; color: inherit; border: 0; padding: 8px 0; text-decoration: underline; }
+.meta-privacy-footer { padding-bottom: 72px; }
+@media (max-width: 700px) {
+  .meta-consent { left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); padding: 18px; flex-direction: column; align-items: stretch; gap: 12px; max-height: 70vh; overflow-y: auto; }
+  .meta-consent-actions { display: grid; grid-template-columns: 1fr 1fr; }
+}
