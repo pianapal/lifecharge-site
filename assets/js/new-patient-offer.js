@@ -276,7 +276,10 @@
         webhook_status: 'saved'
       });
 
-      // Patient-form conversions stay out of the restricted Meta integration.
+      // Event name and offer price only. No form answers go to Meta.
+      if (window.lifeChargeMeta) {
+        window.lifeChargeMeta.track('Lead', { value: 49, currency: 'USD' });
+      }
 
       window.setTimeout(handoffToCalendar, 250);
     }).catch(function () {

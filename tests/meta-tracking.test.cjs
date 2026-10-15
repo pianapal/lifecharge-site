@@ -6,7 +6,7 @@ const code = fs.readFileSync('assets/js/meta-tracking.js', 'utf8');
 const pixelId = '1513358932888069';
 
 function harness(options = {}) {
-  const scripts = [], events = [], cookies = [], listeners = {};
+  const scripts = [], cookies = [], events = [];
   let saved = options.saved ?? (options.choice ? JSON.stringify({ value: options.choice, at: Date.now() }) : null);
   const controls = {};
   function control(name) {
@@ -14,10 +14,10 @@ function harness(options = {}) {
   }
   const panel = { hidden: true, setAttribute() {}, querySelector: control };
   const document = {
-    referrer: options.referrer || '',
     createElement: name => name === 'script' ? {} : panel,
     head: { appendChild(script) { scripts.push(script); } },
     body: { appendChild() {} },
+    addEventListener() {},
     querySelectorAll: () => [control('settings')],
     set cookie(value) { cookies.push(value); }
   };
@@ -25,120 +25,91 @@ function harness(options = {}) {
     location: { href: options.url || 'https://lifechargechiropractic.com/' },
     localStorage: {
       getItem() { if (options.blockedStorage) throw Error('blocked'); return saved; },
-      setItem(key, value) { if (options.blockedStorage) throw Error('blocked'); saved = value; }
-    },
-    addEventListener(name, fn) { listeners[name] = fn; },
-    doNotTrack: options.windowDnt
+      setItem(key, value) { saved = value; },
+      removeItem() { saved = null; }
+    }
   };
-  const context = { window, document, navigator: { globalPrivacyControl: options.gpc, doNotTrack: options.dnt }, URL, Date, Array };
+  const context = { window, document, navigator: { globalPrivacyControl: options.gpc }, URL, Date, JSON };
   vm.runInNewContext(code, context);
+  const queued = () => (window.fbq ? JSON.parse(JSON.stringify(window.fbq.queue.map(x => Array.from(x)))) : []);
   return {
-    window, panel, scripts, controls, cookies, events, listeners,
+    window, panel, scripts, controls, cookies, events, queued,
     allow() { control('[data-meta-allow]').click(); },
     deny() { control('[data-meta-deny]').click(); },
-    loaded() {
-      if (!scripts[0]) throw Error('No SDK requested');
-      events.push(...window.fbq.queue.map(x => Array.from(x)));
-      window.fbq.callMethod = (...args) => events.push(args);
-      scripts[0].onload();
-    },
-    storage(value) { saved = value; listeners.storage({ key: 'lc_meta_consent_v1' }); },
-    rerun() { vm.runInNewContext(code, context); }
+    stored() { return saved; }
   };
 }
 
-test('no request or pixel before explicit consent; deny remains off', () => {
+test('loads once on every page with a single PageView to the correct pixel', () => {
+  for (const path of ['/', '/neck-pain/', '/new-patient-offer/', '/book-new-patient/', '/booking-confirmed/', '/es/']) {
+    const h = harness({ url: 'https://lifechargechiropractic.com' + path });
+    assert.equal(h.scripts.length, 1, path);
+    const q = h.queued();
+    assert.deepEqual(q.find(x => x[0] === 'init'), ['init', pixelId]);
+    assert.deepEqual(q.find(x => x[0] === 'set'), ['set', 'autoConfig', false, pixelId]);
+    assert.deepEqual(q.filter(x => x[0].startsWith('track')), [['trackSingle', pixelId, 'PageView']]);
+  }
+});
+
+test('custom events go only to the Life Charge pixel and carry no form data', () => {
   const h = harness();
-  assert.equal(h.scripts.length, 0);
-  assert.equal(h.window.fbq, undefined);
-  assert.equal(h.panel.hidden, false);
-  h.deny();
-  assert.equal(h.panel.hidden, true);
-  assert.equal(h.scripts.length, 0);
+  assert.equal(h.window.lifeChargeMeta.track('Lead', { value: 49, currency: 'USD' }), true);
+  assert.equal(h.window.lifeChargeMeta.track('Schedule'), true);
+  const tracked = h.queued().filter(x => x[0] === 'trackSingle');
+  assert.deepEqual(tracked.map(x => x.slice(0, 3)), [
+    ['trackSingle', pixelId, 'PageView'],
+    ['trackSingle', pixelId, 'Lead'],
+    ['trackSingle', pixelId, 'Schedule']
+  ]);
+  assert.deepEqual(tracked[1][3], { value: 49, currency: 'USD' });
 });
 
-test('opt-in sends exactly one bare PageView to the correct pixel after SDK load', () => {
-  const h = harness();
-  h.allow(); h.allow();
-  assert.equal(h.scripts.length, 1);
-  assert.equal(h.scripts[0].referrerPolicy, 'no-referrer');
-  assert.deepEqual(h.events, []);
-  h.loaded(); h.allow(); h.rerun();
-  assert.deepEqual(h.events.filter(x => x[0].startsWith('track')), [['trackSingle', pixelId, 'PageView']]);
-  assert.deepEqual(h.events.find(x => x[0] === 'init'), ['init', pixelId]);
-  assert.deepEqual(h.events.find(x => x[0] === 'set'), ['set', 'autoConfig', false, pixelId]);
-  assert.equal(h.window.fbq.disablePushState, true);
-});
-
-test('revocation before SDK readiness prevents initialization and PageView', () => {
-  const h = harness(); h.allow(); h.deny(); h.loaded();
-  assert.equal(h.events.some(x => x[0] === 'init' || x[0].startsWith('track')), false);
-});
-
-test('withdrawal revokes future tracking and expires first-party Meta cookies', () => {
-  const h = harness({ choice: 'granted' }); h.loaded(); h.deny();
-  assert.deepEqual(h.events.at(-1), ['consent', 'revoke']);
-  assert.equal(h.cookies.length, 6);
-  assert.ok(h.cookies.every(c => /^_fb[pc]=; Max-Age=0;/.test(c)));
-  const other = harness({ choice: 'granted' }); other.loaded(); other.storage(null);
-  assert.deepEqual(other.events.at(-1), ['consent', 'revoke']);
-});
-
-test('GPC and Do Not Track override even stored consent', () => {
-  for (const options of [{gpc:true}, {dnt:'1'}, {windowDnt:'1'}]) {
-    const h = harness({ choice:'granted', ...options }); h.allow();
+test('saved opt-out and Global Privacy Control keep the pixel off', () => {
+  for (const options of [{ choice: 'denied' }, { gpc: true }]) {
+    const h = harness(options);
     assert.equal(h.scripts.length, 0);
+    assert.equal(h.window.fbq, undefined);
+    assert.equal(h.window.lifeChargeMeta.track('Lead'), false);
   }
 });
 
-test('never loads on forms, booking, conditions, blogs, policy, aliases or localhost', () => {
-  for (const path of ['/new-patient-offer/', '/book-new-patient/', '/neck-pain/', '/blog/', '/blog/i-slept-wrong-neck-pain/', '/privacy-policy/', '/index.html', '/about/']) {
-    const h = harness({choice:'granted',url:'https://lifechargechiropractic.com'+path}); h.allow();
-    assert.equal(h.scripts.length, 0, path);
-  }
-  for (const url of ['http://lifechargechiropractic.com/', 'https://www.lifechargechiropractic.com/', 'http://localhost:8765/']) {
-    assert.equal(harness({choice:'granted',url}).scripts.length,0,url);
+test('turning off revokes consent, clears Meta cookies and is remembered', () => {
+  const h = harness();
+  h.deny();
+  assert.deepEqual(h.queued().at(-1), ['consent', 'revoke']);
+  assert.equal(h.cookies.length, 6);
+  assert.equal(JSON.parse(h.stored()).value, 'denied');
+  h.allow();
+  assert.deepEqual(h.queued().at(-1), ['consent', 'grant']);
+  assert.equal(h.stored(), null);
+});
+
+test('expired opt-out, blocked storage and other hosts behave safely', () => {
+  const expired = JSON.stringify({ value: 'denied', at: Date.now() - 400 * 86400000 });
+  assert.equal(harness({ saved: expired }).scripts.length, 1);
+  assert.equal(harness({ blockedStorage: true }).scripts.length, 1);
+  for (const url of ['http://localhost:8765/', 'https://www.lifechargechiropractic.com/', 'http://lifechargechiropractic.com/']) {
+    assert.equal(harness({ url }).scripts.length, 0, url);
   }
 });
 
-test('URL and referrer guards reject potentially sensitive context', () => {
-  for (const suffix of ['?email=private', '?utm_campaign=neck-pain', '?fbclid=bad', '?fbclid=abcdefghijk&email=private', '?fbclid=abcdefghijk&fbclid=abcdefghijk', '#neck-pain']) {
-    assert.equal(harness({choice:'granted',url:'https://lifechargechiropractic.com/'+suffix}).scripts.length,0,suffix);
+test('every live page loads the pixel; offer form sends Lead; confirmation sends Schedule', () => {
+  const pages = fs.readdirSync('.', { withFileTypes: true })
+    .filter(d => d.isDirectory() && fs.existsSync(d.name + '/index.html') && !['wordpress-theme', 'tests'].includes(d.name))
+    .map(d => d.name + '/index.html').concat('index.html');
+  for (const page of pages) {
+    const html = fs.readFileSync(page, 'utf8');
+    if (!html.includes('/assets/js/analytics.js')) continue;
+    assert.ok(html.includes('/assets/js/meta-tracking.js?v=20261015a'), page);
   }
-  for (const referrer of ['https://lifechargechiropractic.com/book-new-patient/', 'https://lifechargechiropractic.com/neck-pain/', 'https://example.com/?q=medical', 'https://example.com/private', 'invalid']) {
-    assert.equal(harness({choice:'granted',referrer}).scripts.length,0,referrer);
-  }
-  assert.equal(harness({choice:'granted',url:'https://lifechargechiropractic.com/?fbclid=abcdefghijk',referrer:'https://l.facebook.com/'}).scripts.length,1);
+  assert.ok(fs.readFileSync('booking-confirmed/index.html', 'utf8').includes("lifeChargeMeta.track('Schedule')"));
+  const offer = fs.readFileSync('assets/js/new-patient-offer.js', 'utf8');
+  assert.ok(offer.includes("lifeChargeMeta.track('Lead', { value: 49, currency: 'USD' })"));
+  assert.ok(!offer.includes('fbq('));
 });
 
-test('malformed, expired, future or blocked storage never implies consent', () => {
-  for (const saved of ['invalid','null','{}', JSON.stringify({value:'granted',at:Date.now()-91*86400000}), JSON.stringify({value:'granted',at:Date.now()+86400000})]) {
-    assert.equal(harness({saved}).scripts.length,0);
-  }
-  const h = harness({blockedStorage:true}); assert.equal(h.scripts.length,0); h.allow();
-  assert.equal(h.scripts.length,1);
-});
-
-test('privacy controls work on policy page without loading the pixel', () => {
-  const h = harness({url:'https://lifechargechiropractic.com/privacy-policy/'});
-  h.controls.settings.click({currentTarget:h.controls.settings});
-  assert.equal(h.panel.hidden,false); h.allow();
-  assert.equal(h.scripts.length,0);
-  assert.equal(h.controls.settings.focused,true);
-});
-
-test('SDK failure leaves navigation and controls available', () => {
-  const h = harness(); h.allow(); h.scripts[0].onerror(); h.deny();
-  assert.equal(h.panel.hidden,true);
-  assert.equal(h.events.length,0);
-});
-
-test('only home and privacy settings include the loader; no form Meta events remain', () => {
-  for (const page of ['new-patient-offer/index.html', 'book-new-patient/index.html', 'neck-pain/index.html']) {
-    assert.ok(!fs.readFileSync(page,'utf8').includes('/assets/js/meta-tracking.js'));
-  }
-  for (const page of ['index.html','privacy-policy/index.html']) {
-    assert.ok(fs.readFileSync(page,'utf8').includes('/assets/js/meta-tracking.js'));
-  }
-  assert.ok(!fs.readFileSync('assets/js/new-patient-offer.js','utf8').includes('fbq('));
+test('homepage carries the Meta domain verification tag in its HTML head', () => {
+  const html = fs.readFileSync('index.html', 'utf8');
+  const head = html.slice(0, html.indexOf('</head>'));
+  assert.ok(head.includes('<meta name="facebook-domain-verification" content="7sicp9g8hqzom0h51x2uuhl06g9z49" />'));
 });
