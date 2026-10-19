@@ -606,3 +606,45 @@ img { max-width: 100%; height: auto; }
 .skip-link { position: fixed; left: 8px; top: 8px; z-index: 10000; padding: 12px 18px; background: var(--deep); color: var(--white); font-weight: 700; border-radius: 6px; transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); outline: 3px solid var(--yellow); outline-offset: 2px; }
 main[id] { scroll-margin-top: 120px; }
+
+/* Restrained visual polish: typography, real photography and clear interactions. */
+.h2, .section-h2 { font-weight: 800; line-height: 1.16; text-wrap: balance; }
+.page-hero-inner h1, .hero h1 { text-wrap: balance; }
+.body-text, .section-p, .process-step-body { text-wrap: pretty; }
+.btn-primary, .btn-grad, .btn-ghost-light, .btn-white { text-decoration: none; }
+.col-photo, .process-step-img, .problem-photo, .dr-photo {
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(45,45,47,0.09);
+}
+.nav-links a:not(.nav-cta) { position: relative; }
+.nav-links a:not(.nav-cta)::after {
+  content: ''; position: absolute; left: 14px; right: 14px; bottom: 3px;
+  height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform 180ms ease-out;
+}
+.nav-links a:not(.nav-cta):focus-visible::after,
+.nav-links a.active:not(.nav-cta)::after { transform: scaleX(1); }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid currentColor; outline-offset: 5px;
+}
+.faq-grid details.faq-item[open] { border-color: var(--sand); background: var(--cream); }
+.faq-grid details.faq-item > summary { line-height: 1.5; }
+footer .footer-tagline a { color: inherit; text-underline-offset: 3px; }
+footer .f-col-title { color: rgba(255,255,255,0.82); }
+footer .f-links a, footer .footer-tagline { color: rgba(255,255,255,0.70); }
+footer .f-copy, footer .footer-bottom { color: rgba(255,255,255,0.60); }
+footer .f-links a:hover, footer .f-links a:focus-visible { color: var(--white); text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .faq-grid details.faq-item[open] .faq-a { animation: lc-answer-in 180ms ease-out; }
+  @keyframes lc-answer-in { from { opacity: 0.75; } to { opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition-duration: 0s !important; scroll-behavior: auto !important; }
+  .btn-primary:hover, .btn-grad:hover, .nav-cta:hover, .rel-card:hover,
+  .audience-card:hover, .symptom-card:hover, details.cond-card:hover,
+  .award-seal:hover, .therm-card:hover img { transform: none; }
+}
