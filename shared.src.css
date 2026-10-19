@@ -601,3 +601,8 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 1024px) {
   .offer-ribbon { display: none !important; }
 }
+
+/* Keyboard navigation and main-content access. */
+.skip-link { position: fixed; left: 8px; top: 8px; z-index: 10000; padding: 12px 18px; background: var(--deep); color: var(--white); font-weight: 700; border-radius: 6px; transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); outline: 3px solid var(--yellow); outline-offset: 2px; }
+main[id] { scroll-margin-top: 120px; }

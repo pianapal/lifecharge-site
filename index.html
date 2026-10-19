@@ -664,12 +664,17 @@
     .sticky-cta .sc-call { display: none; }
   }
 
-  </style>
+
+/* Keyboard navigation and main-content access. */
+.skip-link { position: fixed; left: 8px; top: 8px; z-index: 10000; padding: 12px 18px; background: var(--deep); color: var(--white); font-weight: 700; border-radius: 6px; transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); outline: 3px solid var(--yellow); outline-offset: 2px; }
+main[id] { scroll-margin-top: 120px; }
+</style>
 </head>
 <body>
 
 <!-- Skip-link for accessibility -->
-<a href="#main" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.cssText='position:fixed;left:8px;top:8px;width:auto;height:auto;padding:10px 16px;background:#ED3237;color:#fff;font-weight:700;border-radius:6px;z-index:9999;'" onblur="this.style.cssText='position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'">Skip to main content</a>
+<a href="#main" class="skip-link">Skip to main content</a>
 
 <!-- OFFER RIBBON -->
 <div class="offer-ribbon">
@@ -678,7 +683,7 @@
 </div>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="Primary navigation">
  <div class="nav-contact-strip">
   <div class="nav-contact-inner">
    <span class="nav-contact-label">Call us</span>
@@ -687,7 +692,7 @@
  </div>
  <div class="nav-inner">
  <a href="./" class="nav-logo" aria-label="Life Charge Chiropractic. Home"><img src="assets/logo-horizontal.webp" alt="Life Charge Chiropractic" width="200" height="40" decoding="async"></a>
- <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');this.setAttribute('aria-expanded',this.classList.contains('open'))"><span></span><span></span><span></span></button><div class="nav-links">
+ <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation" data-open-label="Open menu" data-close-label="Close menu"><span></span><span></span><span></span></button><div class="nav-links" id="primary-navigation">
  <a href="what-to-expect/">First Visit</a>
  <a href="conditions/">Conditions</a>
  <a href="reviews/">Reviews</a>
@@ -699,14 +704,14 @@
  </div>
  </div>
 </nav>
-<main id="main">
+<main id="main" tabindex="-1">
 
 <!-- HERO -->
 <div class="hero">
  <div class="hero-left">
  <div class="hero-eyebrow">Gallatin &amp; Hendersonville, TN</div>
  <h1>Gallatin Chiropractor for Back Pain, Sciatica &amp; Headaches</h1>
- <p class="hero-sub">Neck pain, back pain, or headaches? Start here. Our Gallatin chiropractors begin with a focused exam, use digital X-rays and thermal imaging when appropriate, and explain a clear plan designed for you.</p>
+ <p class="hero-sub">Life Charge Chiropractic is a family-owned chiropractic clinic in Gallatin, serving Hendersonville and Sumner County. Dr. Palmer Piana and Dr. Pierce Piana evaluate back pain, neck pain, headaches, and movement concerns, then explain care options based on your examination.</p>
  <a class="award-seal" href="about/" aria-label="Dr. Palmer Piana, 2026 Rising Chiropractor of the Year, Tennessee Chiropractic Association">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
  <path d="M8.6 3.4C6 4.6 4.2 7.1 4.2 10.1c0 2.2 1 4.2 2.6 5.5"/>
@@ -1253,7 +1258,7 @@
  </div>
 </footer>
 
-<script>(function(){var t=document.querySelector(".nav-toggle"),n=document.querySelector(".nav-links");if(!t||!n)return;function c(){t.classList.remove("open");n.classList.remove("open");t.setAttribute("aria-expanded","false")}n.querySelectorAll("a").forEach(function(a){a.addEventListener("click",c)});document.addEventListener("click",function(e){if(!t.contains(e.target)&&!n.contains(e.target))c()})})();</script>
+<script defer src="/assets/js/navigation.js?v=20261019a"></script>
 <div class="sticky-cta" id="stickyCta"><a href="tel:+16152199912" class="sc-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call (615) 219-9912</a><a href="/new-patient-offer/" class="sc-book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule First Visit</a></div>
 <script>(function(){var e=document.getElementById("stickyCta");if(!e)return;function s(){if(window.scrollY>120)e.classList.add("show");else e.classList.remove("show")}window.addEventListener("scroll",s,{passive:!0});s()})();</script>
 </body>
