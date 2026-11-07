@@ -1,0 +1,96 @@
+/* Standalone event display, intentionally independent of the marketing navigation. */
+:root{--ink:rgb(15,17,18);--scan-bg:rgb(36,42,49);--soft-white:rgb(255 255 255 / .76);--line:rgb(255 255 255 / .22);--black:rgb(0 0 0);--slide-duration:12s}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--cream);scroll-behavior:auto}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased}
+button,a,select{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid var(--yellow);outline-offset:5px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+#display{height:100%;height:100dvh;position:relative;isolation:isolate}
+.brand{position:absolute;top:5.2vh;left:5.3vw;right:5.3vw;display:flex;align-items:center;justify-content:space-between;z-index:20;pointer-events:none}
+.brand a{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--cream);pointer-events:auto}
+.brand img{width:clamp(36px,3.4vw,70px);height:auto;aspect-ratio:1;object-fit:contain}
+.brand a>span{font-size:clamp(16px,1.45vw,32px);font-weight:800;letter-spacing:.085em;line-height:1.2}
+.brand small{display:block;font-size:.4em;letter-spacing:.44em;font-weight:600;margin-top:5px}
+.brand-place{font-size:clamp(10px,.8vw,19px);font-weight:600;letter-spacing:.2em;color:var(--soft-white)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 1.35s ease,visibility 1.35s;overflow:hidden;background:var(--ink)}
+.slide.active{opacity:1;visibility:visible;z-index:2}
+.scene{position:absolute;inset:0 0 0 auto;width:74%;height:100%;object-fit:cover;object-position:52% center;transform:scale(1.025);transition:transform 18s linear}
+.active .scene{transform:scale(1.075)}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgb(15 17 18 / .96) 17%,rgb(15 17 18 / .65) 38%,rgb(15 17 18 / .05) 69%),linear-gradient(0deg,rgb(15 17 18 / .88),transparent 27%,transparent 80%,rgb(15 17 18 / .35))}
+.copy{position:absolute;left:5.3vw;right:5vw;top:50%;transform:translateY(-44%);z-index:3}
+.eyebrow{font-size:clamp(12px,1.04vw,25px);letter-spacing:.21em;line-height:1.5;font-weight:600;color:var(--yellow);margin:0 0 2.4vh}
+h2{font-size:clamp(38px,6.65vw,160px);letter-spacing:-.06em;line-height:1.01;font-weight:750;margin:0;max-width:85vw;text-wrap:balance}
+h2 em{font-style:normal;color:var(--yellow)}
+.sub{font-size:clamp(16px,1.58vw,36px);line-height:1.5;color:var(--soft-white);font-weight:400;margin-top:3.4vh;max-width:42vw}
+.slide-foot{position:absolute;left:5.3vw;right:5.3vw;bottom:5.5vh;display:flex;justify-content:space-between;gap:24px;color:var(--soft-white);font-size:clamp(11px,.98vw,23px);font-weight:500;line-height:1.4;z-index:5}
+.slide-foot a{color:inherit;text-decoration:none}
+.thermal{background:var(--scan-bg)}
+.thermal .copy{right:46%}
+.thermal-stage{position:absolute;inset:15% 6% 12% 55%;display:flex;align-items:center;justify-content:center}
+.scan-window{position:relative;height:100%;aspect-ratio:690/1050;overflow:hidden;mask-image:linear-gradient(0deg,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(0deg,transparent,black 8%,black 92%,transparent)}
+.scan-window img{position:absolute;width:296.82%;max-width:none;height:auto;left:-24.64%;top:-25.71%}
+.scan-label{position:absolute;right:0;top:50%;writing-mode:vertical-rl;letter-spacing:.35em;color:var(--soft-white);font-size:clamp(10px,.8vw,18px)}
+.xray .scene{width:64%;object-position:46% 42%}
+.xray h2{font-size:clamp(38px,6.2vw,150px)}
+.hands .scene{width:82%;object-position:57% 35%}
+.doctors .copy{right:52%}
+.doctors h2{font-size:clamp(36px,5.1vw,130px)}
+.portraits{position:absolute;inset:19% 5.3% 14% 51%;display:flex;gap:1.3vw}
+.portraits figure{position:relative;flex:1;min-width:0;overflow:hidden}
+.portraits figure:nth-child(2){margin-top:7vh}
+.portraits img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.portraits figcaption{position:absolute;bottom:0;left:0;right:0;padding:6vh 1.3vw 2vh;background:linear-gradient(transparent,rgb(0 0 0 / .82));font-size:clamp(12px,1.04vw,24px);font-weight:600;white-space:nowrap}
+.space-images{position:absolute;inset:18% 5.3% 31%;display:grid;grid-template-columns:1.25fr 1fr;gap:1.4vw}
+.space-images img{width:100%;height:100%;object-fit:cover;min-height:0;object-position:center}
+.space-images img:first-child{object-position:50% 40%}
+.space-copy{position:absolute;left:5.3vw;right:5.3vw;bottom:12.5%}
+.space h2{font-size:clamp(32px,4.5vw,112px)}
+.space .eyebrow{margin-bottom:1.5vh}
+.exterior .scene{width:100%;object-position:center 48%}
+.exterior .shade{background:linear-gradient(90deg,rgb(15 17 18 / .83),rgb(15 17 18 / .25) 65%),linear-gradient(0deg,rgb(15 17 18 / .9),transparent 65%)}
+.exterior .copy{top:56%}
+.invitation h2{font-size:clamp(38px,5.8vw,144px)}
+.invitation .scene{width:70%;object-position:45% center}
+.timeline{height:3px;position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgb(255 255 255 / .12)}
+.timeline i{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;background:var(--grad)}
+.timeline i.running{animation:progress var(--slide-duration) linear forwards}
+body.paused .timeline i{animation-play-state:paused}
+@keyframes progress{to{transform:scaleX(1)}}
+.controls{position:fixed;bottom:4.5vh;left:50%;transform:translate(-50%,12px);z-index:40;width:max-content;max-width:94vw;padding:15px 18px;border:1px solid var(--line);border-radius:14px;background:rgb(15 17 18 / .95);box-shadow:0 12px 60px rgb(0 0 0 / .4);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;backdrop-filter:blur(18px)}
+.controls.visible,.controls:focus-within,.controls:hover{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.control-heading{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:10px;font-size:10px;line-height:1.5;letter-spacing:.035em;color:var(--soft-white)}
+#slide-name{color:var(--cream);font-weight:600}
+.control-buttons{display:flex;align-items:center;gap:8px}
+.controls button,.controls select,.controls a{font:600 12px var(--font);border:1px solid var(--line);background:transparent;color:var(--cream);border-radius:6px;padding:10px 13px;cursor:pointer;min-height:40px;text-decoration:none;white-space:nowrap}
+.controls button:hover,.controls a:hover{background:rgb(255 255 255 / .12)}
+.controls #fullscreen{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.controls select{padding:8px;color-scheme:dark}
+.speed{font-size:11px;display:flex;align-items:center;gap:7px;margin:0 8px;color:var(--soft-white)}
+#show-controls{position:fixed;bottom:12px;right:18px;z-index:41;background:rgb(15 17 18 / .65);color:var(--cream);border:1px solid var(--line);border-radius:24px;width:44px;height:34px;cursor:pointer;opacity:.45;letter-spacing:3px}
+#show-controls:hover,#show-controls:focus-visible{opacity:1}
+.no-script{position:fixed;bottom:10px;left:20px;z-index:60;background:var(--ink);padding:8px;font-size:14px}
+body.idle{cursor:none}body.idle #show-controls{opacity:.16}body.idle .brand{pointer-events:none}
+body.paused .scene{transition:none}
+@media (min-aspect-ratio:21/9){h2{font-size:12vh}.sub{font-size:3vh}.doctors h2,.xray h2,.invitation h2{font-size:10vh}.space h2{font-size:8vh}}
+@media (max-aspect-ratio:1/1){
+ .brand{top:4vh;left:7vw;right:7vw}.brand-place{display:none}.brand img{width:36px}.brand a>span{font-size:17px}
+ .scene,.xray .scene,.hands .scene,.invitation .scene{width:100%;height:65%;inset:0 0 auto;object-position:55% 35%}
+ .shade{background:linear-gradient(0deg,var(--ink) 0%,var(--ink) 18%,rgb(15 17 18 / .93) 34%,rgb(15 17 18 / .15) 68%,rgb(15 17 18 / .35))}
+ .copy,.exterior .copy{left:7vw;right:7vw;top:auto;bottom:17%;transform:none}
+ h2,.xray h2,.doctors h2,.invitation h2{font-size:clamp(36px,10vw,86px);max-width:none}
+ .eyebrow{font-size:10px;margin-bottom:2vh;letter-spacing:.15em}
+ .sub{max-width:80vw;font-size:clamp(14px,3.4vw,26px);margin-top:2vh}
+ .slide-foot{left:7vw;right:7vw;bottom:7%;flex-direction:column;gap:6px;font-size:11px}
+ .thermal .copy{left:7vw;right:7vw;bottom:16%}.thermal-stage{inset:13% 13% 40% 25%}.thermal h2{font-size:11vw}.thermal .sub{max-width:50vw}
+ .scan-label{font-size:8px;right:0}.portraits{inset:15% 7% 43%}.portraits figure:nth-child(2){margin-top:3vh}
+ .portraits figcaption{font-size:11px;padding:5vh 3vw 2vh}.doctors .copy{right:7vw;bottom:15%}.doctors h2{font-size:9vw}.doctors .sub br{display:none}
+ .space-images{inset:16% 7% 36%;grid-template-columns:1fr;grid-template-rows:1fr 1fr;gap:2vh}.space-copy{left:7vw;right:7vw;bottom:17%}.space h2{font-size:8vw}
+ .exterior .scene{height:100%;object-position:58% center}.exterior .shade{background:linear-gradient(0deg,rgb(15 17 18 / .95),rgb(15 17 18 / .2))}
+ .controls{padding:12px;bottom:5vh;width:92vw}.control-heading{gap:10px}#screen-status{display:none}.control-buttons{flex-wrap:wrap;gap:6px}.controls button,.controls select,.controls a{font-size:11px;padding:9px 11px}.speed{margin:0 0 0 auto}.offline{flex:1;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){.slide{transition:none}.scene,.active .scene{transform:none;transition:none}.controls{transition:none}.timeline{display:none}}
+
+/* Original horizontal brand asset on a quiet cream field. */
+.brand a{background:var(--cream);padding:10px 18px;border-radius:2px}
+.brand img{width:clamp(160px,14vw,320px);height:auto;aspect-ratio:auto}
+@media(max-aspect-ratio:1/1){.brand a{padding:8px 12px}.brand img{width:160px}}
