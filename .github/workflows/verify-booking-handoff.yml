@@ -37,7 +37,20 @@ jobs:
             $private = '/home/drpaidtv/.config/lifecharge';
             $id = getenv('TEST_BOOKING_ID');
             if (!preg_match('/^[A-Za-z0-9_-]{8,128}$/D', $id)) exit(1);
-            if (trim(file_get_contents($private.'/booking-conversions.mode')) !== 'validate') {
+            $mode = trim(file_get_contents($private.'/booking-conversions.mode'));
+            $expectedId = 'lc_booking_'.hash('sha256','7gE4vBVcRffrJnXyvGmu:uiad6ZBD9FlTcCf5M9ed:'.$id);
+            if ($mode === 'live') {
+                $exclusions = json_decode(file_get_contents($private.'/booking-test-exclusions.json'),true);
+                if (!is_array($exclusions) || !in_array($expectedId,$exclusions,true)) exit(1);
+                $secret = trim(file_get_contents($private.'/ghl-booking-webhook.key'));
+                $ch=curl_init('https://lifechargechiropractic.com/api/booking-conversion/');
+                curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_TIMEOUT=>30,CURLOPT_HTTPHEADER=>['Content-Type: application/json','X-LC-Webhook-Key: '.$secret],CURLOPT_POSTFIELDS=>json_encode(['appointment_id'=>$id,'calendar_id'=>'uiad6ZBD9FlTcCf5M9ed','location_id'=>'7gE4vBVcRffrJnXyvGmu','status'=>'confirmed','attribution_url'=>'https://lifechargechiropractic.com/book-new-patient/?lc_ads_measurement=allowed'])]);
+                $reply=curl_exec($ch); $code=curl_getinfo($ch,CURLINFO_HTTP_CODE); curl_close($ch);
+                if ($code!==200 || (json_decode($reply,true)['status']??'')!=='test_booking_excluded') exit(1);
+                echo 'PASS: live mode read back; late test replay returned HTTP 200 test_booking_excluded. No live conversion sent.'.PHP_EOL;
+                exit(0);
+            }
+            if ($mode !== 'validate') {
                 echo 'Refused: receiver must be in validation mode.'.PHP_EOL;
                 exit(1);
             }
