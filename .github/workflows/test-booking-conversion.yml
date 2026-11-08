@@ -3,6 +3,9 @@ on:
   push:
     paths:
       - 'api/booking-conversion/**'
+      - 'assets/js/analytics.js'
+      - 'assets/js/booking-attribution.js'
+      - 'tests/*attribution.test.cjs'
       - 'tests/booking-conversion.test.php'
       - '.github/workflows/test-booking-conversion.yml'
   workflow_dispatch:
@@ -18,4 +21,4 @@ jobs:
           php -l api/booking-conversion/core.php
           php -l api/booking-conversion/index.php
           php tests/booking-conversion.test.php
-          node --test tests/booking-attribution.test.cjs
+          node --test tests/booking-attribution.test.cjs tests/analytics-attribution.test.cjs

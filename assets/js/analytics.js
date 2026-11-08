@@ -138,6 +138,33 @@
     }
   };
 
+  function decorateBookingLink(link) {
+    try {
+      var destination = new URL(link.href, window.location.href);
+      var path = destination.pathname.replace(/\/+$/, '');
+      if (destination.protocol !== 'https:' ||
+          !['lifechargechiropractic.com', 'schedule.lifechargechiropractic.com'].includes(destination.hostname) ||
+          !['/new-patient-offer', '/book-new-patient'].includes(path)) return;
+      var attribution = captureAttribution();
+      ATTRIBUTION_KEYS.forEach(function (key) {
+        if (attribution[key] && !destination.searchParams.has(key)) {
+          destination.searchParams.set(key, attribution[key]);
+        }
+      });
+      destination.searchParams.set('lc_ads_measurement', attribution.lc_ads_measurement);
+      if (attribution.lc_ads_measurement === 'denied') destination.searchParams.delete('oppref');
+      else if (attribution.oppref) destination.searchParams.set('oppref', attribution.oppref);
+      link.href = destination.href;
+    } catch (error) { /* Invalid links must not interrupt navigation. */ }
+  }
+
+  // Decorate existing links for normal, new-tab, and context-menu navigation.
+  document.querySelectorAll('a[href]').forEach(decorateBookingLink);
+  document.addEventListener('pointerdown', function (event) {
+    var link = event.target && event.target.closest && event.target.closest('a[href]');
+    if (link) decorateBookingLink(link);
+  }, true);
+
   function ctaLocation(link) {
     if (link.closest('.sticky-cta')) return 'sticky_cta';
     if (link.closest('nav')) return 'navigation';
@@ -167,6 +194,8 @@
     if (!event.target || typeof event.target.closest !== 'function') return;
     var link = event.target.closest('a[href]');
     if (!link) return;
+
+    decorateBookingLink(link);
 
     var href = link.getAttribute('href') || '';
 
