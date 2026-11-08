@@ -1,0 +1,21 @@
+name: Test booking conversion safety
+on:
+  push:
+    paths:
+      - 'api/booking-conversion/**'
+      - 'tests/booking-conversion.test.php'
+      - '.github/workflows/test-booking-conversion.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax and offline safety tests
+        run: |
+          php -l api/booking-conversion/core.php
+          php -l api/booking-conversion/index.php
+          php tests/booking-conversion.test.php
+          node --test tests/booking-attribution.test.cjs
