@@ -28,4 +28,18 @@ jobs:
             unset GHL_BOOKING_WEBHOOK_KEY
             printf '%s' validate > /home/drpaidtv/.config/lifecharge/booking-conversions.mode
             php /home/drpaidtv/repositories/lifecharge-site/tests/booking-conversion.test.php
+            php <<'PHP'
+            <?php
+            $secret = trim(file_get_contents('/home/drpaidtv/.config/lifecharge/ghl-booking-webhook.key'));
+            $body = ['appointment_id'=>'validation_only_' . bin2hex(random_bytes(8)), 'calendar_id'=>'uiad6ZBD9FlTcCf5M9ed', 'location_id'=>'7gE4vBVcRffrJnXyvGmu', 'status'=>'confirmed', 'attribution_url'=>'https://lifechargechiropractic.com/book-new-patient/?lc_ads_measurement=allowed'];
+            foreach (['validate_accepted','validate_duplicate'] as $expected) {
+                $ch=curl_init('https://lifechargechiropractic.com/api/booking-conversion/');
+                curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_TIMEOUT=>30,CURLOPT_HTTPHEADER=>['Content-Type: application/json','X-LC-Webhook-Key: '.$secret],CURLOPT_POSTFIELDS=>json_encode($body)]);
+                $reply=curl_exec($ch); $code=curl_getinfo($ch,CURLINFO_HTTP_CODE); curl_close($ch);
+                $status=json_decode($reply,true)['status']??'invalid_response';
+                echo 'Receiver HTTP '.$code.'; expected '.$expected.'; matched '.($status===$expected?'yes':'no').PHP_EOL;
+                if ($code!==200 || $status!==$expected) exit(1);
+            }
+            echo 'Confirmed validation-only acceptance and duplicate suppression. No live conversion recorded.'.PHP_EOL;
+            PHP
             echo 'Webhook credential installed privately. Receiver is validation-only; live event recording is disabled.'
