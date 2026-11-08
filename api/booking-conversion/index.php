@@ -23,6 +23,12 @@ try {
     if (!is_array($input)) reply(400, 'invalid_payload');
     $event = lc_booking_event($input, (int) round(microtime(true) * 1000));
     if ($event === null) reply(200, 'not_eligible');
+    $excludedPath = $private . '/booking-test-exclusions.json';
+    if (is_file($excludedPath)) {
+        $excluded = json_decode(file_get_contents($excludedPath), true, 32, JSON_THROW_ON_ERROR);
+        if (!is_array($excluded)) reply(503, 'invalid_configuration');
+        if (in_array($event['id'], $excluded, true)) reply(200, 'test_booking_excluded');
+    }
     // An explicit private enable flag prevents accidental live events during setup.
     $modePath = $private . '/booking-conversions.mode';
     $mode = is_file($modePath) ? trim(file_get_contents($modePath)) : '';

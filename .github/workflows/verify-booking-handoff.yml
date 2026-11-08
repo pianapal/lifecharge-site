@@ -1,0 +1,75 @@
+name: Verify booking handoff and enable reporting
+on:
+  workflow_dispatch:
+    inputs:
+      test_booking_id:
+        description: 'Authorized test booking ID already accepted in validation mode'
+        required: true
+        type: string
+      enable_live:
+        description: 'Enable live reporting after test receipt and duplicate checks pass'
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        env:
+          TEST_BOOKING_ID: ${{ inputs.test_booking_id }}
+          ENABLE_BOOKING_REPORTING: ${{ inputs.enable_live }}
+        with:
+          host: premium56.web-hosting.com
+          username: drpaidtv
+          port: 21098
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: TEST_BOOKING_ID,ENABLE_BOOKING_REPORTING
+          script: |
+            set -eu
+            umask 077
+            php <<'PHP'
+            <?php
+            require '/home/drpaidtv/repositories/lifecharge-site/api/booking-conversion/core.php';
+            $private = '/home/drpaidtv/.config/lifecharge';
+            $id = getenv('TEST_BOOKING_ID');
+            if (!preg_match('/^[A-Za-z0-9_-]{8,128}$/D', $id)) exit(1);
+            if (trim(file_get_contents($private.'/booking-conversions.mode')) !== 'validate') {
+                echo 'Refused: receiver must be in validation mode.'.PHP_EOL;
+                exit(1);
+            }
+            $body = ['appointment_id'=>$id, 'calendar_id'=>'uiad6ZBD9FlTcCf5M9ed', 'location_id'=>'7gE4vBVcRffrJnXyvGmu', 'status'=>'confirmed', 'attribution_url'=>'https://lifechargechiropractic.com/book-new-patient/?lc_ads_measurement=allowed'];
+            $event = lc_booking_event($body, (int) round(microtime(true)*1000));
+            $receiptPath = $private.'/booking-ledger-validate/'.hash('sha256',$event['id']).'.json';
+            $receipt = is_file($receiptPath) ? json_decode(file_get_contents($receiptPath),true) : [];
+            if (($receipt['state']??'') !== 'accepted' || ($receipt['http_status']??0) !== 200) {
+                echo 'Missing accepted receipt for the actual test booking. No live enable.'.PHP_EOL;
+                exit(1);
+            }
+            echo 'PASS: actual GHL booking has a durable OpenAI validation acceptance receipt (HTTP 200).'.PHP_EOL;
+            $secret = trim(file_get_contents($private.'/ghl-booking-webhook.key'));
+            foreach ([1,2] as $attempt) {
+                $ch=curl_init('https://lifechargechiropractic.com/api/booking-conversion/');
+                curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_RETURNTRANSFER=>true,CURLOPT_TIMEOUT=>30,CURLOPT_HTTPHEADER=>['Content-Type: application/json','X-LC-Webhook-Key: '.$secret],CURLOPT_POSTFIELDS=>json_encode($body)]);
+                $reply=curl_exec($ch); $code=curl_getinfo($ch,CURLINFO_HTTP_CODE); curl_close($ch);
+                if ($code!==200 || (json_decode($reply,true)['status']??'')!=='validate_duplicate') {
+                    echo 'Duplicate check failed. No live enable.'.PHP_EOL; exit(1);
+                }
+                echo 'PASS: repeated delivery '.$attempt.' returned HTTP 200 validate_duplicate; no second upstream event.'.PHP_EOL;
+            }
+            $path=$private.'/booking-test-exclusions.json';
+            $excluded=is_file($path)?json_decode(file_get_contents($path),true):[];
+            if (!is_array($excluded)) exit(1);
+            $excluded[]=$event['id'];
+            lc_atomic_json($path,array_values(array_unique($excluded)));
+            echo 'PASS: authorized test booking permanently excluded from live reporting, including late retries.'.PHP_EOL;
+            if (getenv('ENABLE_BOOKING_REPORTING')==='true') {
+                file_put_contents($private.'/booking-conversions.mode.tmp','live');
+                chmod($private.'/booking-conversions.mode.tmp',0600);
+                rename($private.'/booking-conversions.mode.tmp',$private.'/booking-conversions.mode');
+                echo 'LIVE REPORTING ENABLED. Ads Manager receipt still requires a legitimate future booking.'.PHP_EOL;
+            } else echo 'VALIDATION MODE RETAINED.'.PHP_EOL;
+            PHP
