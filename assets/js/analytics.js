@@ -3,7 +3,7 @@
 
   var MEASUREMENT_ID = 'G-EJ93DS5ESH';
   var GOOGLE_ADS_ID = 'AW-16473892179';
-  var OPENAI_PIXEL_ID = '4jGoU3ZqHRPhPmKs7JG5xJ';
+  var OPENAI_PIXEL_ID = 'RCmZ13jR3KeBgftyYWnnhk';
 
   if (!window.oaiq) {
     var openAIQueue = function () {

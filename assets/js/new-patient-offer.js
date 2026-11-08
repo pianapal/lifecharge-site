@@ -52,14 +52,14 @@
 
     if (window.LifeChargeAnalytics &&
         typeof window.LifeChargeAnalytics.measureOpenAI === 'function') {
-      window.LifeChargeAnalytics.measureOpenAI('appointment_scheduled', {
+      window.LifeChargeAnalytics.measureOpenAI('lead_created', {
         type: 'customer_action'
       });
       return;
     }
 
     if (typeof window.oaiq === 'function') {
-      window.oaiq('measure', 'appointment_scheduled', {
+      window.oaiq('measure', 'lead_created', {
         type: 'customer_action'
       });
     }
@@ -240,7 +240,6 @@
     submitButton.disabled = true;
     submitButton.textContent = 'Saving & Opening Calendar...';
     formError.classList.remove('is-visible');
-    measureOpenAIConversion();
 
     var payload = formPayload();
     var handoffTimer = window.setTimeout(function () {
@@ -261,6 +260,7 @@
     }).then(function (response) {
       if (!response.ok) throw new Error('Lead capture failed');
 
+      measureOpenAIConversion();
       window.clearTimeout(handoffTimer);
       form.hidden = true;
       formSuccess.classList.add('is-visible');

@@ -90,3 +90,41 @@ test('offer webhook preserves current URL attribution even when storage is block
   assert.equal(payload.full_name, 'Test Only');
   assert.equal(payload.lc_check_a, undefined);
 });
+
+test('OpenAI lead fires only once after an accepted submission, never on failure', async () => {
+ for (const ok of [true, false]) {
+  const events = [];
+  let resolveResponse;
+  let submit;
+  let payload;
+  const elements = {};
+  function element(id) {
+    if (!elements[id]) elements[id] = {
+      classList: { add() {}, remove() {}, toggle() {} },
+      addEventListener(name, callback) { if (id === 'offerForm' && name === 'submit') submit = callback; },
+      querySelectorAll: () => [], querySelector: () => null
+    };
+    return elements[id];
+  }
+  vm.runInNewContext(formCode, {
+    URL, URLSearchParams, Date,
+    FormData: class { forEach(callback) { callback('Test', 'first_name'); callback('Only', 'last_name'); } },
+    fetch(url, options) { payload = JSON.parse(options.body); return new Promise(resolve => { resolveResponse = resolve; }); },
+    window: {
+      location: { search: '?gclid=current&utm_source=google', href: 'https://lifechargechiropractic.com/new-patient-offer/?gclid=current&utm_source=google' },
+      oaiq(...args) { events.push(args); }, clearTimeout() {},
+      sessionStorage: storage('{}', true), setTimeout() {}, addEventListener() {}
+    },
+    document: { getElementById: element, querySelectorAll: () => [], referrer: '' }
+  });
+  submit({ preventDefault() {} });
+  assert.equal(events.length, 0);
+  resolveResponse({ ok });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(JSON.parse(JSON.stringify(events)), ok ? [['measure', 'lead_created', { type: 'customer_action' }]] : []);
+  if (ok) {
+    submit({ preventDefault() {} });
+    assert.equal(events.length, 1);
+  }
+ }
+});
