@@ -62,6 +62,15 @@ test('calendar bounds parameter length and removes control characters', () => {
   assert.equal(result.url.searchParams.get('gbraid').length, 300);
 });
 
+test('OpenAI opaque reference survives handoff without truncation and honors denial', () => {
+  const opaque = ' Abc+/= ' + 'x'.repeat(900);
+  const query = new URLSearchParams({oppref: opaque, lc_ads_measurement: 'allowed'});
+  assert.equal(calendarHarness('?' + query).url.searchParams.get('oppref'), opaque);
+  query.set('lc_ads_measurement', 'denied');
+  assert.equal(calendarHarness('?' + query).url.searchParams.has('oppref'), false);
+  assert.equal(calendarHarness('?oppref=unknown').url.searchParams.has('oppref'), false);
+});
+
 test('offer webhook preserves current URL attribution even when storage is blocked', () => {
   let submit;
   let payload;

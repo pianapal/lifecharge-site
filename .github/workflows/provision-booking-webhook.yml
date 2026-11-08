@@ -1,0 +1,31 @@
+name: Prepare private booking webhook
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        env:
+          GHL_BOOKING_WEBHOOK_KEY: ${{ secrets.GHL_BOOKING_WEBHOOK_KEY }}
+        with:
+          host: premium56.web-hosting.com
+          username: drpaidtv
+          port: 21098
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: GHL_BOOKING_WEBHOOK_KEY
+          script: |
+            set -eu
+            umask 077
+            test -n "$GHL_BOOKING_WEBHOOK_KEY"
+            mkdir -p /home/drpaidtv/.config/lifecharge
+            chmod 700 /home/drpaidtv/.config/lifecharge
+            printf '%s' "$GHL_BOOKING_WEBHOOK_KEY" > /home/drpaidtv/.config/lifecharge/ghl-booking-webhook.key.tmp
+            chmod 600 /home/drpaidtv/.config/lifecharge/ghl-booking-webhook.key.tmp
+            mv /home/drpaidtv/.config/lifecharge/ghl-booking-webhook.key.tmp /home/drpaidtv/.config/lifecharge/ghl-booking-webhook.key
+            unset GHL_BOOKING_WEBHOOK_KEY
+            printf '%s' validate > /home/drpaidtv/.config/lifecharge/booking-conversions.mode
+            php /home/drpaidtv/repositories/lifecharge-site/tests/booking-conversion.test.php
+            echo 'Webhook credential installed privately. Receiver is validation-only; live event recording is disabled.'

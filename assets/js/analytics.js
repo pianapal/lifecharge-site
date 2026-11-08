@@ -19,6 +19,16 @@
     firstScript.parentNode.insertBefore(openAIPixel, firstScript);
   }
 
+  function openAIMeasurementAllowed() {
+    if (window.navigator && window.navigator.globalPrivacyControl === true) return false;
+    try {
+      var choice = JSON.parse(window.localStorage.getItem('lc_meta_consent_v1') || 'null');
+      if (choice && choice.value === 'denied') return false;
+    } catch (error) { /* Storage restrictions must not break booking. */ }
+    return true;
+  }
+
+  window.oaiq('consent', openAIMeasurementAllowed());
   window.oaiq('init', {
     pixelId: OPENAI_PIXEL_ID,
     debug: true
@@ -95,6 +105,14 @@
       }
     });
 
+    attribution.lc_ads_measurement = openAIMeasurementAllowed() ? 'allowed' : 'denied';
+    if (attribution.lc_ads_measurement === 'allowed') {
+      // Opaque references must not be trimmed, normalized, or truncated.
+      if (query.has('oppref')) attribution.oppref = query.get('oppref');
+    } else {
+      delete attribution.oppref;
+    }
+
     attribution.latest_page = cleanAttributionValue(
       window.location.pathname + window.location.search
     );
@@ -109,9 +127,12 @@
   }
 
   window.LifeChargeAnalytics = window.LifeChargeAnalytics || {};
-  window.LifeChargeAnalytics.getAttribution = readAttribution;
+  window.LifeChargeAnalytics.getAttribution = captureAttribution;
+  window.LifeChargeAnalytics.openAIMeasurementAllowed = openAIMeasurementAllowed;
   window.LifeChargeAnalytics.attribution = captureAttribution();
   window.LifeChargeAnalytics.measureOpenAI = function (eventName, parameters) {
+    window.oaiq('consent', openAIMeasurementAllowed());
+    if (!openAIMeasurementAllowed()) return;
     if (typeof window.oaiq === 'function') {
       window.oaiq('measure', eventName, parameters || {});
     }

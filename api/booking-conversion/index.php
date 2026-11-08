@@ -24,22 +24,24 @@ try {
     $event = lc_booking_event($input, (int) round(microtime(true) * 1000));
     if ($event === null) reply(200, 'not_eligible');
     // An explicit private enable flag prevents accidental live events during setup.
-    if (!is_file($private . '/booking-conversions.enabled')) reply(503, 'not_enabled');
+    $modePath = $private . '/booking-conversions.mode';
+    $mode = is_file($modePath) ? trim(file_get_contents($modePath)) : '';
+    if (!in_array($mode, ['validate', 'live'], true)) reply(503, 'not_enabled');
     $key = trim(file_get_contents($private . '/openai-conversions.key'));
     if ($key === '') reply(503, 'not_configured');
-    $result = lc_deliver_once($event, $private . '/booking-ledger', function(array $saved) use ($key): int {
+    $result = lc_deliver_once($event, $private . '/booking-ledger-' . $mode, function(array $saved) use ($key, $mode): int {
         if ($saved['timestamp_ms'] < (int) round(microtime(true) * 1000) - 604800000) return 422;
         $curl = curl_init('https://bzr.openai.com/v1/events?pid=4jGoU3ZqHRPhPmKs7JG5xJ');
         curl_setopt_array($curl, [CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CONNECTTIMEOUT => 5, CURLOPT_TIMEOUT => 15,
             CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $key, 'Content-Type: application/json'],
-            CURLOPT_POSTFIELDS => json_encode(['events' => [$saved]], JSON_THROW_ON_ERROR)]);
+            CURLOPT_POSTFIELDS => json_encode(['validate_only' => $mode === 'validate', 'events' => [$saved]], JSON_THROW_ON_ERROR)]);
         curl_exec($curl);
         $code = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         return $code;
     });
-    reply($result['status'] === 'pending' ? 503 : 200, $result['status']);
+    reply($result['status'] === 'pending' ? 503 : 200, $mode . '_' . $result['status']);
 } catch (InvalidArgumentException | JsonException $error) {
     reply(400, 'invalid_payload');
 } catch (Throwable $error) {

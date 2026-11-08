@@ -15,7 +15,9 @@
     'wbraid',
     'gbraid',
     'fbclid',
-    'msclkid'
+    'msclkid',
+    'oppref',
+    'lc_ads_measurement'
   ];
 
   var form = document.getElementById('offerForm');
@@ -86,8 +88,14 @@
     ATTRIBUTION_KEYS.forEach(function (key) {
       var currentValue = new URLSearchParams(window.location.search).get(key);
       var value = currentValue || attribution[key];
-      if (value) destination.searchParams.set(key, String(value).slice(0, 300));
+      if (value) destination.searchParams.set(key, key === 'oppref' ? String(value) : String(value).slice(0, 300));
     });
+
+    if (attribution.lc_ads_measurement === 'denied' ||
+        (window.navigator && window.navigator.globalPrivacyControl === true)) {
+      destination.searchParams.delete('oppref');
+      destination.searchParams.set('lc_ads_measurement', 'denied');
+    }
 
     destination.searchParams.set('utm_content',
       destination.searchParams.get('utm_content') || 'onsite_lead_handoff');
@@ -181,14 +189,19 @@
 
     var attribution = readAttribution();
     Object.keys(attribution).forEach(function (key) {
-      if (attribution[key]) payload[key] = String(attribution[key]).slice(0, 500);
+      if (attribution[key]) payload[key] = key === 'oppref' ? String(attribution[key]) : String(attribution[key]).slice(0, 500);
     });
     // URL values remain available when browser storage is blocked or out of date.
     var query = new URLSearchParams(window.location.search);
     ATTRIBUTION_KEYS.forEach(function (key) {
       var value = query.get(key);
-      if (value) payload[key] = value.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 300);
+      if (value) payload[key] = key === 'oppref' ? value : value.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 300);
     });
+    if (attribution.lc_ads_measurement === 'denied' ||
+        (window.navigator && window.navigator.globalPrivacyControl === true)) {
+      delete payload.oppref;
+      payload.lc_ads_measurement = 'denied';
+    }
 
     payload.full_name = (payload.first_name + ' ' + payload.last_name).trim();
     payload.preferred_contact = 'Phone';
