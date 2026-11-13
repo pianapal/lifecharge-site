@@ -29,7 +29,7 @@
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
-<link rel="stylesheet" href="../shared.css?v=20261019d">
+<link rel="stylesheet" href="../shared.css?v=20261112-premium1">
 
 <script type="application/ld+json">
 {
@@ -128,12 +128,6 @@
 
 <style>
 #palmer-piana, #pierce-piana { scroll-margin-top: 120px; }
-.about-hero-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; background: var(--deep); overflow: hidden; }
-.about-hero-left { padding: 80px 56px; display: flex; flex-direction: column; justify-content: center; }
-.about-hero-right { position: relative; overflow: hidden; }
-.about-hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: right center; display: block; }
-.cred-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-.cred-pill { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
 .olivia-section { background: var(--cream); }
 .olivia-grid { display: grid; grid-template-columns: 340px 1fr; gap: 64px; align-items: center; }
 .olivia-photo { border-radius: 12px; overflow: hidden; aspect-ratio: 3/4; }
@@ -151,13 +145,6 @@
 .theme-banner h2 { color: white; font-size: clamp(24px, 3vw, 36px); font-weight: 800; line-height: 1.15; margin: 0 auto 14px; max-width: 880px; }
 .theme-banner p { color: rgba(255,255,255,0.78); font-size: 16px; line-height: 1.65; max-width: 720px; margin: 0 auto; }
 
-/* Approach / philosophy block */
-.approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 32px; }
-.approach-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 22px 22px 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
-.approach-card .ac-num { display: inline-block; background: var(--cream); color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: 0.1em; padding: 4px 10px; border-radius: 6px; margin-bottom: 10px; }
-.approach-card h3 { font-size: 17px; font-weight: 800; color: var(--deep); margin: 0 0 8px 0; line-height: 1.3; }
-.approach-card p { font-size: 14px; color: var(--charcoal); line-height: 1.65; margin: 0; }
-
 /* Timeline */
 .timeline { display: flex; flex-direction: column; gap: 0; max-width: 760px; margin: 32px auto 0; padding-left: 24px; border-left: 2px solid var(--sand); }
 .timeline-item { position: relative; padding: 0 0 22px 24px; }
@@ -169,17 +156,7 @@
 .chip-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; max-width: 880px; }
 .chip { font-size: 13px; font-weight: 600; color: var(--deep); background: var(--cream); border: 1px solid var(--sand); padding: 6px 12px; border-radius: 999px; }
 
-/* Why patients choose */
-.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 28px; }
-.why-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; }
-.why-check { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
-.why-check svg { width: 12px; height: 12px; }
-.why-text { font-size: 14px; font-weight: 600; color: var(--deep); line-height: 1.4; }
-
 @media (max-width: 880px) {
- .about-hero-grid { grid-template-columns: 1fr; min-height: auto; }
- .about-hero-left { padding: 48px 22px; }
- .about-hero-right { min-height: 320px; }
  .olivia-grid { grid-template-columns: 1fr; gap: 28px; }
  .story-grid { grid-template-columns: 1fr; gap: 28px; }
 }
@@ -205,7 +182,7 @@
 }
 </script>
 </head>
-<body>
+<body class="premium-page about-premium">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <nav aria-label="Primary navigation">
@@ -227,29 +204,82 @@
 
 <div class="breadcrumb"><div class="breadcrumb-inner"><a href="../">Home</a><span class="breadcrumb-sep">›</span>Meet the Team</div></div>
 
-<!-- HERO -->
-<div class="about-hero-grid" id="palmer-piana">
- <div class="about-hero-left">
- <div class="eyebrow eyebrow-y">Meet the Founder</div>
- <h1 style="font-size:clamp(36px,4vw,56px);font-weight:900;color:white;letter-spacing:-0.03em;line-height:1.08;margin:0 0 6px 0;font-family:'Montserrat',sans-serif;">Dr. Palmer<br>Piana</h1>
- <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.45);margin-bottom:20px;">Doctor of Chiropractic · Corrective &amp; Whole-System Care · Board-Certified Thermologist</div>
- <p style="font-size:15px;color:rgba(255,255,255,0.72);line-height:1.75;max-width:460px;margin-bottom:18px;">Founder of Life Charge Chiropractic in Gallatin, TN. Raised in a chiropractic family, trained at Palmer College of Chiropractic in Davenport, Iowa, the founding college of the profession.</p>
- <p style="font-size:15px;color:rgba(255,255,255,0.72);line-height:1.75;max-width:460px;margin-bottom:0;">Dr. Palmer focuses on corrective, whole-system chiropractic care that addresses the structure, posture, and nervous system patterns driving the problem at its source. Specialty tools like Blair upper cervical analysis, digital X-rays, and thermal imaging are layered in when the findings call for them.</p>
- <div class="cred-pills">
- <div class="cred-pill" style="background:rgba(255,204,41,0.14);border-color:rgba(255,204,41,0.4);color:var(--yellow);">2026 TCA Rising Chiropractor of the Year</div>
- <div class="cred-pill">Palmer College of Chiropractic</div>
- <div class="cred-pill">Blair Upper Cervical Certified</div>
- <div class="cred-pill">Board-Certified Thermologist</div>
- <div class="cred-pill">Author, "The Day the Animals Found Their Wiggle"</div>
- <div class="cred-pill">TCA Member</div>
- <div class="cred-pill">Bilingual · English &amp; Spanish</div>
+<!-- TEAM INTRODUCTION -->
+<section class="team-intro" aria-labelledby="team-title">
+ <div class="inner team-intro-grid">
+  <div class="team-intro-copy">
+   <div class="eyebrow">Life Charge Chiropractic</div>
+   <h1 id="team-title">Meet Your Gallatin<br>Chiropractors.</h1>
+   <p class="editorial-lead">Dr. Palmer and Dr. Pierce Piana. Two brothers, Palmer College graduates, and the doctors behind Life Charge Chiropractic.</p>
+   <p class="body-text">Get to know the people behind your care.</p>
+   <div class="editorial-actions">
+    <a class="btn-primary" href="/new-patient-offer/">Schedule First Visit</a>
+    <a class="editorial-call" href="tel:+16152199912">Call us <span>(615) 219-9912</span></a>
+   </div>
+  </div>
+  <div class="team-portraits">
+   <figure class="team-portrait">
+    <img src="../assets/photos/dr-adjusting-02.webp" alt="Dr. Palmer Piana at Life Charge Chiropractic" width="1023" height="1280" fetchpriority="high" decoding="async">
+    <figcaption><a href="#palmer-piana"><span class="portrait-name">Dr. Palmer Piana</span><span class="portrait-role">Founder · Doctor of Chiropractic</span><span class="portrait-link">Meet Dr. Palmer <span aria-hidden="true">→</span></span></a></figcaption>
+   </figure>
+   <figure class="team-portrait">
+    <img src="../assets/photos/staff-pierce.webp" alt="Dr. Pierce Piana" width="900" height="1200" decoding="async">
+    <figcaption><a href="#pierce-piana"><span class="portrait-name">Dr. Pierce Piana</span><span class="portrait-role">Doctor of Chiropractic</span><span class="portrait-link">Meet Dr. Pierce <span aria-hidden="true">→</span></span></a></figcaption>
+   </figure>
+  </div>
  </div>
- <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+</section>
+
+<!-- DR. PALMER -->
+<section class="doctor-profile sw" id="palmer-piana" aria-labelledby="palmer-title">
+ <div class="inner">
+  <div class="two-col">
+   <div>
+    <div class="eyebrow">Meet the Founder</div>
+    <h2 class="h2" id="palmer-title">Dr. Palmer Piana</h2>
+    <p class="doctor-role">Doctor of Chiropractic · Corrective &amp; Whole-System Care · Board-Certified Thermologist</p>
+ <p class="body-text">Founder of Life Charge Chiropractic in Gallatin, TN. Raised in a chiropractic family, trained at Palmer College of Chiropractic in Davenport, Iowa, the founding college of the profession.</p>
+ <p class="body-text">Dr. Palmer focuses on corrective, whole-system chiropractic care that addresses the structure, posture, and nervous system patterns driving the problem at its source. Specialty tools like Blair upper cervical analysis, digital X-rays, and thermal imaging are layered in when the findings call for them.</p>
+    <ul class="doctor-credentials">
+ <li>2026 TCA Rising Chiropractor of the Year</li>
+ <li>Palmer College of Chiropractic</li>
+ <li>Blair Upper Cervical Certified</li>
+ <li>Board-Certified Thermologist</li>
+ <li>Author, "The Day the Animals Found Their Wiggle"</li>
+ <li>TCA Member</li>
+ <li>Bilingual · English &amp; Spanish</li>
+    </ul>
+    <div class="editorial-actions"><a class="editorial-text-link" href="/new-patient-offer/">Schedule First Visit <span aria-hidden="true">→</span></a></div>
+   </div>
+   <figure class="doctor-photo">
+    <img src="../assets/photos/dr-at-desk.webp" alt="Dr. Palmer Piana, founder of Life Charge Chiropractic in Gallatin TN" width="1800" height="1012" loading="lazy" decoding="async">
+   </figure>
+  </div>
+ </div>
+</section>
+
+<!-- DR. PIERCE -->
+<div class="doctor-profile sw" style="background:var(--cream);">
+ <div class="inner">
+ <div class="olivia-grid">
+ <div>
+ <div class="olivia-photo">
+ <img src="../assets/photos/staff-pierce.webp" alt="Dr. Pierce Piana, DC, chiropractor at Life Charge Chiropractic in Gallatin, TN" width="900" height="1200" loading="lazy" decoding="async">
+ </div>
+ </div>
+ <div>
+ <div class="eyebrow">Now Seeing Patients</div>
+ <h2 class="h2" id="pierce-piana">Dr. Pierce Piana, DC</h2>
+ <div style="font-size:14px;font-weight:500;color:var(--charcoal);margin-bottom:20px;">Doctor of Chiropractic · Palmer College of Chiropractic</div>
+ <p class="body-text" style="margin-bottom:16px;">Dr. Pierce joined Life Charge Chiropractic after practicing in Hendersonville, where he adjusted patients across a wide range of ages, complaints, and body types. That volume of reps shaped how he works. He finds the pattern quickly, he is direct about what he is seeing, and he is comfortable with the case that has already been through a few other offices without an answer.</p>
+ <p class="body-text" style="margin-bottom:16px;">Dr. Pierce is Dr. Palmer's brother. Both are graduates of Palmer College of Chiropractic in Davenport, Iowa, the founding college of the profession, and both are brothers of Pi Kappa Chi, the professional chiropractic fraternity. Both are rugby players and athletes, which is a real advantage when the patient on the table is an athlete too. Same upbringing, same training, and the same conviction that specific care beats generic care every time.</p>
+ <p class="body-text" style="margin-bottom:16px;">Adding a second doctor changes what the office can do for you. More new patient availability, more same-week appointments, and shorter waits when something flares up and you need to be seen now. It also means two sets of eyes on the harder cases, because the brothers review findings together when a case calls for it.</p>
+ <p class="body-text">The approach does not change from one doctor to the other. Same exam process, same use of digital X-rays and thermal imaging when the findings call for it, and the same report before any care begins. You will know what was found and what the plan is, whichever doctor you see.</p>
+ <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
  <a class="btn-primary" href="/new-patient-offer/">Schedule First Visit</a>
  </div>
  </div>
- <div class="about-hero-right">
- <img src="../assets/photos/dr-at-desk.webp" alt="Dr. Palmer Piana, founder of Life Charge Chiropractic in Gallatin TN" width="1800" height="1012" decoding="async">
+ </div>
  </div>
 </div>
 
@@ -267,7 +297,7 @@
  <div class="inner">
  <div class="two-col">
  <div>
- <div class="eyebrow">His Story</div>
+ <div class="eyebrow">Dr. Palmer's Story</div>
  <h2 class="h2">A passion for tradition, innovation, and community.</h2>
  <p class="body-text" style="margin-bottom:16px;"><strong>Raised in chiropractic.</strong> Dr. Palmer grew up in a chiropractic family. Both of his parents were chiropractors, and some of his earliest memories were in their office, watching patients come in overwhelmed or in pain and leave with answers. He saw, lived, and respected the profession from a young age.</p>
  <p class="body-text" style="margin-bottom:16px;"><strong>Trained at the source.</strong> Dr. Palmer chose Palmer College of Chiropractic in Davenport, Iowa, the founding college of the chiropractic profession, because he wanted to study chiropractic at its roots. He graduated in 2022 with a Doctor of Chiropractic degree.</p>
@@ -280,7 +310,7 @@
  <p class="body-text" style="margin-bottom:28px;">Outside the office, Dr. Palmer has traveled extensively across Asia, Europe, and South America, and is raising his twin boys with his wife Olivia in Middle Tennessee. Life Charge is their family's long-term investment in this community.</p>
  <a class="btn-primary" href="/new-patient-offer/">Schedule First Visit</a>
  </div>
- <div class="col-photo" style="aspect-ratio:3/4;">
+ <div class="col-photo">
  <img src="../assets/photos/dr-adjusting-02.webp" alt="Dr. Palmer Piana, founder of Life Charge Chiropractic, in front of the office sign in Gallatin TN" loading="lazy" style="object-position:center top;" width="1023" height="1280" decoding="async">
  </div>
  </div>
@@ -294,13 +324,13 @@
  <div class="eyebrow">Care Philosophy</div>
  <h2 class="h2">Corrective, whole-system chiropractic care.</h2>
  <p class="body-text" style="max-width:780px;">Our doctors share a corrective, holistic approach focused on long-term structural and functional correction. Care begins with a thorough consultation and a focused chiropractic and neurological exam, then incorporates digital X-rays, posture analysis, thermal imaging, Blair upper cervical analysis, and specific chiropractic adjustments when the exam findings call for them. Each plan is built around your body, your findings, and your goals.</p>
- <div class="approach-grid">
- <div class="approach-card"><span class="ac-num">01</span><h3>Corrective at the source</h3><p>The goal is long-term structural and functional correction that addresses the underlying issue. Care plans are custom-built from your exam findings.</p></div>
- <div class="approach-card"><span class="ac-num">02</span><h3>Whole-system thinking</h3><p>Posture, spinal alignment, and nervous system patterns drive most chronic complaints. We evaluate the whole system to find the root.</p></div>
- <div class="approach-card"><span class="ac-num">03</span><h3>Objective tools when appropriate</h3><p>Digital X-rays, posture analysis, thermal imaging, and Blair upper cervical analysis are added when the findings call for them. Clearer pictures, real evidence to guide care.</p></div>
- <div class="approach-card"><span class="ac-num">04</span><h3>Patient education first</h3><p>You will understand what is happening, why it matters, and what your options are before any care begins. Plain language, real findings, real conversations.</p></div>
- <div class="approach-card"><span class="ac-num">05</span><h3>Conservative &amp; honest</h3><p>If your exam shows you're fine, we tell you. If a referral makes more sense than an adjustment, we make it. Honesty over volume.</p></div>
- <div class="approach-card"><span class="ac-num">06</span><h3>Family-centered</h3><p>Care that fits parents, kids, athletes, professionals, retirees, prenatal moms, and Spanish-speaking families. Calm office. Clear explanations.</p></div>
+ <div class="editorial-grid">
+ <div class="editorial-item"><h3>Corrective at the source</h3><p>The goal is long-term structural and functional correction that addresses the underlying issue. Care plans are custom-built from your exam findings.</p></div>
+ <div class="editorial-item"><h3>Whole-system thinking</h3><p>Posture, spinal alignment, and nervous system patterns drive most chronic complaints. We evaluate the whole system to find the root.</p></div>
+ <div class="editorial-item"><h3>Objective tools when appropriate</h3><p>Digital X-rays, posture analysis, thermal imaging, and Blair upper cervical analysis are added when the findings call for them. Clearer pictures, real evidence to guide care.</p></div>
+ <div class="editorial-item"><h3>Patient education first</h3><p>You will understand what is happening, why it matters, and what your options are before any care begins. Plain language, real findings, real conversations.</p></div>
+ <div class="editorial-item"><h3>Conservative &amp; honest</h3><p>If your exam shows you're fine, we tell you. If a referral makes more sense than an adjustment, we make it. Honesty over volume.</p></div>
+ <div class="editorial-item"><h3>Family-centered</h3><p>Care that fits parents, kids, athletes, professionals, retirees, prenatal moms, and Spanish-speaking families. Calm office. Clear explanations.</p></div>
  </div>
  </div>
 </div>
@@ -355,48 +385,23 @@
  </div>
 </div>
 
-<!-- DR. PIERCE -->
-<div class="olivia-section sw" style="background:var(--cream);">
- <div class="inner">
- <div class="olivia-grid">
- <div>
- <div class="olivia-photo">
- <img src="../assets/photos/staff-pierce.webp" alt="Dr. Pierce Piana, DC, chiropractor at Life Charge Chiropractic in Gallatin, TN" width="900" height="1200" loading="lazy" decoding="async">
- </div>
- </div>
- <div>
- <div class="eyebrow">Now Seeing Patients</div>
- <h2 class="h2" id="pierce-piana">Dr. Pierce Piana, DC</h2>
- <div style="font-size:14px;font-weight:500;color:var(--charcoal);margin-bottom:20px;">Doctor of Chiropractic · Palmer College of Chiropractic</div>
- <p class="body-text" style="margin-bottom:16px;">Dr. Pierce joined Life Charge Chiropractic after practicing in Hendersonville, where he adjusted patients across a wide range of ages, complaints, and body types. That volume of reps shaped how he works. He finds the pattern quickly, he is direct about what he is seeing, and he is comfortable with the case that has already been through a few other offices without an answer.</p>
- <p class="body-text" style="margin-bottom:16px;">Dr. Pierce is Dr. Palmer's brother. Both are graduates of Palmer College of Chiropractic in Davenport, Iowa, the founding college of the profession, and both are brothers of Pi Kappa Chi, the professional chiropractic fraternity. Both are rugby players and athletes, which is a real advantage when the patient on the table is an athlete too. Same upbringing, same training, and the same conviction that specific care beats generic care every time.</p>
- <p class="body-text" style="margin-bottom:16px;">Adding a second doctor changes what the office can do for you. More new patient availability, more same-week appointments, and shorter waits when something flares up and you need to be seen now. It also means two sets of eyes on the harder cases, because the brothers review findings together when a case calls for it.</p>
- <p class="body-text">The approach does not change from one doctor to the other. Same exam process, same use of digital X-rays and thermal imaging when the findings call for it, and the same report before any care begins. You will know what was found and what the plan is, whichever doctor you see.</p>
- <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
- <a class="btn-primary" href="/new-patient-offer/">Schedule First Visit</a>
- </div>
- </div>
- </div>
- </div>
-</div>
-
 <!-- WHY PATIENTS CHOOSE LIFE CHARGE -->
 <div class="sw" style="background:var(--white);">
  <div class="inner">
  <div class="eyebrow">What to Expect</div>
  <h2 class="h2">Why patients choose Life Charge.</h2>
  <p class="body-text" style="max-width:780px;">Whichever doctor you see, you can expect the same thing. A clear explanation of what was found, why it matters, and what options make sense, so you can make an informed decision about your own care.</p>
- <div class="why-grid">
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Brothers raised in a chiropractic family</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Both doctors are Palmer College graduates</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Blair Upper Cervical certified</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Board-Certified Thermologist</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Uses objective tools to guide care</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Spanish-speaking care available</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Family-owned local practice</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Takes the time to explain findings</div></div>
- <div class="why-card"><div class="why-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-text">Serves Gallatin, Hendersonville &amp; Sumner County</div></div>
- </div>
+ <ul class="practice-details">
+ <li>Brothers raised in a chiropractic family</li>
+ <li>Both doctors are Palmer College graduates</li>
+ <li>Dr. Palmer: Blair Upper Cervical certified</li>
+ <li>Dr. Palmer: Board-Certified Thermologist</li>
+ <li>Uses objective tools to guide care</li>
+ <li>Spanish-speaking care available</li>
+ <li>Family-owned local practice</li>
+ <li>Takes the time to explain findings</li>
+ <li>Serves Gallatin, Hendersonville &amp; Sumner County</li>
+ </ul>
  </div>
 </div>
 
